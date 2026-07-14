@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Trang chủ{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">0x01 GET_ID → 0x02 CHALLENGE → AES-128 RESPONSE</p>
+    <h1>Mỗi sản phẩm mang một con chip.<br>Mỗi con chip trả lời một câu hỏi<br>chỉ nó mới biết đáp án.</h1>
+    <p class="hero-sub">
+      Nhà sản xuất nạp UID và khóa AES-128 riêng cho từng chip vào kho dữ liệu bảo mật.
+      Khi người dùng tra mã, hệ thống chỉ trả lời "đúng" nếu UID tồn tại và còn hiệu lực —
+      xác thực mật mã đầy đủ diễn ra khi đầu đọc gửi thử thách trực tiếp tới chip.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('lookup') }}" class="btn btn-primary btn-lg">Tra cứu sản phẩm</a>
+      <a href="{{ url_for('register') }}" class="btn btn-outline btn-lg">Nhà sản xuất đăng ký</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>{{ stats.chip_count }}</strong><span>chip đang hoạt động</span></div>
+      <div><strong>{{ stats.scan_count }}</strong><span>lượt tra cứu đã ghi nhận</span></div>
+    </div>
+  </div>
+
+  <div class="hero-seal" aria-hidden="true">
+    <svg viewBox="0 0 320 320" class="seal-svg">
+      <polygon points="160,20 280,90 280,230 160,300 40,230 40,90" class="seal-hex"/>
+      <polygon points="160,60 245,108 245,212 160,260 75,212 75,108" class="seal-hex-inner"/>
+      <g class="seal-traces">
+        <line x1="160" y1="20" x2="160" y2="60"/>
+        <line x1="280" y1="90" x2="245" y2="108"/>
+        <line x1="280" y1="230" x2="245" y2="212"/>
+        <line x1="160" y1="300" x2="160" y2="260"/>
+        <line x1="40" y1="230" x2="75" y2="212"/>
+        <line x1="40" y1="90" x2="75" y2="108"/>
+      </g>
+      <rect x="128" y="128" width="64" height="64" rx="6" class="seal-core"/>
+      <path d="M144 160 L156 172 L178 148" class="seal-check" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="seal-caption">Chip đã xác thực</p>
+  </div>
+</section>
+
+<section class="how">
+  <p class="eyebrow">QUY TRÌNH</p>
+  <div class="how-grid">
+    <div class="how-card">
+      <span class="how-code">0x01</span>
+      <h3>Đọc UID</h3>
+      <p>Đầu đọc gửi lệnh GET_ID, chip FPGA trả về UID 16 byte gắn cố định trong phần cứng.</p>
+    </div>
+    <div class="how-card">
+      <span class="how-code">0x02</span>
+      <h3>Thử thách ngẫu nhiên</h3>
+      <p>Server sinh nonce 16 byte ngẫu nhiên, gửi xuống chip qua đầu đọc để yêu cầu chứng minh khóa bí mật.</p>
+    </div>
+    <div class="how-card">
+      <span class="how-code">AES</span>
+      <h3>Đối chiếu server</h3>
+      <p>Server tự tính AES-128(khóa bí mật, nonce ⊕ UID) và so khớp hằng-thời-gian với phản hồi từ chip.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
