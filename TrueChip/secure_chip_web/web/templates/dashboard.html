@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<section class="dash-head">
+  <div>
+    <p class="eyebrow">DASHBOARD</p>
+    <h1 class="panel-title">Chip của {{ current_manufacturer['display_name'] }}</h1>
+  </div>
+  <a href="{{ url_for('chip_new') }}" class="btn btn-primary btn-lg">+ Đăng ký chip mới</a>
+</section>
+
+<section class="stat-row">
+  <div class="stat-card"><strong>{{ stats.total }}</strong><span>tổng số chip</span></div>
+  <div class="stat-card stat-green"><strong>{{ stats.active }}</strong><span>đang hoạt động</span></div>
+  <div class="stat-card"><strong>{{ stats.scans }}</strong><span>lượt tra cứu gần đây</span></div>
+</section>
+
+<section class="table-wrap">
+  <h2 class="section-title">Danh sách chip</h2>
+  {% if chips %}
+  <div class="table-scroll">
+  <table class="chip-table">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>Sản phẩm</th>
+        <th>Ngày đóng gói</th>
+        <th>Trạng thái</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for chip in chips %}
+      <tr>
+        <td class="mono">{{ chip['uid'] }}</td>
+        <td>{{ chip['product'] }}</td>
+        <td>{{ chip['pack_date'] }}</td>
+        <td>
+          {% if chip['active'] %}
+            <span class="pill pill-green">Hoạt động</span>
+          {% else %}
+            <span class="pill pill-gray">Đã tắt</span>
+          {% endif %}
+        </td>
+        <td><a href="{{ url_for('chip_edit', uid=chip['uid']) }}" class="btn btn-ghost btn-sm">Chỉnh sửa</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <p>Bạn chưa đăng ký chip nào.</p>
+    <a href="{{ url_for('chip_new') }}" class="btn btn-primary">Đăng ký chip đầu tiên</a>
+  </div>
+  {% endif %}
+</section>
+
+<section class="table-wrap">
+  <h2 class="section-title">Lượt tra cứu gần đây</h2>
+  {% if recent_scans %}
+  <div class="table-scroll">
+  <table class="chip-table">
+    <thead>
+      <tr><th>UID</th><th>Kết quả</th><th>Lý do</th></tr>
+    </thead>
+    <tbody>
+      {% for scan in recent_scans %}
+      <tr>
+        <td class="mono">{{ scan['uid'] }}</td>
+        <td>
+          {% if scan['authentic'] %}
+            <span class="pill pill-green">Hợp lệ</span>
+          {% else %}
+            <span class="pill pill-red">Từ chối</span>
+          {% endif %}
+        </td>
+        <td>{{ scan['reason'] or '—' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <div class="empty-state"><p>Chưa có lượt tra cứu nào cho chip của bạn.</p></div>
+  {% endif %}
+</section>
+
+{% endblock %}
