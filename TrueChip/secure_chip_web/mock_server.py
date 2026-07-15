@@ -48,6 +48,8 @@ NONCE_TTL_SECONDS = int(os.environ.get("SECURE_CHIP_NONCE_TTL_SECONDS", str(7 * 
 
 app = Flask(__name__)
 
+# --- THÊM DÒNG NÀY ĐỂ TỰ ĐỘNG TẠO BẢNG DATABASE KHI RENDER KHỞI ĐỘNG ---
+init_db()
 
 @contextmanager
 def db_conn():
