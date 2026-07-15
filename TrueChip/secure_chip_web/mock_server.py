@@ -48,9 +48,6 @@ NONCE_TTL_SECONDS = int(os.environ.get("SECURE_CHIP_NONCE_TTL_SECONDS", str(7 * 
 
 app = Flask(__name__)
 
-# --- THÊM DÒNG NÀY ĐỂ TỰ ĐỘNG TẠO BẢNG DATABASE KHI RENDER KHỞI ĐỘNG ---
-init_db()
-
 @contextmanager
 def db_conn():
     Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
@@ -187,6 +184,10 @@ def verify_payload(data: Dict[str, Any]) -> Tuple[Dict[str, Any], int]:
         app.logger.info("FAKE: response mismatch: UID=%s...", uid_hex[:8])
         return {"authentic": False, "reason": "Response không khớp — chip giả hoặc secret key sai"}, 200
 
+# --- ĐẶT LỆNH GỌI HÀM Ở ĐÂY (Sau khi nó đã được định nghĩa) ---
+# --- THÊM DÒNG NÀY ĐỂ TỰ ĐỘNG TẠO BẢNG DATABASE KHI RENDER KHỞI ĐỘNG ---
+init_db()
+# --------------------------------------------------------------
 
 @app.route("/", methods=["GET"])
 def home():
