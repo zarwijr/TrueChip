@@ -1,0 +1,9 @@
+_scratch/
+*.tmp.docx
+~$*.docx
+db/
+incremental_db/
+.DS_Store
+*.DS_Store
+
+.tmp.driveupload/
