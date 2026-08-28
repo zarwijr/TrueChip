@@ -68,15 +68,30 @@ def open_uart(port: Optional[str], baud: int, timeout: float) -> serial.Serial:
             f"Cổng hiện có: {available}"
         )
 
-    # ĐÃ CHỈNH SỬA: Tắt tường minh dsrdtr và rtscts để ngăn mạch nạp UART rời tự động 
-    # tạo xung kích hoạt nhầm trạng thái Reset hoặc Start bit giả trên FPGA khi mở cổng.
-    ser = serial.Serial(
-        port=actual_port,
-        baudrate=baud,
-        timeout=timeout,
-        dsrdtr=False,
-        rtscts=False
-    )
+    # USB-UART trên Windows đôi khi cần một khoảng ngắn để COM vừa xuất hiện
+    # hoặc nhả khỏi chương trình trước đó. Retry ngắn giúp không in lỗi giả khi
+    # lần mở đầu tiên thất bại nhưng lần sau đã mở được bình thường.
+    ser = None
+    last_error = None
+    for attempt in range(3):
+        try:
+            # Tắt tường minh dsrdtr/rtscts để tránh xung reset/start giả.
+            ser = serial.Serial(
+                port=actual_port,
+                baudrate=baud,
+                timeout=timeout,
+                dsrdtr=False,
+                rtscts=False,
+            )
+            break
+        except serial.SerialException as exc:
+            last_error = exc
+            if attempt == 2:
+                raise
+            time.sleep(0.7)
+
+    if ser is None:
+        raise last_error or serial.SerialException(f"Không thể mở cổng {actual_port}")
     
     # ĐÃ CHỈNH SỬA: Tăng thời gian chờ từ 0.2s lên 1.5s để lọc hoàn toàn các xung nhiễu 
     # (glitch) phần cứng lúc vừa cắm/mở cổng COM.
@@ -166,7 +181,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
         default=os.environ.get("SECURE_CHIP_VERIFY_URL", SERVER_URL),
         help=f"Verification endpoint, default: {SERVER_URL}",
     )
-    parser.add_argument("--server-timeout", type=float, default=float(os.environ.get("SECURE_CHIP_SERVER_TIMEOUT", "5.0")))
+    # Render may need time to wake the verification service on the first request.
+    parser.add_argument("--server-timeout", type=float, default=float(os.environ.get("SECURE_CHIP_SERVER_TIMEOUT", "45.0")))
     parser.add_argument("--repeat", type=int, default=1, help="Number of real scans to perform")
     parser.add_argument("--json", action="store_true", help="Print raw JSON results")
     return parser

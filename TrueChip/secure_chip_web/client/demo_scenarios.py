@@ -27,6 +27,7 @@ import serial
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "common"))
 
 from chip_tester import (
+    SERVER_URL,
     get_uid,
     open_uart,
     print_result,
@@ -102,10 +103,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--timeout", type=float, default=float(os.environ.get("SECURE_CHIP_UART_TIMEOUT", "2.0")))
     parser.add_argument(
         "--server-url",
-        default=os.environ.get("SECURE_CHIP_VERIFY_URL"),
+        default=os.environ.get("SECURE_CHIP_VERIFY_URL", SERVER_URL),
         help="Verification endpoint, e.g. http://127.0.0.1:5000/verify",
     )
-    parser.add_argument("--server-timeout", type=float, default=float(os.environ.get("SECURE_CHIP_SERVER_TIMEOUT", "5.0")))
+    parser.add_argument("--server-timeout", type=float, default=float(os.environ.get("SECURE_CHIP_SERVER_TIMEOUT", "45.0")))
     parser.add_argument("--no-negative", action="store_true", help="Only run real-chip verification")
     parser.add_argument("--pause", type=float, default=1.5, help="Seconds between scenarios")
     return parser
