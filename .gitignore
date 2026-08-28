@@ -7,3 +7,17 @@ incremental_db/
 *.DS_Store
 
 .tmp.driveupload/
+
+
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Môi trường ảo Python
+.venv/
+venv/
+ENV/
+
+# File tạm và cấu hình môi trường
+.env
