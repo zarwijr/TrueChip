@@ -1,0 +1,20 @@
+Fitter Status : Successful - Fri Aug 28 11:58:18 2026
+Quartus Prime Version : 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+Revision Name : TrueChip
+Top-level Entity Name : secure_soc_top
+Family : Cyclone V
+Device : 5CSXFC6D6F31C6
+Timing Models : Final
+Logic utilization (in ALMs) : 8,718 / 41,910 ( 21 % )
+Total registers : 14047
+Total pins : 49 / 499 ( 10 % )
+Total virtual pins : 0
+Total block memory bits : 33,280 / 5,662,720 ( < 1 % )
+Total RAM Blocks : 7 / 553 ( 1 % )
+Total DSP Blocks : 0 / 112 ( 0 % )
+Total HSSI RX PCSs : 0 / 9 ( 0 % )
+Total HSSI PMA RX Deserializers : 0 / 9 ( 0 % )
+Total HSSI TX PCSs : 0 / 9 ( 0 % )
+Total HSSI PMA TX Serializers : 0 / 9 ( 0 % )
+Total PLLs : 0 / 15 ( 0 % )
+Total DLLs : 0 / 4 ( 0 % )

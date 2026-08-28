@@ -1,35 +1,43 @@
 module uart_rx #(
     parameter CLKS_PER_BIT = 434
 )(
-    input  wire        CLOCK_50,
-    input  wire        UART_RXD,  
+    input  wire        CLOCK_50, 
+    input  wire        rx,  
     input  wire        rst_n,
     output reg         rx_valid,
     output reg  [7:0]  rx_byte
 );
-
     localparam IDLE  = 2'd0;
     localparam START = 2'd1;
     localparam DATA  = 2'd2;
     localparam STOP  = 2'd3;
 
-    reg [1:0]  state    = IDLE;
-    reg [12:0] clk_cnt  = 0;
-    reg [2:0]  bit_idx  = 0;
-    reg [7:0]  rx_shift = 0;
+    reg [1:0]  state;
+    reg [12:0] clk_cnt;
+    reg [2:0]  bit_idx;
+    reg [7:0]  rx_shift;
 
-    reg rx_d1, rx_d2;
+    // CDC synchronizer for the asynchronous UART input. The attribute is
+    // understood by several synthesis/STA flows; the two-flop structure is
+    // also explicitly constrained in the ASIC SDC.
+    (* altera_attribute = "-name SYNCHRONIZER_IDENTIFICATION FORCED" *)
+    reg rx_d1;
 
+    (* altera_attribute = "-name SYNCHRONIZER_IDENTIFICATION FORCED" *)
+    reg rx_d2;
+    
+    // Synchronize RX signal to clock domain
     always @(posedge CLOCK_50 or negedge rst_n) begin
         if (!rst_n) begin
             rx_d1 <= 1'b1;
             rx_d2 <= 1'b1;
         end else begin
-            rx_d1 <= UART_RXD; 
+            rx_d1 <= rx;
             rx_d2 <= rx_d1;
         end
     end
 
+    // FSM for UART Receiver
     always @(posedge CLOCK_50 or negedge rst_n) begin
         if (!rst_n) begin
             state    <= IDLE;
@@ -39,8 +47,7 @@ module uart_rx #(
             rx_byte  <= 8'h00;
             rx_valid <= 1'b0;
         end else begin
-            rx_valid <= 1'b0; 
-
+            rx_valid <= 1'b0;
             case (state)
                 IDLE: begin
                     clk_cnt <= 0;
@@ -54,17 +61,19 @@ module uart_rx #(
                         if (rx_d2 == 1'b0) begin
                             clk_cnt <= 0;
                             state   <= DATA;
-                        end else
+                        end else begin
                             state <= IDLE;
-                    end else
+                        end
+                    end else begin
                         clk_cnt <= clk_cnt + 1'b1;
+                    end
                 end
 
                 DATA: begin
                     if (clk_cnt < CLKS_PER_BIT - 1) begin
                         clk_cnt <= clk_cnt + 1'b1;
                     end else begin
-                        rx_shift[bit_idx] <= rx_d2; 
+                        rx_shift[bit_idx] <= rx_d2;
                         clk_cnt <= 0;
                         
                         if (bit_idx < 7) begin
@@ -80,10 +89,15 @@ module uart_rx #(
                     if (clk_cnt < CLKS_PER_BIT - 1) begin
                         clk_cnt <= clk_cnt + 1'b1;
                     end else begin
-                        rx_valid <= 1'b1;      
-                        rx_byte  <= rx_shift;   
-                        clk_cnt  <= 0;
-                        state    <= IDLE;    
+                        // Basic framing check: accept a byte only when the
+                        // stop bit is high. A low stop bit is discarded and
+                        // the receiver resynchronizes in IDLE.
+                        if (rx_d2 == 1'b1) begin
+                            rx_valid <= 1'b1;
+                            rx_byte  <= rx_shift;
+                        end
+                        clk_cnt <= 0;
+                        state   <= IDLE;
                     end
                 end
 

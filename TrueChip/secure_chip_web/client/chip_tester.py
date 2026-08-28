@@ -6,9 +6,11 @@ This version is meant to run with the real project architecture:
 - Does NOT contain the chip UID or secret key.
 - Sends UID + nonce + FPGA response to the Flask verification server.
 
-UART protocol:
-    0x01              -> FPGA returns 16-byte UID
-    0x02 + 16B nonce  -> FPGA returns 16-byte AES response
+UART Protocol V2:
+    Request : A5 | VER | CMD | LEN | PAYLOAD | CRC16-CCITT
+    Response: A5 | VER | STATUS | LEN | PAYLOAD
+
+GET_ID uses CMD=0x01/LEN=0. CHALLENGE uses CMD=0x02/LEN=16.
 """
 
 from __future__ import annotations
@@ -33,18 +35,19 @@ SERVER_URL = "https://truechip-server.onrender.com/verify"
 
 # Allow running this script directly (python client/chip_tester.py) while the
 # shared crypto/protocol helpers live one level up, in common/.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "common"))
 
 from secure_chip_common import (
     CMD_CHALLENGE,
     CMD_GET_ID,
     DEFAULT_BAUD,
     NONCE_LEN,
-    REPLAY_OR_ERROR_RESPONSE,
     RESPONSE_LEN,
     UID_LEN,
     SecureChipError,
-    read_exact,
+    build_request,
+    read_response,
+    require_ok,
     to_hex,
 )
 
@@ -87,19 +90,23 @@ def open_uart(port: Optional[str], baud: int, timeout: float) -> serial.Serial:
 
 
 def get_uid(ser: serial.Serial) -> bytes:
+    """Issue a framed GET_ID request and return the 16-byte UID payload."""
     ser.reset_input_buffer()
-    ser.write(bytes([CMD_GET_ID]))
+    ser.write(build_request(CMD_GET_ID))
     ser.flush()
-    return read_exact(ser, UID_LEN, "UID")
+    status, payload = read_response(ser, "GET_ID response")
+    return require_ok(status, payload, UID_LEN, "GET_ID")
 
 
 def request_challenge_response(ser: serial.Serial, nonce: bytes) -> bytes:
+    """Issue a framed CHALLENGE request and return the 16-byte AES response."""
     if len(nonce) != NONCE_LEN:
         raise SecureChipError(f"Nonce must be {NONCE_LEN} bytes")
     ser.reset_input_buffer()
-    ser.write(bytes([CMD_CHALLENGE]) + nonce)
+    ser.write(build_request(CMD_CHALLENGE, nonce))
     ser.flush()
-    return read_exact(ser, RESPONSE_LEN, "challenge response")
+    status, payload = read_response(ser, "CHALLENGE response")
+    return require_ok(status, payload, RESPONSE_LEN, "CHALLENGE")
 
 
 def verify_with_server(server_url: str, uid: bytes, nonce: bytes, response: bytes, timeout: float) -> Dict[str, Any]:
@@ -126,13 +133,6 @@ def scan_once(ser: serial.Serial, server_url: str, server_timeout: float) -> Dic
     uid = get_uid(ser)
     nonce = secrets.token_bytes(NONCE_LEN)
     response = request_challenge_response(ser, nonce)
-
-    if response == REPLAY_OR_ERROR_RESPONSE:
-        return {
-            "authentic": False,
-            "uid": to_hex(uid),
-            "reason": "FPGA trả về mã lỗi FF..FF khi xử lý challenge",
-        }
 
     server_result = verify_with_server(server_url, uid, nonce, response, server_timeout)
     server_result.setdefault("uid", to_hex(uid))
@@ -178,6 +178,16 @@ def main() -> int:
     if not args.server_url:
         print(
             "Thiếu verification server URL. Dùng --server-url hoặc biến môi trường SECURE_CHIP_VERIFY_URL.",
+            file=sys.stderr,
+        )
+        return 2
+
+    # v7.1: --repeat 0 (or negative) used to skip the scan loop entirely and
+    # then crash on `results[0]` with an IndexError.  Reject it up front with
+    # a readable message instead.
+    if args.repeat < 1:
+        print(
+            f"--repeat phải >= 1 (đang nhận {args.repeat}).",
             file=sys.stderr,
         )
         return 2

@@ -1,10 +1,13 @@
+import os
 import psycopg2
 import time
 
 # ==============================================================================
 # DÁN EXTERNAL DATABASE URL CỦA BẠN VÀO ĐÂY (Nằm trong dấu ngoặc kép)
 # ==============================================================================
-EXTERNAL_DB_URL = "postgresql://truechip_db_user:3LLZ3QENjkr8QIW81rF4ya6HWpyu5beN@dpg-d9bf33ucjfls7387oi00-a.oregon-postgres.render.com/truechip_db"
+EXTERNAL_DB_URL = os.environ.get("TRUECHIP_DATABASE_URL")
+if not EXTERNAL_DB_URL:
+    raise RuntimeError("Set TRUECHIP_DATABASE_URL in the environment; never hard-code DB credentials in source.")
 
 def add_chip():
     print("=== CÔNG CỤ NHẬP KHO TRUECHIP TẠI NHÀ MÁY ===")

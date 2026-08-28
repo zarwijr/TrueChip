@@ -1,0 +1,42 @@
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:34:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   34 |             result = 0;
+      |                    ^
+                 ... For warning description see https://verilator.org/warn/BLKSEQ?v=5.009
+                 ... Use "/* verilator lint_off BLKSEQ */" and lint_on around source to disable this message.
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:36:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   36 |                 s0 = s[127 - 32*col -: 8]; 
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:37:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   37 |                 s1 = s[119 - 32*col -: 8];
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:38:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   38 |                 s2 = s[111 - 32*col -: 8]; 
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:39:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   39 |                 s3 = s[103 - 32*col -: 8];
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:41:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   41 |                 r0 = xtime(s0) ^ xtime(s1) ^ s1 ^ s2 ^ s3;
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:42:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   42 |                 r1 = s0 ^ xtime(s1) ^ xtime(s2) ^ s2 ^ s3;
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:43:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   43 |                 r2 = s0 ^ s1 ^ xtime(s2) ^ xtime(s3) ^ s3;
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:44:20: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   44 |                 r3 = xtime(s0) ^ s0 ^ s1 ^ s2 ^ xtime(s3);
+      |                    ^
+%Warning-BLKSEQ: /home/alexis/my_asic_projects/secure_asic_top/src/aes128.v:46:43: Blocking assignment '=' in sequential logic process
+                                                                                 : ... Suggest using delayed assignment '<='
+   46 |                 result[127 - 32*col -: 8] = r0; 
+      |                                           ^

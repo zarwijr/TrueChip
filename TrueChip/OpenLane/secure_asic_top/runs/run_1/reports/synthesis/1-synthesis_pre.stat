@@ -1,0 +1,29 @@
+
+54. Printing statistics.
+
+=== secure_asic_top ===
+
+   Number of wires:              16921
+   Number of wire bits:          20613
+   Number of public wires:         111
+   Number of public wire bits:    3750
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              20516
+     $_ANDNOT_                    2661
+     $_AND_                        355
+     $_DFFE_PN0P_                 2422
+     $_DFFE_PN1P_                   16
+     $_DFFE_PP_                   1032
+     $_DFF_PN0_                     80
+     $_DFF_PN1_                      6
+     $_MUX_                       7515
+     $_NAND_                       243
+     $_NOR_                        498
+     $_NOT_                       1136
+     $_ORNOT_                      434
+     $_OR_                        1885
+     $_XNOR_                      1175
+     $_XOR_                       1058
+

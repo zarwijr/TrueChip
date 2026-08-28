@@ -1,0 +1,1279 @@
+
+Magic 8.3 revision 413 - Compiled on Wed Jul 12 10:33:53 UTC 2023.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Using technology "sky130A", version 1.0.493-0-g0fe599b
+Reading LEF data from file /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd__nom.tlef.
+This action cannot be undone.
+LEF read, Line 82 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 83 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 116 (Message): Unknown keyword "MINENCLOSEDAREA" in LEF file; ignoring.
+LEF read, Line 118 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 119 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 125 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 126 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 127 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 160 (Message): Unknown keyword "MINENCLOSEDAREA" in LEF file; ignoring.
+LEF read, Line 168 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 169 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 171 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 172 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 173 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 210 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 211 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 213 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 214 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 215 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 252 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 253 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 255 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 256 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 257 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 294 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 295 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read: Processed 801 lines.
+Reading DEF data from file /home/alexis/my_asic_projects/secure_asic_top/runs/run_1/results/routing/secure_asic_top.def.
+This action cannot be undone.
+  Processed 4 vias total.
+Cell sky130_fd_sc_hd__diode_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__decap_3 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__decap_8 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__fill_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__fill_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__decap_6 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__decap_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__tapvpwrvgnd_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__mux2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__mux2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkbuf_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a22o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__xor2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o31ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o221a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a221o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a31oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a2bb2o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a311o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o211a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand3_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a31o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o32a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a32o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__mux4_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and2b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21oi_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__xnor2_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkbuf_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o22a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o2bb2a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__inv_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a41o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or4b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o311a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a211o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkbuf_8 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__xnor2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__buf_6 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__buf_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__xor2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor2_8 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__xor2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__buf_8 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__mux2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a22o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__xnor2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a22o_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a31o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or4b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or2b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or4_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or4_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor3_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21a_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o22a_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o32a_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and3b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and4b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__buf_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or3_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or3_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o2111a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and4_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21bo_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o31a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and3_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor3_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and4bb_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a311oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21ba_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o41a_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__mux4_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor3b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor3_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21a_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a211o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or4_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o22ai_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o22ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a2111o_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21ai_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand2_8 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a22oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or3b_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a221o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o32ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a2111o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o22ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a221oi_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a221oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand4_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o22a_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkbuf_16 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o221ai_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21boi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and2_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o211ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o221ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a22oi_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or4bb_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor4_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__buf_12 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o32a_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand4_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o2111ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or3_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a31oi_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or3b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o31a_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o211a_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor2_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkbuf_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a311o_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor3b_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21bai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and3_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and3b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand3_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a2bb2o_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a211o_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o211ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand2b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand3b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor2b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor3b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o2bb2a_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nor2b_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a211oi_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkinv_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a211oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or3b_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__nand2b_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21boi_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21bo_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o2bb2a_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a31o_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__inv_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__or2b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21oi_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a2bb2o_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21o_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o32ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a311oi_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o211ai_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o2111ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__and2b_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o311ai_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o31ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a32oi_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o221ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21ba_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o311ai_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__o21ba_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__a21bo_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfrtp_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfrtp_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfrtp_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfxtp_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfxtp_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfxtp_4 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfstp_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dfstp_2 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__conb_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dlygate4sd3_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__dlymetal6s2s_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__buf_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+Cell sky130_fd_sc_hd__clkdlybuf4s25_1 read from path /home/alexis/PDKs/sky130A/libs.ref/sky130_fd_sc_hd/maglef
+  Processed 106166 subcell instances total.
+  Processed 9 pins total.
+  Processed 2 special nets total.
+  Processed 26262 nets total.
+DEF read: Processed 627417 lines.
+Moving label "_00231_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00239_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00240_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00251_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00268_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00300_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00301_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00306_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00307_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00318_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00323_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00335_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00364_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00372_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00376_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00378_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00382_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00389_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00391_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00403_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00406_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00413_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00414_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00417_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00423_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00425_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00430_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00435_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00437_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00448_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00455_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00456_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00461_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00464_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00480_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00486_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00491_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00505_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00515_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00519_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00520_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00521_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00527_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00528_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00553_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00555_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00563_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00565_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00581_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00589_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00590_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00592_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00605_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00606_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00608_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00609_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00616_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00617_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00618_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00626_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00627_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00628_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00629_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00633_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00644_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00647_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00652_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00657_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00659_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00665_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00672_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00673_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00677_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00679_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00682_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00693_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00700_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00710_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00713_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00716_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00723_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00727_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00733_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00736_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00742_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00743_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00765_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00774_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00776_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00780_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00786_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00790_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00791_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00798_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00802_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00816_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00821_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00824_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00831_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00834_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00838_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00847_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00864_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00865_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00866_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00877_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00883_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00885_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00887_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00897_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00898_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00901_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00903_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00905_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00907_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00909_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00913_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00918_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00920_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00922_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00924_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00928_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00929_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00932_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00935_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00939_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00942_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00943_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00945_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00946_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00951_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00954_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00958_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00960_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00962_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00973_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00979_" from metal1 to viali in cell secure_asic_top.
+Moving label "_00984_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00992_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00993_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00994_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_00997_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01001_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01004_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01010_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01015_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01017_" from metal1 to viali in cell secure_asic_top.
+Moving label "_01019_" from metal1 to viali in cell secure_asic_top.
+Moving label "_01020_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01027_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01036_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01041_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01042_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01043_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01047_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01056_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01066_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01068_" from metal1 to viali in cell secure_asic_top.
+Moving label "_01069_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01076_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01082_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01084_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01086_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01092_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01101_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01105_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01107_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01108_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01109_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01114_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01123_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01132_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01133_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01270_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01468_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01470_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01471_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01475_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01486_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01491_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01497_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01499_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01503_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01506_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01511_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01517_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01520_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01533_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01539_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01544_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01548_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01552_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01555_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01560_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01562_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01575_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01580_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01588_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01591_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_01775_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02056_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02081_" from metal1 to viali in cell secure_asic_top.
+Moving label "_02202_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02333_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02373_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02405_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02441_" from metal1 to viali in cell secure_asic_top.
+Moving label "_02529_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_02596_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02633_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02773_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_02917_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03030_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03103_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03189_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03393_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03584_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_03588_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03759_" from metal1 to viali in cell secure_asic_top.
+Moving label "_03826_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_03978_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_04135_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_04152_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_04290_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04314_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04347_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_04353_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04355_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04443_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04493_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04696_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_04721_" from metal1 to viali in cell secure_asic_top.
+Moving label "_04871_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05160_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_05218_" from metal1 to viali in cell secure_asic_top.
+Moving label "_05342_" from metal1 to viali in cell secure_asic_top.
+Moving label "_05379_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05384_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05388_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05398_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05428_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05452_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05488_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05512_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05531_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05546_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05567_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05573_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05579_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_05606_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05686_" from metal1 to viali in cell secure_asic_top.
+Moving label "_05696_" from metal1 to viali in cell secure_asic_top.
+Moving label "_05722_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05739_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05760_" from metal1 to viali in cell secure_asic_top.
+Moving label "_05772_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05795_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_05803_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05841_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05881_" from metal1 to viali in cell secure_asic_top.
+Moving label "_05897_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_05927_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_05996_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06004_" from metal1 to viali in cell secure_asic_top.
+Moving label "_06015_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06016_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06019_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_06063_" from metal1 to viali in cell secure_asic_top.
+Moving label "_06135_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06170_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06174_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_06181_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06216_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06231_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06244_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06259_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_06282_" from metal1 to viali in cell secure_asic_top.
+Moving label "_06333_" from metal1 to viali in cell secure_asic_top.
+Moving label "_06338_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_06370_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06377_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_06416_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06455_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06471_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_06474_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06486_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06492_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06493_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06496_" from metal3 to via2 in cell secure_asic_top.
+Moving label "_06512_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06530_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06598_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06639_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06664_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06792_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_06849_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06896_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_06900_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06913_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06938_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_06940_" from metal1 to viali in cell secure_asic_top.
+Moving label "_06948_" from metal1 to viali in cell secure_asic_top.
+Moving label "_06981_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07028_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07052_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07089_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07098_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07115_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07143_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07189_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07197_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07241_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07284_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07295_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07341_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07399_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07406_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_07414_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07425_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07447_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_07470_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07537_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07566_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07581_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07599_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_07629_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07692_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07699_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_07716_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07766_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07768_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07826_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_07845_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07864_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_07889_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07910_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07936_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07939_" from metal1 to viali in cell secure_asic_top.
+Moving label "_07960_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_07994_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08055_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08071_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08073_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08083_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08162_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08163_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08170_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_08178_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08191_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08228_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08252_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08273_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08277_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08278_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08283_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08300_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08305_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08330_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08420_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08426_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08469_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08479_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08483_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08518_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_08541_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08580_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08587_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08636_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08667_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_08669_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_08673_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08696_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08700_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08710_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_08720_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08746_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08779_" from metal1 to viali in cell secure_asic_top.
+Moving label "_08813_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08849_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_08852_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08892_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08895_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08907_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08940_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08957_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08974_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_08982_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_08991_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_09021_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09027_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09039_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09081_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09089_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_09099_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_09119_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_09144_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09181_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_09182_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09218_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09268_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09302_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09318_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09322_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_09336_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09391_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09393_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09472_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09486_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09489_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09493_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09546_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09552_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_09566_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09657_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09701_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09708_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_09735_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09755_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09780_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_09801_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09839_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09925_" from metal1 to viali in cell secure_asic_top.
+Moving label "_09942_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09979_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_09981_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_09990_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10019_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10047_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10063_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_10122_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10189_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10193_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10214_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10260_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10261_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_10266_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10291_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10299_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10302_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10314_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10352_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10395_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10400_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10499_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10511_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10529_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_10601_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10603_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10651_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10663_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10684_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_10707_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10766_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10767_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10797_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10839_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_10883_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10889_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10929_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_10963_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_10970_" from metal1 to viali in cell secure_asic_top.
+Moving label "_10999_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11018_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11042_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11044_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11054_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11065_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11072_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11106_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11121_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11149_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11171_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11176_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11188_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11218_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11271_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11291_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11297_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11300_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11301_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11303_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11309_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11320_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11336_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11359_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11401_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11466_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_11476_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11550_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_11760_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11768_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11814_" from metal1 to viali in cell secure_asic_top.
+Moving label "_11822_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11826_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11937_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_11952_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_11981_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12001_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12044_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12056_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12102_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12130_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12141_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12177_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12181_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_12194_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_12222_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12258_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_12276_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12285_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12307_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12335_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12390_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12407_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12416_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12444_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12445_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12530_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12546_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12562_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12606_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12614_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12622_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12652_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12660_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12667_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_12672_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12685_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_12708_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12753_" from metal1 to viali in cell secure_asic_top.
+Moving label "_12764_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_12835_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12892_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12919_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_12949_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13063_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13065_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13097_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13181_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13187_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13204_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13227_" from metal1 to viali in cell secure_asic_top.
+Moving label "_13250_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13275_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13308_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13384_" from metal1 to viali in cell secure_asic_top.
+Moving label "_13466_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13518_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13556_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13572_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13588_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13621_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_13629_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13654_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13673_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13695_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13698_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13717_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_13725_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13726_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13741_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13742_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_13758_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13859_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13878_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_13890_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_13953_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_14016_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14137_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14179_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14196_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14198_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14303_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14370_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_14394_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_14459_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14483_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14493_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_14494_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_14502_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14537_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_14562_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_14714_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_14734_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14775_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14786_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14788_" from metal1 to viali in cell secure_asic_top.
+Moving label "_14807_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14868_" from metal1 to viali in cell secure_asic_top.
+Moving label "_14881_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14889_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14905_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14915_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14986_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14990_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_14991_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_15009_" from metal1 to viali in cell secure_asic_top.
+Moving label "_15026_" from metal1 to viali in cell secure_asic_top.
+Moving label "_15032_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_15047_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_15051_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_15117_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_15124_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_15136_" from metal1 to viali in cell secure_asic_top.
+Moving label "_15341_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_15566_" from metal1 to viali in cell secure_asic_top.
+Moving label "_15642_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_15743_" from metal1 to viali in cell secure_asic_top.
+Moving label "_15945_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_16045_" from metal1 to viali in cell secure_asic_top.
+Moving label "_16087_" from metal1 to viali in cell secure_asic_top.
+Moving label "_16088_" from metal1 to viali in cell secure_asic_top.
+Moving label "_16205_" from metal1 to viali in cell secure_asic_top.
+Moving label "_16426_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_16860_" from metal1 to viali in cell secure_asic_top.
+Moving label "_16873_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_16876_" from metal1 to viali in cell secure_asic_top.
+Moving label "_16958_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_16959_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17077_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_17157_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17158_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17174_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17193_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17203_" from metal1 to viali in cell secure_asic_top.
+Moving label "_17220_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17256_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17257_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17278_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17286_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17324_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_17347_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17357_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17369_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_17377_" from metal1 to viali in cell secure_asic_top.
+Moving label "_17378_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17404_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17411_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17425_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_17457_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_17465_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17468_" from metal1 to viali in cell secure_asic_top.
+Moving label "_17498_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17519_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_17529_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17577_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17615_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_17628_" from metal1 to viali in cell secure_asic_top.
+Moving label "_17632_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17648_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_17732_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17760_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17769_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17813_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_17819_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_17837_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17838_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17848_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17859_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17894_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17895_" from metal1 to viali in cell secure_asic_top.
+Moving label "_17939_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_17999_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18016_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_18026_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_18070_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18077_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18129_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18144_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18168_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18214_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_18235_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18251_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18258_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_18396_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_18459_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_18468_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18489_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18491_" from metal1 to viali in cell secure_asic_top.
+Moving label "_18506_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_18521_" from metal1 to viali in cell secure_asic_top.
+Moving label "_18541_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_18549_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_18561_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18583_" from metal1 to viali in cell secure_asic_top.
+Moving label "_18600_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18641_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_18731_" from metal1 to viali in cell secure_asic_top.
+Moving label "_18755_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18800_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18867_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18873_" from metal1 to viali in cell secure_asic_top.
+Moving label "_18897_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18981_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_18985_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19006_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19020_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19044_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19094_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19105_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19214_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19250_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19276_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19340_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19346_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19421_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19426_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19462_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19490_" from metal2 to via1 in cell secure_asic_top.
+Moving label "_19492_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_19498_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19512_" from metal1 to via1 in cell secure_asic_top.
+Moving label "_19514_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19517_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19568_" from metal3 to via3 in cell secure_asic_top.
+Moving label "_19569_" from metal2 to via2 in cell secure_asic_top.
+Moving label "_19618_" from metal1 to viali in cell secure_asic_top.
+Moving label "_19651_" from metal1 to viali in cell secure_asic_top.
+Moving label "clknet_2_3_0_clk" from metal2 to via2 in cell secure_asic_top.
+Moving label "clknet_5_0__leaf_clk" from metal2 to via2 in cell secure_asic_top.
+Moving label "clknet_5_10__leaf_clk" from metal2 to via2 in cell secure_asic_top.
+Moving label "clknet_5_12__leaf_clk" from metal2 to via2 in cell secure_asic_top.
+Moving label "clknet_5_13__leaf_clk" from metal3 to via3 in cell secure_asic_top.
+Moving label "clknet_5_23__leaf_clk" from metal2 to via2 in cell secure_asic_top.
+Moving label "clknet_5_2__leaf_clk" from metal2 to via2 in cell secure_asic_top.
+Moving label "clknet_5_5__leaf_clk" from metal3 to via3 in cell secure_asic_top.
+Moving label "clknet_leaf_133_clk" from metal1 to via1 in cell secure_asic_top.
+Moving label "clknet_leaf_262_clk" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[109\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[113\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[115\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[117\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[59\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[60\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[68\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[72\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[90\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[93\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[94\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[0\]\[98\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[1\]\[64\]" from metal1 to viali in cell secure_asic_top.
+Moving label "fifo_nonce\[1\]\[67\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_nonce\[1\]\[72\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[2\]\[13\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[3\]\[41\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[4\]\[106\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[4\]\[15\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[4\]\[44\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[4\]\[95\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[6\]\[83\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "fifo_nonce\[7\]\[110\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "fifo_rd_ptr\[0\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "net1024" from metal2 to via1 in cell secure_asic_top.
+Moving label "net1091" from metal1 to viali in cell secure_asic_top.
+Moving label "net1103" from metal1 to viali in cell secure_asic_top.
+Moving label "net117" from metal1 to via1 in cell secure_asic_top.
+Moving label "net1446" from metal1 to viali in cell secure_asic_top.
+Moving label "net1561" from metal2 to via1 in cell secure_asic_top.
+Moving label "net1748" from metal2 to via2 in cell secure_asic_top.
+Moving label "net175" from metal1 to via1 in cell secure_asic_top.
+Moving label "net1760" from metal1 to viali in cell secure_asic_top.
+Moving label "net185" from metal2 to via1 in cell secure_asic_top.
+Moving label "net19" from metal2 to via2 in cell secure_asic_top.
+Moving label "net198" from metal2 to via1 in cell secure_asic_top.
+Moving label "net2034" from metal1 to via1 in cell secure_asic_top.
+Moving label "net23" from metal2 to via2 in cell secure_asic_top.
+Moving label "net232" from metal2 to via2 in cell secure_asic_top.
+Moving label "net24" from metal2 to via2 in cell secure_asic_top.
+Moving label "net252" from metal1 to via1 in cell secure_asic_top.
+Moving label "net3" from metal2 to via2 in cell secure_asic_top.
+Moving label "net30" from metal2 to via1 in cell secure_asic_top.
+Moving label "net316" from metal2 to via1 in cell secure_asic_top.
+Moving label "net358" from metal2 to via2 in cell secure_asic_top.
+Moving label "net5" from metal2 to via2 in cell secure_asic_top.
+Moving label "net542" from metal1 to viali in cell secure_asic_top.
+Moving label "net621" from metal1 to viali in cell secure_asic_top.
+Moving label "net623" from metal1 to viali in cell secure_asic_top.
+Moving label "net702" from metal2 to via2 in cell secure_asic_top.
+Moving label "net703" from metal1 to viali in cell secure_asic_top.
+Moving label "net717" from metal1 to via1 in cell secure_asic_top.
+Moving label "net765" from metal2 to via1 in cell secure_asic_top.
+Moving label "net80" from metal2 to via2 in cell secure_asic_top.
+Moving label "net809" from metal1 to via1 in cell secure_asic_top.
+Moving label "net814" from metal2 to via2 in cell secure_asic_top.
+Moving label "net82" from metal2 to via2 in cell secure_asic_top.
+Moving label "net829" from metal2 to via2 in cell secure_asic_top.
+Moving label "net90" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_aes128.ciphertext\[22\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_aes128.ciphertext\[65\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_aes128.gen_state_sbox\[6\].sb_state.in\[4\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_key\[7\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_key\[88\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[106\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[21\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[23\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[27\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[30\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[32\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[38\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[39\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[45\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[62\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[83\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[84\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[87\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[89\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[8\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.aes_plaintext\[90\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.cooldown_cnt\[3\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[0\]\[124\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[0\]\[24\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[0\]\[87\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[0\]\[97\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[35\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[44\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[56\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[57\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[68\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[80\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[97\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[1\]\[9\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[10\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[117\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[122\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[24\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[26\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[57\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[2\]\[5\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[3\]\[108\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[3\]\[17\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[3\]\[2\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[3\]\[50\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[4\]\[24\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[4\]\[27\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[4\]\[72\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[127\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[21\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[40\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[41\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[61\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[64\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[5\]\[95\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[6\]\[105\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[6\]\[53\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[6\]\[74\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[7\]\[22\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[7\]\[41\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.nonce_hist\[7\]\[58\]" from metal1 to viali in cell secure_asic_top.
+Moving label "u_auth_fsm.tx_payload\[106\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_auth_fsm.tx_payload\[86\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_cmd_parser.challenge_nonce\[33\]" from metal3 to via3 in cell secure_asic_top.
+Moving label "u_cmd_parser.challenge_nonce\[49\]" from metal2 to via2 in cell secure_asic_top.
+Moving label "u_cmd_parser.nonce_reg\[101\]" from metal2 to via1 in cell secure_asic_top.
+Moving label "u_cmd_parser.nonce_reg\[16\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_cmd_parser.nonce_reg\[27\]" from metal1 to via1 in cell secure_asic_top.
+Moving label "u_uart_rx.rx_d2" from metal2 to via2 in cell secure_asic_top.
+Moving label "uart_tx_o" from metal2 to via2 in cell secure_asic_top.
+Processing secure_asic_top
+Extracting sky130_fd_sc_hd__clkbuf_4 into sky130_fd_sc_hd__clkbuf_4.ext:
+Extracting sky130_fd_sc_hd__decap_3 into sky130_fd_sc_hd__decap_3.ext:
+Extracting sky130_fd_sc_hd__decap_8 into sky130_fd_sc_hd__decap_8.ext:
+Extracting sky130_fd_sc_hd__fill_2 into sky130_fd_sc_hd__fill_2.ext:
+Extracting sky130_fd_sc_hd__diode_2 into sky130_fd_sc_hd__diode_2.ext:
+Extracting sky130_fd_sc_hd__decap_6 into sky130_fd_sc_hd__decap_6.ext:
+Extracting sky130_fd_sc_hd__fill_1 into sky130_fd_sc_hd__fill_1.ext:
+Extracting sky130_fd_sc_hd__tapvpwrvgnd_1 into sky130_fd_sc_hd__tapvpwrvgnd_1.ext:
+Extracting sky130_fd_sc_hd__decap_4 into sky130_fd_sc_hd__decap_4.ext:
+Extracting sky130_fd_sc_hd__a21oi_1 into sky130_fd_sc_hd__a21oi_1.ext:
+Extracting sky130_fd_sc_hd__o211a_1 into sky130_fd_sc_hd__o211a_1.ext:
+Extracting sky130_fd_sc_hd__inv_2 into sky130_fd_sc_hd__inv_2.ext:
+Extracting sky130_fd_sc_hd__a2bb2o_1 into sky130_fd_sc_hd__a2bb2o_1.ext:
+Extracting sky130_fd_sc_hd__nor2_1 into sky130_fd_sc_hd__nor2_1.ext:
+Extracting sky130_fd_sc_hd__nor3_1 into sky130_fd_sc_hd__nor3_1.ext:
+Extracting sky130_fd_sc_hd__nand2_2 into sky130_fd_sc_hd__nand2_2.ext:
+Extracting sky130_fd_sc_hd__o21ai_1 into sky130_fd_sc_hd__o21ai_1.ext:
+Extracting sky130_fd_sc_hd__and2_2 into sky130_fd_sc_hd__and2_2.ext:
+Extracting sky130_fd_sc_hd__nand2b_4 into sky130_fd_sc_hd__nand2b_4.ext:
+Extracting sky130_fd_sc_hd__nor2_4 into sky130_fd_sc_hd__nor2_4.ext:
+Extracting sky130_fd_sc_hd__and3_1 into sky130_fd_sc_hd__and3_1.ext:
+Extracting sky130_fd_sc_hd__or2_1 into sky130_fd_sc_hd__or2_1.ext:
+Extracting sky130_fd_sc_hd__o311a_1 into sky130_fd_sc_hd__o311a_1.ext:
+Extracting sky130_fd_sc_hd__o22a_1 into sky130_fd_sc_hd__o22a_1.ext:
+Extracting sky130_fd_sc_hd__o21a_1 into sky130_fd_sc_hd__o21a_1.ext:
+Extracting sky130_fd_sc_hd__o2bb2a_1 into sky130_fd_sc_hd__o2bb2a_1.ext:
+Extracting sky130_fd_sc_hd__mux2_1 into sky130_fd_sc_hd__mux2_1.ext:
+Extracting sky130_fd_sc_hd__a31o_1 into sky130_fd_sc_hd__a31o_1.ext:
+Extracting sky130_fd_sc_hd__buf_4 into sky130_fd_sc_hd__buf_4.ext:
+Extracting sky130_fd_sc_hd__and4b_1 into sky130_fd_sc_hd__and4b_1.ext:
+Extracting sky130_fd_sc_hd__a211o_1 into sky130_fd_sc_hd__a211o_1.ext:
+Extracting sky130_fd_sc_hd__a311o_1 into sky130_fd_sc_hd__a311o_1.ext:
+Extracting sky130_fd_sc_hd__a221o_1 into sky130_fd_sc_hd__a221o_1.ext:
+Extracting sky130_fd_sc_hd__or3_1 into sky130_fd_sc_hd__or3_1.ext:
+Extracting sky130_fd_sc_hd__a31oi_1 into sky130_fd_sc_hd__a31oi_1.ext:
+Extracting sky130_fd_sc_hd__a21o_1 into sky130_fd_sc_hd__a21o_1.ext:
+Extracting sky130_fd_sc_hd__nand2_1 into sky130_fd_sc_hd__nand2_1.ext:
+Extracting sky130_fd_sc_hd__nor2_2 into sky130_fd_sc_hd__nor2_2.ext:
+Extracting sky130_fd_sc_hd__and2_1 into sky130_fd_sc_hd__and2_1.ext:
+Extracting sky130_fd_sc_hd__a21oi_4 into sky130_fd_sc_hd__a21oi_4.ext:
+Extracting sky130_fd_sc_hd__xnor2_4 into sky130_fd_sc_hd__xnor2_4.ext:
+Extracting sky130_fd_sc_hd__nand2_4 into sky130_fd_sc_hd__nand2_4.ext:
+Extracting sky130_fd_sc_hd__or3_2 into sky130_fd_sc_hd__or3_2.ext:
+Extracting sky130_fd_sc_hd__o221a_1 into sky130_fd_sc_hd__o221a_1.ext:
+Extracting sky130_fd_sc_hd__a221oi_2 into sky130_fd_sc_hd__a221oi_2.ext:
+Extracting sky130_fd_sc_hd__or3b_1 into sky130_fd_sc_hd__or3b_1.ext:
+Extracting sky130_fd_sc_hd__or4_1 into sky130_fd_sc_hd__or4_1.ext:
+Extracting sky130_fd_sc_hd__mux4_2 into sky130_fd_sc_hd__mux4_2.ext:
+Extracting sky130_fd_sc_hd__mux4_1 into sky130_fd_sc_hd__mux4_1.ext:
+Extracting sky130_fd_sc_hd__or4_2 into sky130_fd_sc_hd__or4_2.ext:
+Extracting sky130_fd_sc_hd__a31o_2 into sky130_fd_sc_hd__a31o_2.ext:
+Extracting sky130_fd_sc_hd__o31ai_1 into sky130_fd_sc_hd__o31ai_1.ext:
+Extracting sky130_fd_sc_hd__a211oi_1 into sky130_fd_sc_hd__a211oi_1.ext:
+Extracting sky130_fd_sc_hd__o32a_1 into sky130_fd_sc_hd__o32a_1.ext:
+Extracting sky130_fd_sc_hd__clkinv_4 into sky130_fd_sc_hd__clkinv_4.ext:
+Extracting sky130_fd_sc_hd__a22o_1 into sky130_fd_sc_hd__a22o_1.ext:
+Extracting sky130_fd_sc_hd__or2b_1 into sky130_fd_sc_hd__or2b_1.ext:
+Extracting sky130_fd_sc_hd__o211ai_1 into sky130_fd_sc_hd__o211ai_1.ext:
+Extracting sky130_fd_sc_hd__nand2b_2 into sky130_fd_sc_hd__nand2b_2.ext:
+Extracting sky130_fd_sc_hd__and2b_1 into sky130_fd_sc_hd__and2b_1.ext:
+Extracting sky130_fd_sc_hd__or2_2 into sky130_fd_sc_hd__or2_2.ext:
+Extracting sky130_fd_sc_hd__o31a_1 into sky130_fd_sc_hd__o31a_1.ext:
+Extracting sky130_fd_sc_hd__nor2b_2 into sky130_fd_sc_hd__nor2b_2.ext:
+Extracting sky130_fd_sc_hd__xor2_4 into sky130_fd_sc_hd__xor2_4.ext:
+Extracting sky130_fd_sc_hd__a41o_1 into sky130_fd_sc_hd__a41o_1.ext:
+Extracting sky130_fd_sc_hd__and3_2 into sky130_fd_sc_hd__and3_2.ext:
+Extracting sky130_fd_sc_hd__a32o_1 into sky130_fd_sc_hd__a32o_1.ext:
+Extracting sky130_fd_sc_hd__nand3_1 into sky130_fd_sc_hd__nand3_1.ext:
+Extracting sky130_fd_sc_hd__a21o_2 into sky130_fd_sc_hd__a21o_2.ext:
+Extracting sky130_fd_sc_hd__o221ai_1 into sky130_fd_sc_hd__o221ai_1.ext:
+Extracting sky130_fd_sc_hd__o21ba_1 into sky130_fd_sc_hd__o21ba_1.ext:
+Extracting sky130_fd_sc_hd__and3b_1 into sky130_fd_sc_hd__and3b_1.ext:
+Extracting sky130_fd_sc_hd__clkbuf_8 into sky130_fd_sc_hd__clkbuf_8.ext:
+Extracting sky130_fd_sc_hd__or2_4 into sky130_fd_sc_hd__or2_4.ext:
+Extracting sky130_fd_sc_hd__and2b_2 into sky130_fd_sc_hd__and2b_2.ext:
+Extracting sky130_fd_sc_hd__mux2_4 into sky130_fd_sc_hd__mux2_4.ext:
+Extracting sky130_fd_sc_hd__o211ai_2 into sky130_fd_sc_hd__o211ai_2.ext:
+Extracting sky130_fd_sc_hd__buf_2 into sky130_fd_sc_hd__buf_2.ext:
+Extracting sky130_fd_sc_hd__a21bo_1 into sky130_fd_sc_hd__a21bo_1.ext:
+Extracting sky130_fd_sc_hd__or2b_2 into sky130_fd_sc_hd__or2b_2.ext:
+Extracting sky130_fd_sc_hd__xor2_1 into sky130_fd_sc_hd__xor2_1.ext:
+Extracting sky130_fd_sc_hd__o22ai_1 into sky130_fd_sc_hd__o22ai_1.ext:
+Extracting sky130_fd_sc_hd__xnor2_1 into sky130_fd_sc_hd__xnor2_1.ext:
+Extracting sky130_fd_sc_hd__a21oi_2 into sky130_fd_sc_hd__a21oi_2.ext:
+Extracting sky130_fd_sc_hd__o21bai_1 into sky130_fd_sc_hd__o21bai_1.ext:
+Extracting sky130_fd_sc_hd__nand4_1 into sky130_fd_sc_hd__nand4_1.ext:
+Extracting sky130_fd_sc_hd__a221oi_1 into sky130_fd_sc_hd__a221oi_1.ext:
+Extracting sky130_fd_sc_hd__o22a_4 into sky130_fd_sc_hd__o22a_4.ext:
+Extracting sky130_fd_sc_hd__xnor2_2 into sky130_fd_sc_hd__xnor2_2.ext:
+Extracting sky130_fd_sc_hd__and4_1 into sky130_fd_sc_hd__and4_1.ext:
+Extracting sky130_fd_sc_hd__a311oi_1 into sky130_fd_sc_hd__a311oi_1.ext:
+Extracting sky130_fd_sc_hd__nor2b_4 into sky130_fd_sc_hd__nor2b_4.ext:
+Extracting sky130_fd_sc_hd__o2111a_1 into sky130_fd_sc_hd__o2111a_1.ext:
+Extracting sky130_fd_sc_hd__a311oi_2 into sky130_fd_sc_hd__a311oi_2.ext:
+Extracting sky130_fd_sc_hd__or3b_2 into sky130_fd_sc_hd__or3b_2.ext:
+Extracting sky130_fd_sc_hd__and2_4 into sky130_fd_sc_hd__and2_4.ext:
+Extracting sky130_fd_sc_hd__o31a_4 into sky130_fd_sc_hd__o31a_4.ext:
+Extracting sky130_fd_sc_hd__o21ai_2 into sky130_fd_sc_hd__o21ai_2.ext:
+Extracting sky130_fd_sc_hd__o21ba_2 into sky130_fd_sc_hd__o21ba_2.ext:
+Extracting sky130_fd_sc_hd__o2111ai_1 into sky130_fd_sc_hd__o2111ai_1.ext:
+Extracting sky130_fd_sc_hd__a21boi_4 into sky130_fd_sc_hd__a21boi_4.ext:
+Extracting sky130_fd_sc_hd__o32ai_1 into sky130_fd_sc_hd__o32ai_1.ext:
+Extracting sky130_fd_sc_hd__nor3b_4 into sky130_fd_sc_hd__nor3b_4.ext:
+Extracting sky130_fd_sc_hd__a21bo_2 into sky130_fd_sc_hd__a21bo_2.ext:
+Extracting sky130_fd_sc_hd__o21a_2 into sky130_fd_sc_hd__o21a_2.ext:
+Extracting sky130_fd_sc_hd__mux2_2 into sky130_fd_sc_hd__mux2_2.ext:
+Extracting sky130_fd_sc_hd__a31o_4 into sky130_fd_sc_hd__a31o_4.ext:
+Extracting sky130_fd_sc_hd__dfrtp_2 into sky130_fd_sc_hd__dfrtp_2.ext:
+Extracting sky130_fd_sc_hd__clkbuf_1 into sky130_fd_sc_hd__clkbuf_1.ext:
+Extracting sky130_fd_sc_hd__dfrtp_1 into sky130_fd_sc_hd__dfrtp_1.ext:
+Extracting sky130_fd_sc_hd__a2bb2o_4 into sky130_fd_sc_hd__a2bb2o_4.ext:
+Extracting sky130_fd_sc_hd__o2bb2a_4 into sky130_fd_sc_hd__o2bb2a_4.ext:
+Extracting sky130_fd_sc_hd__o21a_4 into sky130_fd_sc_hd__o21a_4.ext:
+Extracting sky130_fd_sc_hd__dfrtp_4 into sky130_fd_sc_hd__dfrtp_4.ext:
+Extracting sky130_fd_sc_hd__o32a_2 into sky130_fd_sc_hd__o32a_2.ext:
+Extracting sky130_fd_sc_hd__clkbuf_16 into sky130_fd_sc_hd__clkbuf_16.ext:
+Extracting sky130_fd_sc_hd__clkbuf_2 into sky130_fd_sc_hd__clkbuf_2.ext:
+Extracting sky130_fd_sc_hd__o32a_4 into sky130_fd_sc_hd__o32a_4.ext:
+Extracting sky130_fd_sc_hd__a2111o_1 into sky130_fd_sc_hd__a2111o_1.ext:
+Extracting sky130_fd_sc_hd__o311ai_1 into sky130_fd_sc_hd__o311ai_1.ext:
+Extracting sky130_fd_sc_hd__and3b_2 into sky130_fd_sc_hd__and3b_2.ext:
+Extracting sky130_fd_sc_hd__nor3b_1 into sky130_fd_sc_hd__nor3b_1.ext:
+Extracting sky130_fd_sc_hd__or3b_4 into sky130_fd_sc_hd__or3b_4.ext:
+Extracting sky130_fd_sc_hd__nor3b_2 into sky130_fd_sc_hd__nor3b_2.ext:
+Extracting sky130_fd_sc_hd__a22oi_1 into sky130_fd_sc_hd__a22oi_1.ext:
+Extracting sky130_fd_sc_hd__dlygate4sd3_1 into sky130_fd_sc_hd__dlygate4sd3_1.ext:
+Extracting sky130_fd_sc_hd__a2bb2o_2 into sky130_fd_sc_hd__a2bb2o_2.ext:
+Extracting sky130_fd_sc_hd__o31ai_4 into sky130_fd_sc_hd__o31ai_4.ext:
+Extracting sky130_fd_sc_hd__nand3b_2 into sky130_fd_sc_hd__nand3b_2.ext:
+Extracting sky130_fd_sc_hd__and4bb_1 into sky130_fd_sc_hd__and4bb_1.ext:
+Extracting sky130_fd_sc_hd__a22o_2 into sky130_fd_sc_hd__a22o_2.ext:
+Extracting sky130_fd_sc_hd__a32oi_1 into sky130_fd_sc_hd__a32oi_1.ext:
+Extracting sky130_fd_sc_hd__xor2_2 into sky130_fd_sc_hd__xor2_2.ext:
+Extracting sky130_fd_sc_hd__nor3_2 into sky130_fd_sc_hd__nor3_2.ext:
+Extracting sky130_fd_sc_hd__o2bb2a_2 into sky130_fd_sc_hd__o2bb2a_2.ext:
+Extracting sky130_fd_sc_hd__a21boi_1 into sky130_fd_sc_hd__a21boi_1.ext:
+Extracting sky130_fd_sc_hd__dlymetal6s2s_1 into sky130_fd_sc_hd__dlymetal6s2s_1.ext:
+Extracting sky130_fd_sc_hd__buf_1 into sky130_fd_sc_hd__buf_1.ext:
+Extracting sky130_fd_sc_hd__inv_4 into sky130_fd_sc_hd__inv_4.ext:
+Extracting sky130_fd_sc_hd__or4b_1 into sky130_fd_sc_hd__or4b_1.ext:
+Extracting sky130_fd_sc_hd__o21ai_4 into sky130_fd_sc_hd__o21ai_4.ext:
+Extracting sky130_fd_sc_hd__a22o_4 into sky130_fd_sc_hd__a22o_4.ext:
+Extracting sky130_fd_sc_hd__buf_8 into sky130_fd_sc_hd__buf_8.ext:
+Extracting sky130_fd_sc_hd__buf_6 into sky130_fd_sc_hd__buf_6.ext:
+Extracting sky130_fd_sc_hd__nor2_8 into sky130_fd_sc_hd__nor2_8.ext:
+Extracting sky130_fd_sc_hd__o221ai_2 into sky130_fd_sc_hd__o221ai_2.ext:
+Extracting sky130_fd_sc_hd__a21o_4 into sky130_fd_sc_hd__a21o_4.ext:
+Extracting sky130_fd_sc_hd__o221ai_4 into sky130_fd_sc_hd__o221ai_4.ext:
+Extracting sky130_fd_sc_hd__a211oi_2 into sky130_fd_sc_hd__a211oi_2.ext:
+Extracting sky130_fd_sc_hd__clkdlybuf4s25_1 into sky130_fd_sc_hd__clkdlybuf4s25_1.ext:
+Extracting sky130_fd_sc_hd__dfstp_2 into sky130_fd_sc_hd__dfstp_2.ext:
+Extracting sky130_fd_sc_hd__o21ba_4 into sky130_fd_sc_hd__o21ba_4.ext:
+Extracting sky130_fd_sc_hd__o311ai_4 into sky130_fd_sc_hd__o311ai_4.ext:
+Extracting sky130_fd_sc_hd__o41a_1 into sky130_fd_sc_hd__o41a_1.ext:
+Extracting sky130_fd_sc_hd__nor3_4 into sky130_fd_sc_hd__nor3_4.ext:
+Extracting sky130_fd_sc_hd__or3_4 into sky130_fd_sc_hd__or3_4.ext:
+Extracting sky130_fd_sc_hd__a311o_4 into sky130_fd_sc_hd__a311o_4.ext:
+Extracting sky130_fd_sc_hd__dfstp_1 into sky130_fd_sc_hd__dfstp_1.ext:
+Extracting sky130_fd_sc_hd__a31oi_4 into sky130_fd_sc_hd__a31oi_4.ext:
+Extracting sky130_fd_sc_hd__conb_1 into sky130_fd_sc_hd__conb_1.ext:
+Extracting sky130_fd_sc_hd__or4_4 into sky130_fd_sc_hd__or4_4.ext:
+Extracting sky130_fd_sc_hd__dfxtp_1 into sky130_fd_sc_hd__dfxtp_1.ext:
+Extracting sky130_fd_sc_hd__or4b_2 into sky130_fd_sc_hd__or4b_2.ext:
+Extracting sky130_fd_sc_hd__nor4_1 into sky130_fd_sc_hd__nor4_1.ext:
+Extracting sky130_fd_sc_hd__dfxtp_2 into sky130_fd_sc_hd__dfxtp_2.ext:
+Extracting sky130_fd_sc_hd__a2111o_2 into sky130_fd_sc_hd__a2111o_2.ext:
+Extracting sky130_fd_sc_hd__a22oi_2 into sky130_fd_sc_hd__a22oi_2.ext:
+Extracting sky130_fd_sc_hd__nand2_8 into sky130_fd_sc_hd__nand2_8.ext:
+Extracting sky130_fd_sc_hd__nand4_2 into sky130_fd_sc_hd__nand4_2.ext:
+Extracting sky130_fd_sc_hd__dfxtp_4 into sky130_fd_sc_hd__dfxtp_4.ext:
+Extracting sky130_fd_sc_hd__o22ai_2 into sky130_fd_sc_hd__o22ai_2.ext:
+Extracting sky130_fd_sc_hd__a221o_2 into sky130_fd_sc_hd__a221o_2.ext:
+Extracting sky130_fd_sc_hd__o22ai_4 into sky130_fd_sc_hd__o22ai_4.ext:
+Extracting sky130_fd_sc_hd__o2111ai_4 into sky130_fd_sc_hd__o2111ai_4.ext:
+Extracting sky130_fd_sc_hd__a21bo_4 into sky130_fd_sc_hd__a21bo_4.ext:
+Extracting sky130_fd_sc_hd__or4bb_1 into sky130_fd_sc_hd__or4bb_1.ext:
+Extracting sky130_fd_sc_hd__o32ai_4 into sky130_fd_sc_hd__o32ai_4.ext:
+Extracting sky130_fd_sc_hd__a211o_2 into sky130_fd_sc_hd__a211o_2.ext:
+Extracting sky130_fd_sc_hd__o22a_2 into sky130_fd_sc_hd__o22a_2.ext:
+Extracting sky130_fd_sc_hd__buf_12 into sky130_fd_sc_hd__buf_12.ext:
+Extracting sky130_fd_sc_hd__o211ai_4 into sky130_fd_sc_hd__o211ai_4.ext:
+Extracting sky130_fd_sc_hd__nand3_2 into sky130_fd_sc_hd__nand3_2.ext:
+Extracting sky130_fd_sc_hd__o211a_2 into sky130_fd_sc_hd__o211a_2.ext:
+Extracting sky130_fd_sc_hd__a211o_4 into sky130_fd_sc_hd__a211o_4.ext:
+Extracting secure_asic_top into secure_asic_top.ext:
+exttospice finished.

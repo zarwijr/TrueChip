@@ -1,0 +1,5 @@
+Info (10281): Verilog HDL Declaration information at secure_asic_top.v(165): object "kdf_start" differs only in case from object "KDF_START" in the same scope File: C:/Users/huyle/Desktop/rtl/prj_v1 - Copy/TrueChip/RTL/secure_asic_top.v Line: 165
+Warning (10273): Verilog HDL warning at secure_soc_top.v(29): extended using "x" or "z" File: C:/Users/huyle/Desktop/rtl/prj_v1 - Copy/TrueChip/RTL/secure_soc_top.v Line: 29
+Info (10281): Verilog HDL Declaration information at secure_soc_top.v(211): object "kdf_start" differs only in case from object "KDF_START" in the same scope File: C:/Users/huyle/Desktop/rtl/prj_v1 - Copy/TrueChip/RTL/secure_soc_top.v Line: 211
+Info (10281): Verilog HDL Declaration information at cmd_parser.v(8): object "cmd_get_id" differs only in case from object "CMD_GET_ID" in the same scope File: C:/Users/huyle/Desktop/rtl/prj_v1 - Copy/TrueChip/RTL/cmd_parser.v Line: 8
+Info (10281): Verilog HDL Declaration information at cmd_parser.v(9): object "cmd_challenge" differs only in case from object "CMD_CHALLENGE" in the same scope File: C:/Users/huyle/Desktop/rtl/prj_v1 - Copy/TrueChip/RTL/cmd_parser.v Line: 9

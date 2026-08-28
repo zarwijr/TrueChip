@@ -1,0 +1,9 @@
+1 7 uart_rx 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 131072 0 160 0
+1 7 uart_tx 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 0 0 138 0
+1 10 cmd_parser 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 0 0 381 0
+1 8 chip_rom 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 0 0 8 0
+1 8 aes_sbox 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 131072 0 780 0
+1 6 aes128 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 131072 0 757 0
+1 8 auth_fsm 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 0 0 437 0
+1 15 secure_asic_top 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 0 0 314 0
+1 18 secure_asic_top_tb 4 fast 60 C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Simulation/work 0 0 131072 0 971 0

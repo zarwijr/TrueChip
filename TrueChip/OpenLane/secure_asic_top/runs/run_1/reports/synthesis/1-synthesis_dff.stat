@@ -1,0 +1,27 @@
+
+60. Printing statistics.
+
+=== secure_asic_top ===
+
+   Number of wires:              20391
+   Number of wire bits:          24083
+   Number of public wires:         111
+   Number of public wire bits:    3750
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              23986
+     $_ANDNOT_                    2661
+     $_AND_                        355
+     $_MUX_                      10985
+     $_NAND_                       243
+     $_NOR_                        498
+     $_NOT_                       1136
+     $_ORNOT_                      434
+     $_OR_                        1885
+     $_XNOR_                      1175
+     $_XOR_                       1058
+     sky130_fd_sc_hd__dfrtp_2     2502
+     sky130_fd_sc_hd__dfstp_2       22
+     sky130_fd_sc_hd__dfxtp_2     1032
+

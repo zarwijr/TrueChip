@@ -1,0 +1,8 @@
+
+67. Executing CHECK pass (checking for obvious problems).
+Checking module secure_asic_top...
+Warning: Wire secure_asic_top.\uart_tx_o is used but has no driver.
+Warning: Wire secure_asic_top.\locked_out_o is used but has no driver.
+Warning: Wire secure_asic_top.\key_ready_o is used but has no driver.
+Warning: Wire secure_asic_top.\fifo_overflow_o is used but has no driver.
+Found and reported 4 problems.

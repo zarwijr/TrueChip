@@ -1,0 +1,64 @@
+# ============================================================
+# ro_puf_constraints.qsf (v4)
+#
+# THEM NOI DUNG FILE NAY VAO CUOI TrueChip.qsf (hoac dung
+# "source ro_puf_constraints.qsf" trong TrueChip.qsf).
+#
+# DA KIEM CHUNG BANG LOG QUARTUS PRIME 25.1std.0 THAT (khong phai
+# du doan): voi macro RO_PUF_USE_ASSIGN_FALLBACK o trang thai mac
+# dinh (BAT - dung nhanh 'assign' + (* keep = "true" *), KHONG dung
+# primitive cyclonev_lcell_comb), Analysis & Synthesis + Fitter +
+# Assembler + Timing Analyzer chay SACH LOI (0 errors). Bang chung
+# gian tiep 256 vong dao dong con nguyen ven: cac canh bao
+# "combinational loop" lien quan u_ro_puf|n0~NNN co NNN chay tu 512
+# den 767 - dung 256 gia tri khac nhau, khop NUM_RO=256. => Nhanh
+# fallback (mac dinh) la du dung, KHONG BAT BUOC phai chuyen sang
+# primitive cyclonev_lcell_comb (nhanh do van con trong QSF/RTL nhu
+# mot phuong an du phong nhung chua duoc kiem chung thuc te).
+#
+# THAY DOI SO VOI v3 (dua tren log Quartus that):
+#   - DA XOA "DONT_MERGE" (v2, bi Quartus 25.1 tu choi tren wire) -
+#     xac nhan: (* keep = "true" *) mot minh la DU de giu 256 vong
+#     doc lap qua Analysis & Synthesis, khong can DONT_MERGE.
+#   - false_path cho net to hop ben trong RO (v3) la NO-OP vi ten
+#     net bi Quartus doi ten sau synthesis - DA THAY bang false_path
+#     o muc REGISTER (cnt_r) trong TrueChip.sdc, on dinh hon nhieu.
+#     Xem TrueChip.sdc de biet chi tiet va ly do.
+# ============================================================
+
+# Giu nguyen ban dat (khong cho phep di chuyen/gop synthesis) tung
+# thanh ghi bo dem cua vong dao dong. Assignment nay ap dung cho
+# REGISTER (hop le, khong giong DONT_MERGE tren wire) va van duoc
+# Quartus 25.1 Standard ho tro.
+set_instance_assignment -name PRESERVE_REGISTER ON -to u_ro_puf|gen_cnt[*].cnt_r
+
+# ============================================================
+# SDC lien quan (da sua trong TrueChip.sdc - xem file do de biet
+# ly do): false_path duoc ap o muc thanh ghi cnt_r thay vi net to
+# hop ben trong RO, vi ten register on dinh qua synthesis con ten
+# net to hop thi khong.
+# ============================================================
+
+# ============================================================
+# CHECKLIST XAC NHAN CON LAI (chua the tu lam trong sandbox nay -
+# khong co Quartus/mang; da xac nhan duoc phan "bien dich sach loi"
+# va "256 vong con nguyen ven" tu log ban gui):
+#
+# 1. [DA XAC NHAN tu log] Analysis & Synthesis + Fitter + Assembler
+#    + Timing Analyzer: 0 errors.
+# 2. [DA XAC NHAN GIAN TIEP tu log] 256 vong dao dong doc lap con
+#    nguyen (dem hau to n0~NNN trong canh bao "combinational loop":
+#    512..767 = 256 gia tri). Van nen mo Technology Map Viewer de
+#    xac nhan truc quan neu co thoi gian.
+# 3. Sau khi them 2 dong set_false_path moi vao TrueChip.sdc, bien
+#    dich lai va kiem tra cac dong "ro_enable...without an
+#    associated clock assignment" / "Design is not fully constrained
+#    for setup/hold requirements" co con xuat hien khong.
+# 4. Do thuc te tren >= 2 board Cyclone V khac nhau: xac nhan puf_id
+#    khac nhau giua cac chip (minh chung bat buoc cho tieu chi "muc
+#    do bao mat - co minh chung danh gia" cua de bai cuoc thi). Lap
+#    lai bat nguon vai lan tren CUNG 1 board, kiem tra do on dinh
+#    (bit sai lech giua cac lan bat nguon - anh huong truc tiep den
+#    quyet dinh co can them ECC/majority-voting hay khong, xem gioi
+#    han da neu trong ro_puf.v).
+# ============================================================

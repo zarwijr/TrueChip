@@ -1,0 +1,10 @@
+Warning: Replacing memory \hist_valid with list of registers. See /home/alexis/my_asic_projects/secure_asic_top/src/auth_fsm.v:199
+Warning: Replacing memory \nonce_hist with list of registers. See /home/alexis/my_asic_projects/secure_asic_top/src/auth_fsm.v:198
+Warning: Replacing memory \fifo_nonce with list of registers. See /home/alexis/my_asic_projects/secure_asic_top/src/secure_asic_top.v:132
+Warning: Replacing memory \fifo_type with list of registers. See /home/alexis/my_asic_projects/secure_asic_top/src/secure_asic_top.v:131
+ABC: Warning: Detected 2 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+Warning: Wire secure_asic_top.\uart_tx_o is used but has no driver.
+Warning: Wire secure_asic_top.\locked_out_o is used but has no driver.
+Warning: Wire secure_asic_top.\key_ready_o is used but has no driver.
+Warning: Wire secure_asic_top.\fifo_overflow_o is used but has no driver.
+Warnings: 8 unique messages, 8 total

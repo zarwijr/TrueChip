@@ -1,0 +1,5 @@
+   100/110: $0\packet_error[0:0]
+   101/110: $0\crc_error[0:0]
+Creating register for signal `\cmd_parser.\crc_error' using process `\cmd_parser.$proc$/home/alexis/my_asic_projects/secure_asic_top/src/cmd_parser.v:108$164'.
+Creating register for signal `\cmd_parser.\packet_error' using process `\cmd_parser.$proc$/home/alexis/my_asic_projects/secure_asic_top/src/cmd_parser.v:108$164'.
+ABC: Error: The network is combinational.
