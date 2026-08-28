@@ -9,15 +9,16 @@ incremental_db/
 .tmp.driveupload/
 
 
-# Python bytecode cache
-__pycache__/
-*.py[cod]
-*$py.class
+# Quét đệ quy toàn bộ thư mục cache
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
 
-# Môi trường ảo Python
-.venv/
-venv/
-ENV/
+# Môi trường ảo
+**/.venv/
+**/venv/
 
-# File tạm và cấu hình môi trường
-.env
+# File tạm
+**/.DS_Store
+**/db/
+**/incremental_db/
