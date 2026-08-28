@@ -21,7 +21,6 @@
 
     <!-- Control Panel -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Connection Card -->
       <div class="bg-slate-800 p-4 rounded border border-slate-700 space-y-3">
         <h2 class="text-sm font-semibold text-slate-300 uppercase">Cấu hình UART</h2>
         <div class="flex gap-2">
@@ -34,7 +33,6 @@
         </div>
       </div>
 
-      <!-- Actions Card -->
       <div class="bg-slate-800 p-4 rounded border border-slate-700 space-y-3">
         <h2 class="text-sm font-semibold text-slate-300 uppercase">Kịch bản Test</h2>
         <div class="flex gap-2">
@@ -87,37 +85,43 @@
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    // Helper đổi Bytes <-> Hex
-    function hexToBytes(hex) {
-      const bytes = new Uint8Array(hex.length / 2);
-      for (let i = 0; i < bytes.length; i++) {
-        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
-      }
-      return bytes;
-    }
-
     function bytesToHex(bytes) {
       return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
     }
 
-    // Đọc số lượng byte cố định từ UART
-    async function readExactBytes(length, timeoutMs = 2000) {
+    // Đọc chính xác N byte từ cổng Serial kèm timeout
+    async function readExactBytes(length, timeoutMs = 3000) {
       const buffer = new Uint8Array(length);
       let offset = 0;
-      const startTime = Date.now();
+      const start = Date.now();
 
       while (offset < length) {
-        if (Date.now() - startTime > timeoutMs) {
-          throw new Error("Timeout khi đọc phản hồi từ FPGA");
+        if (Date.now() - start > timeoutMs) {
+          throw new Error(`Timeout: chỉ nhận được ${offset}/${length} bytes.`);
         }
         const { value, done } = await reader.read();
         if (done) break;
         if (value) {
-          buffer.set(value.subarray(0, length - offset), offset);
-          offset += value.length;
+          const needed = length - offset;
+          const chunk = value.subarray(0, needed);
+          buffer.set(chunk, offset);
+          offset += chunk.length;
         }
       }
       return buffer;
+    }
+
+    // Xả sạch rác trong buffer nhận trước khi gửi lệnh mới
+    async function flushInputBuffer() {
+      try {
+        while (true) {
+          const { value, done } = await Promise.race([
+            reader.read(),
+            new Promise(res => setTimeout(() => res({ value: null, done: false }), 50))
+          ]);
+          if (!value || done) break;
+        }
+      } catch (e) {}
     }
 
     // Kết nối UART
@@ -135,9 +139,9 @@
         document.getElementById("btn-disconnect").disabled = false;
         document.getElementById("btn-test-auth").disabled = false;
 
-        appendLog("Đã kết nối thành công tới FPGA qua cổng COM.", "success");
+        appendLog("Đã mở cổng COM thành công.", "success");
       } catch (err) {
-        appendLog(`Lỗi mở cổng: ${err.message}`, "error");
+        appendLog(`Không thể mở cổng COM: ${err.message}`, "error");
       }
     });
 
@@ -154,43 +158,47 @@
         document.getElementById("btn-disconnect").disabled = true;
         document.getElementById("btn-test-auth").disabled = true;
 
-        appendLog("Đã đóng kết nối UART.", "warn");
+        appendLog("Đã ngắt kết nối cổng COM.", "warn");
       } catch (err) {
-        appendLog(`Lỗi khi ngắt kết nối: ${err.message}`, "error");
+        appendLog(`Lỗi khi đóng cổng: ${err.message}`, "error");
       }
     });
 
-    // Quy trình Xác thực Chip
+    // Kích hoạt chu trình xác thực
     document.getElementById("btn-test-auth").addEventListener("click", async () => {
       try {
         appendLog("--- Bắt đầu chu trình xác thực ---");
+        await flushInputBuffer();
 
         // 1. Gửi lệnh GET_ID (0x01)
         appendLog("Đang gửi lệnh GET_ID (0x01)...");
         await writer.write(new Uint8Array([0x01]));
         const uidBytes = await readExactBytes(16);
         const uidHex = bytesToHex(uidBytes);
-        appendLog(`Đã nhận UID từ Chip: ${uidHex}`, "info");
+        appendLog(`UID phản hồi từ FPGA: ${uidHex}`, "info");
 
-        // 2. Sinh Nonce ngẫu nhiên 16 bytes
+        // Đợi 100ms giữa các frame UART
+        await new Promise(r => setTimeout(r, 100));
+
+        // 2. Sinh Nonce 16 bytes ngẫu nhiên
         const nonceBytes = new Uint8Array(16);
         window.crypto.getRandomValues(nonceBytes);
         const nonceHex = bytesToHex(nonceBytes);
-        appendLog(`Nonce sinh ngẫu nhiên: ${nonceHex}`);
+        appendLog(`Nonce ngẫu nhiên: ${nonceHex}`);
 
         // 3. Gửi lệnh CHALLENGE (0x02 + 16 bytes Nonce)
-        const challengePacket = new Uint8Array(17);
-        challengePacket[0] = 0x02;
-        challengePacket.set(nonceBytes, 1);
-        await writer.write(challengePacket);
+        const frame = new Uint8Array(17);
+        frame[0] = 0x02;
+        frame.set(nonceBytes, 1);
+        await writer.write(frame);
 
-        // Đọc 16 bytes AES Response từ FPGA
+        // Đọc 16 bytes AES ciphertext
         const respBytes = await readExactBytes(16);
         const respHex = bytesToHex(respBytes);
-        appendLog(`Đã nhận AES Response từ FPGA: ${respHex}`);
+        appendLog(`AES Response từ FPGA: ${respHex}`);
 
-        // 4. Gửi lên Render Cloud Server để kiểm tra
-        appendLog("Đang gửi dữ liệu lên Cloud Server để xác thực...");
+        // 4. Gửi lên Cloud Server
+        appendLog("Gửi payload lên Cloud Server xác thực...");
         const res = await fetch(SERVER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -209,15 +217,15 @@
           badge.textContent = "AUTHENTIC / HÀNG THẬT";
           document.getElementById("res-product").textContent = data.product || "TrueChip v7.2 FPGA Demo";
           document.getElementById("res-mfg").textContent = data.manufacturer || "Huy Le Corp";
-          document.getElementById("res-date").textContent = data.pack_date || new Date().toLocaleDateString("vi-VN");
-          appendLog("KẾT QUẢ: Xác thực AUTHENTIC thành công!", "success");
+          document.getElementById("res-date").textContent = data.pack_date || "28/08/2026";
+          appendLog("KẾT QUẢ: AUTHENTIC / HÀNG THẬT", "success");
         } else {
           badge.className = "px-3 py-1 rounded text-sm font-bold bg-rose-500/20 text-rose-300 border border-rose-500";
-          badge.textContent = "FAKE / KHÔNG HỢP LỆ";
-          document.getElementById("res-product").textContent = "N/A";
-          document.getElementById("res-mfg").textContent = "N/A";
+          badge.textContent = "FAKE / TỪ CHỐI";
+          document.getElementById("res-product").textContent = "Không xác định";
+          document.getElementById("res-mfg").textContent = "Không xác định";
           document.getElementById("res-date").textContent = "N/A";
-          appendLog(`KẾT QUẢ: Từ chối xác thực (${data.message || 'Lệch mã hóa'})`, "error");
+          appendLog(`KẾT QUẢ: ${data.message || 'Lệch mã hóa AES'}`, "error");
         }
 
       } catch (err) {
