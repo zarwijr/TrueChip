@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueChip Hardware Authenticator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-mono">
+  <div class="max-w-4xl mx-auto space-y-6">
+    <!-- Header -->
+    <header class="border-b border-slate-700 pb-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold text-emerald-400">TRUECHIP AUTHENTICATOR</h1>
+        <p class="text-sm text-slate-400">Web Serial API Direct Hardware Verification</p>
+      </div>
+      <div id="conn-status" class="px-3 py-1 rounded text-xs bg-rose-950 text-rose-300 border border-rose-800">
+        UART Disconnected
+      </div>
+    </header>
+
+    <!-- Control Panel -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Connection Card -->
+      <div class="bg-slate-800 p-4 rounded border border-slate-700 space-y-3">
+        <h2 class="text-sm font-semibold text-slate-300 uppercase">Cấu hình UART</h2>
+        <div class="flex gap-2">
+          <button id="btn-connect" class="flex-1 bg-blue-600 hover:bg-blue-500 py-2 rounded text-sm font-bold transition">
+            Kết Nối Cổng COM
+          </button>
+          <button id="btn-disconnect" disabled class="bg-slate-700 disabled:opacity-50 py-2 px-4 rounded text-sm transition">
+            Ngắt
+          </button>
+        </div>
+      </div>
+
+      <!-- Actions Card -->
+      <div class="bg-slate-800 p-4 rounded border border-slate-700 space-y-3">
+        <h2 class="text-sm font-semibold text-slate-300 uppercase">Kịch bản Test</h2>
+        <div class="flex gap-2">
+          <button id="btn-test-auth" disabled class="flex-1 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 py-2 rounded text-sm font-bold transition">
+            Quét Xác Thực Chip
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verification Result -->
+    <div id="result-box" class="hidden bg-slate-800 p-5 rounded border border-slate-700 space-y-3">
+      <div class="flex justify-between items-center">
+        <h2 class="text-sm font-semibold text-slate-300 uppercase">Kết Quả Xác Thực</h2>
+        <span id="badge-status" class="px-3 py-1 rounded text-sm font-bold"></span>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-sm bg-slate-900 p-3 rounded border border-slate-800">
+        <div><span class="text-slate-400">UID:</span> <span id="res-uid" class="text-yellow-400"></span></div>
+        <div><span class="text-slate-400">Sản phẩm:</span> <span id="res-product" class="text-slate-200"></span></div>
+        <div><span class="text-slate-400">Nhà sản xuất:</span> <span id="res-mfg" class="text-slate-200"></span></div>
+        <div><span class="text-slate-400">Ngày đóng gói:</span> <span id="res-date" class="text-slate-200"></span></div>
+      </div>
+    </div>
+
+    <!-- Console Log -->
+    <div class="bg-slate-950 p-4 rounded border border-slate-800 space-y-2">
+      <div class="flex justify-between text-xs text-slate-400">
+        <span>LOG GIAO TIẾP PHẦN CỨNG & CLOUD</span>
+        <button id="btn-clear-log" class="hover:text-slate-200">Xóa log</button>
+      </div>
+      <div id="terminal-log" class="h-48 overflow-y-auto text-xs space-y-1 text-slate-300"></div>
+    </div>
+  </div>
+
+  <script>
+    const SERVER_URL = "https://truechip-server.onrender.com/verify";
+    let port, reader, writer;
+
+    const logEl = document.getElementById("terminal-log");
+    function appendLog(msg, type = "info") {
+      const line = document.createElement("div");
+      const time = new Date().toLocaleTimeString();
+      let color = "text-slate-300";
+      if (type === "success") color = "text-emerald-400";
+      if (type === "error") color = "text-rose-400";
+      if (type === "warn") color = "text-yellow-400";
+      line.className = color;
+      line.textContent = `[${time}] ${msg}`;
+      logEl.appendChild(line);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    // Helper đổi Bytes <-> Hex
+    function hexToBytes(hex) {
+      const bytes = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+      }
+      return bytes;
+    }
+
+    function bytesToHex(bytes) {
+      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+
+    // Đọc số lượng byte cố định từ UART
+    async function readExactBytes(length, timeoutMs = 2000) {
+      const buffer = new Uint8Array(length);
+      let offset = 0;
+      const startTime = Date.now();
+
+      while (offset < length) {
+        if (Date.now() - startTime > timeoutMs) {
+          throw new Error("Timeout khi đọc phản hồi từ FPGA");
+        }
+        const { value, done } = await reader.read();
+        if (done) break;
+        if (value) {
+          buffer.set(value.subarray(0, length - offset), offset);
+          offset += value.length;
+        }
+      }
+      return buffer;
+    }
+
+    // Kết nối UART
+    document.getElementById("btn-connect").addEventListener("click", async () => {
+      try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 115200 });
+
+        writer = port.writable.getWriter();
+        reader = port.readable.getReader();
+
+        document.getElementById("conn-status").className = "px-3 py-1 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800";
+        document.getElementById("conn-status").textContent = "UART Connected @ 115200";
+        document.getElementById("btn-connect").disabled = true;
+        document.getElementById("btn-disconnect").disabled = false;
+        document.getElementById("btn-test-auth").disabled = false;
+
+        appendLog("Đã kết nối thành công tới FPGA qua cổng COM.", "success");
+      } catch (err) {
+        appendLog(`Lỗi mở cổng: ${err.message}`, "error");
+      }
+    });
+
+    // Ngắt kết nối UART
+    document.getElementById("btn-disconnect").addEventListener("click", async () => {
+      try {
+        if (reader) { await reader.cancel(); reader.releaseLock(); }
+        if (writer) { writer.releaseLock(); }
+        if (port) { await port.close(); }
+
+        document.getElementById("conn-status").className = "px-3 py-1 rounded text-xs bg-rose-950 text-rose-300 border border-rose-800";
+        document.getElementById("conn-status").textContent = "UART Disconnected";
+        document.getElementById("btn-connect").disabled = false;
+        document.getElementById("btn-disconnect").disabled = true;
+        document.getElementById("btn-test-auth").disabled = true;
+
+        appendLog("Đã đóng kết nối UART.", "warn");
+      } catch (err) {
+        appendLog(`Lỗi khi ngắt kết nối: ${err.message}`, "error");
+      }
+    });
+
+    // Quy trình Xác thực Chip
+    document.getElementById("btn-test-auth").addEventListener("click", async () => {
+      try {
+        appendLog("--- Bắt đầu chu trình xác thực ---");
+
+        // 1. Gửi lệnh GET_ID (0x01)
+        appendLog("Đang gửi lệnh GET_ID (0x01)...");
+        await writer.write(new Uint8Array([0x01]));
+        const uidBytes = await readExactBytes(16);
+        const uidHex = bytesToHex(uidBytes);
+        appendLog(`Đã nhận UID từ Chip: ${uidHex}`, "info");
+
+        // 2. Sinh Nonce ngẫu nhiên 16 bytes
+        const nonceBytes = new Uint8Array(16);
+        window.crypto.getRandomValues(nonceBytes);
+        const nonceHex = bytesToHex(nonceBytes);
+        appendLog(`Nonce sinh ngẫu nhiên: ${nonceHex}`);
+
+        // 3. Gửi lệnh CHALLENGE (0x02 + 16 bytes Nonce)
+        const challengePacket = new Uint8Array(17);
+        challengePacket[0] = 0x02;
+        challengePacket.set(nonceBytes, 1);
+        await writer.write(challengePacket);
+
+        // Đọc 16 bytes AES Response từ FPGA
+        const respBytes = await readExactBytes(16);
+        const respHex = bytesToHex(respBytes);
+        appendLog(`Đã nhận AES Response từ FPGA: ${respHex}`);
+
+        // 4. Gửi lên Render Cloud Server để kiểm tra
+        appendLog("Đang gửi dữ liệu lên Cloud Server để xác thực...");
+        const res = await fetch(SERVER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ uid: uidHex, nonce: nonceHex, response: respHex })
+        });
+
+        const data = await res.json();
+        const resultBox = document.getElementById("result-box");
+        const badge = document.getElementById("badge-status");
+
+        resultBox.classList.remove("hidden");
+        document.getElementById("res-uid").textContent = uidHex;
+
+        if (data.status === "authentic" || data.authentic === true || data.valid === true) {
+          badge.className = "px-3 py-1 rounded text-sm font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500";
+          badge.textContent = "AUTHENTIC / HÀNG THẬT";
+          document.getElementById("res-product").textContent = data.product || "TrueChip v7.2 FPGA Demo";
+          document.getElementById("res-mfg").textContent = data.manufacturer || "Huy Le Corp";
+          document.getElementById("res-date").textContent = data.pack_date || new Date().toLocaleDateString("vi-VN");
+          appendLog("KẾT QUẢ: Xác thực AUTHENTIC thành công!", "success");
+        } else {
+          badge.className = "px-3 py-1 rounded text-sm font-bold bg-rose-500/20 text-rose-300 border border-rose-500";
+          badge.textContent = "FAKE / KHÔNG HỢP LỆ";
+          document.getElementById("res-product").textContent = "N/A";
+          document.getElementById("res-mfg").textContent = "N/A";
+          document.getElementById("res-date").textContent = "N/A";
+          appendLog(`KẾT QUẢ: Từ chối xác thực (${data.message || 'Lệch mã hóa'})`, "error");
+        }
+
+      } catch (err) {
+        appendLog(`Lỗi thực thi: ${err.message}`, "error");
+      }
+    });
+
+    document.getElementById("btn-clear-log").addEventListener("click", () => {
+      logEl.innerHTML = "";
+    });
+  </script>
+</body>
+</html>

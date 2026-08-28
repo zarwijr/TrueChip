@@ -12,6 +12,7 @@ from typing import Any, Dict, Optional, Tuple
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import hmac
 
 # Trỏ đường dẫn đến thư mục common
@@ -27,6 +28,7 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 NONCE_TTL_SECONDS = int(os.environ.get("SECURE_CHIP_NONCE_TTL_SECONDS", str(7 * 24 * 60 * 60)))
 
 app = Flask(__name__)
+CORS(app)
 
 @contextmanager
 def db_conn():
