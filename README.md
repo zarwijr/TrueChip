@@ -1,128 +1,79 @@
 # TrueChip
-"Hàng thật, giá trị thật"
-# TrueChip - Hướng Dẫn Cài Đặt và Chạy Dự Án
 
-Dự án **TrueChip** là một repo trên GitHub tại địa chỉ: `https://github.com/zarwijr/TrueChip`.
+TrueChip là nguyên mẫu xác thực phần cứng dùng FPGA, UART và AES-128. Mục
+tiêu của dự án là chứng minh một chip có thể tự nhận dạng, trả lời một thử
+thách ngẫu nhiên và để cloud server kiểm tra chip thật hay giả.
 
-Tài liệu này hướng dẫn chi tiết từng bước để clone, thiết lập môi trường, cài đặt thư viện phụ thuộc và vận hành dự án **TrueChip** trên máy tính cá nhân.
+## TrueChip hoạt động như thế nào?
 
----
+1. Máy tính gửi khung Protocol V2 qua UART tới FPGA.
+2. FPGA trả về UID 128-bit công khai.
+3. Máy tính gửi nonce 128-bit ngẫu nhiên.
+4. FPGA tạo phản hồi AES-128 từ khóa bí mật của chip, nonce và UID.
+5. Verification server tính lại phản hồi và trả về thông tin chip.
 
-## 📋 1. Yêu Cầu Hệ Thống & Tiền Đề
+Giao tiếp hiện tại dùng UART 115200 baud, 8N1. NFC/RFID là hướng phát triển
+tương lai, chưa phải chức năng của bản hiện tại.
 
-Trước khi bắt đầu, hãy đảm bảo máy tính của bạn đã được cài đặt các công cụ sau:
-
-- **Git**: Dùng để tải mã nguồn về máy. ([Tải Git](https://git-scm.com/))
-- **Python**: Phiên bản 3.8 trở lên (khuyến nghị Python 3.10 hoặc 3.11). ([Tải Python](https://www.python.org/))
-- **Pip / Virtualenv**: Trình quản lý gói và môi trường ảo của Python.
-- **Node.js & NPM** *(Nếu dự án có phần Frontend)*: Phiên bản LTS mới nhất. ([Tải Node.js](https://nodejs.org/))
-
----
-
-## 🚀 2. Hướng Dẫn Cài Đặt & Chạy Dự Án (Từng Bước)
-
-### Bước 1: Clone Repository về máy
-Mở Terminal (Linux/macOS) hoặc PowerShell / Command Prompt (Windows) và chạy lệnh:
-
-```bash
-git clone https://github.com/zarwijr/TrueChip.git
-cd TrueChip
-```
-
-### Bước 2: Tạo và kích hoạt Môi trường ảo Python (Virtual Environment)
-Đề xuất sử dụng môi trường ảo để tránh xung đột thư viện với hệ thống:
-
-- **Trên Windows:**
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate
-  ```
-
-- **Trên macOS / Linux:**
-  ```bash
-  python3 -m venv venv
-  source venv/bin/activate
-  ```
-
-### Bước 3: Cài đặt các thư viện phụ thuộc (Dependencies)
-Kiểm tra danh sách các thư viện yêu cầu trong dự án và tiến hành cài đặt:
-
-```bash
-# Cài đặt các gói Python
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-*(Lưu ý: Nếu dự án có tệp `setup.py` hoặc `pyproject.toml`, bạn có thể cài đặt bằng lệnh `pip install -e .`)*
-
-### Bước 4: Cấu hình biến môi trường (Environment Variables)
-Nếu dự án có tệp `.env.example`, hãy tạo một bản sao tên là `.env` và điền các giá trị cấu hình cần thiết:
-
-```bash
-# Trên Linux/macOS:
-cp .env.example .env
-
-# Trên Windows (PowerShell):
-copy .env.example .env
-```
-
-Chỉnh sửa tệp `.env` để thêm các API key, đường dẫn cơ sở dữ liệu hoặc thông số cấu hình nếu dự án yêu cầu.
-
-### Bước 5: Chạy ứng dụng
-
-Tùy thuộc vào loại hình ứng dụng của TrueChip:
-
-- **Chạy script Python chính:**
-  ```bash
-  python main.py
-  # hoặc
-  python app.py
-  ```
-
-- **Chạy ứng dụng Web (Streamlit / Gradio / Flask / FastAPI):**
-  ```bash
-  # Nếu dùng Streamlit:
-  streamlit run app.py
-
-  # Nếu dùng FastAPI / Uvicorn:
-  uvicorn main:app --reload
-  ```
-
----
-
-## 📂 3. Cấu Trúc Mã Nguồn Dự Kiến
+## Các thành phần chính
 
 ```text
 TrueChip/
-├── data/               # Thư mục chứa dữ liệu đầu vào / đầu ra
-├── src/                # Mã nguồn chính của dự án
-│   ├── __init__.py
-│   ├── utils.py        # Các hàm tiện ích
-│   └── model.py        # Mã xử lý logic / mô hình
-├── main.py             # Điểm chạy chính của ứng dụng
-├── requirements.txt    # Danh sách các thư viện Python
-├── .env.example        # Mẫu tệp cấu hình biến môi trường
-└── README.md           # Tệp hướng dẫn sử dụng
+├── RTL/                         # AES, UART, Protocol V2, auth FSM, RO-PUF
+├── Quartus/                     # Dự án và ràng buộc FPGA Intel
+├── Simulation/                  # Testbench và regression RTL
+├── OpenLane/secure_asic_top/    # Luồng hardening digital RTL trên SKY130
+├── secure_chip_web/
+│   ├── index.html               # Web Serial frontend
+│   ├── client/chip_tester.py    # Python tester qua COM/UART
+│   ├── factory_tool.py          # Cấp phát chip vào PostgreSQL
+│   └── server/mock_server.py    # Flask verification server
+├── test/                        # Kiểm thử UART trên board thật
+└── docs/                        # Tài liệu yêu cầu và kiến trúc
 ```
 
----
+## Bắt đầu nhanh
 
-## 🛠️ 4. Xử Lý Lỗi Thường Gặp (Troubleshooting)
+Đọc [hướng dẫn sử dụng](TrueChip/HUONG_DAN_SU_DUNG.md) để cài thư viện,
+cấp phát chip, chạy Python tester, chạy web trên GitHub Pages và xử lý lỗi
+COM3.
 
-1. **Lỗi `ModuleNotFoundError`**:
-   - Nguyên nhân: Chưa cài đặt đủ gói thư viện hoặc chưa kích hoạt môi trường ảo `venv`.
-   - Khắc phục: Chạy lại `pip install -r requirements.txt` sau khi đảm bảo `venv` đang hoạt động.
+Tài liệu kỹ thuật chi tiết nằm tại [TrueChip/readme.md](TrueChip/readme.md),
+bao gồm Protocol V2, phạm vi chứng minh của FPGA, kế hoạch kiểm thử và các
+giới hạn của RO-PUF.
 
-2. **Lỗi phiên bản Python không tương thích**:
-   - Kiểm tra phiên bản hiện tại bằng lệnh `python --version`.
-   - Nếu dự án yêu cầu phiên bản cụ thể, hãy cân nhắc dùng `pyenv` hoặc Anaconda để quản lý phiên bản Python.
+## Web online
 
-3. **Lỗi thiếu API Key / Config**:
-   - Kiểm tra xem tệp `.env` đã được tạo đúng vị trí thư mục gốc và cung cấp đủ thông tin cấu hình chưa.
+Frontend có thể chạy tại:
 
----
+<https://zarwijr.github.io/TrueChip/>
 
-## 📝 5. Đóng Góp & Giấy Phép
+Web Serial chỉ hoạt động trong Chrome hoặc Edge trên HTTPS và chỉ truy cập
+được cổng COM trên chính máy đang mở trình duyệt. Server cloud không thể tự
+truy cập COM3 từ xa.
 
-- Repository: [zarwijr/TrueChip](https://github.com/zarwijr/TrueChip)
-- Giấy phép: MIT License (hoặc theo khai báo trong repo).
+Workflow GitHub Pages nằm tại
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml). Mỗi lần push lên
+nhánh `main`, GitHub Actions sẽ đóng gói `TrueChip/secure_chip_web/index.html`
+và triển khai frontend.
+
+## Phạm vi hiện tại
+
+- FPGA authentication prototype dùng AES-128 và UART.
+- Verification server Flask/PostgreSQL xác thực UID, response và nonce đã dùng.
+- Có kiểm soát replay, rate limit và lockout ở tầng giao thức.
+- ASIC flow tập trung vào digital AES/UART core trên SKY130; RO-PUF là phần
+  thử nghiệm hướng FPGA.
+- Chi phí thương mại dưới 1 USD/chip là mục tiêu dài hạn, chưa phải kết quả
+  đã được chứng minh bởi bản RTL hoặc layout hiện tại.
+
+## Bảo mật
+
+Không commit mật khẩu PostgreSQL, secret key, file `.env` hoặc token GitHub vào
+repository. Biến môi trường dùng cho database phải được cấu hình trên máy
+factory hoặc trong phần Environment của Render. Nếu credential database đã bị
+đăng công khai, cần rotate credential trước khi dùng thật.
+
+## License
+
+Xem license và các tài liệu kỹ thuật hiện có trong repository.
