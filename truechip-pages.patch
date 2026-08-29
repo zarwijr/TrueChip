@@ -1,0 +1,535 @@
+From ba4a65c06ada3a896cf09a7dde8c7750833aa05f Mon Sep 17 00:00:00 2001
+From: Codex <codex@openai.com>
+Date: Fri, 28 Aug 2026 18:09:47 -0700
+Subject: [PATCH] Fix web serial authentication and deploy to GitHub Pages
+
+---
+ .github/workflows/pages.yml         |  49 ++++
+ .gitignore                          |  15 +-
+ TrueChip/secure_chip_web/index.html | 375 ++++++++++++++++++++--------
+ 3 files changed, 331 insertions(+), 108 deletions(-)
+ create mode 100644 .github/workflows/pages.yml
+
+diff --git a/.github/workflows/pages.yml b/.github/workflows/pages.yml
+new file mode 100644
+index 0000000..0b10ac0
+--- /dev/null
++++ b/.github/workflows/pages.yml
+@@ -0,0 +1,49 @@
++name: Deploy TrueChip web to GitHub Pages
++
++on:
++  push:
++    branches: [main]
++  workflow_dispatch:
++
++permissions:
++  contents: read
++  pages: write
++  id-token: write
++
++concurrency:
++  group: pages
++  cancel-in-progress: true
++
++jobs:
++  deploy:
++    environment:
++      name: github-pages
++      url: ${{ steps.deployment.outputs.page_url }}
++    runs-on: ubuntu-latest
++    steps:
++      - name: Checkout only the web entry point
++        uses: actions/checkout@v4
++        with:
++          fetch-depth: 1
++          filter: blob:none
++          sparse-checkout: |
++            TrueChip/secure_chip_web/index.html
++          sparse-checkout-cone-mode: false
++
++      - name: Configure GitHub Pages
++        uses: actions/configure-pages@v5
++
++      - name: Prepare static site
++        run: |
++          mkdir -p _site
++          cp TrueChip/secure_chip_web/index.html _site/index.html
++          touch _site/.nojekyll
++
++      - name: Upload Pages artifact
++        uses: actions/upload-pages-artifact@v3
++        with:
++          path: _site
++
++      - name: Deploy to GitHub Pages
++        id: deployment
++        uses: actions/deploy-pages@v4
+diff --git a/.gitignore b/.gitignore
+index 46d16a9..3df35cc 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -18,7 +18,20 @@ incremental_db/
+ **/.venv/
+ **/venv/
+ 
++# Local secrets and deployment staging
++**/.env
++**/.env.*
++!**/.env.example
++_site/
++
+ # File táº¡m
+ **/.DS_Store
+ **/db/
+-**/incremental_db/
+\ No newline at end of file
++**/incremental_db/
++
++# Generated FPGA/ASIC build artifacts (existing tracked files are preserved)
++**/Simulation/work/
++**/Simulation/*.vcd
++**/Simulation/*.wlf
++**/runs/
++**/output_files/
+diff --git a/TrueChip/secure_chip_web/index.html b/TrueChip/secure_chip_web/index.html
+index e97cd82..d1d3366 100644
+--- a/TrueChip/secure_chip_web/index.html
++++ b/TrueChip/secure_chip_web/index.html
+@@ -69,146 +69,293 @@
+ 
+   <script>
+     const SERVER_URL = "https://truechip-server.onrender.com/verify";
+-    let port, reader, writer;
++    const MAGIC = 0xA5;
++    const VERSION = 0x01;
++    const CMD_GET_ID = 0x01;
++    const CMD_CHALLENGE = 0x02;
++    const STATUS_OK = 0x00;
+ 
++    let port = null;
++    let reader = null;
++    let readerTask = null;
++    let rxBuffer = new Uint8Array(0);
++    let connecting = false;
++    let authenticating = false;
++    let disconnecting = false;
++
++    const connectBtn = document.getElementById("btn-connect");
++    const disconnectBtn = document.getElementById("btn-disconnect");
++    const testBtn = document.getElementById("btn-test-auth");
++    const statusEl = document.getElementById("conn-status");
+     const logEl = document.getElementById("terminal-log");
++
+     function appendLog(msg, type = "info") {
+       const line = document.createElement("div");
+       const time = new Date().toLocaleTimeString();
+-      let color = "text-slate-300";
+-      if (type === "success") color = "text-emerald-400";
+-      if (type === "error") color = "text-rose-400";
+-      if (type === "warn") color = "text-yellow-400";
+-      line.className = color;
++      const colors = {
++        info: "text-slate-300",
++        success: "text-emerald-400",
++        error: "text-rose-400",
++        warn: "text-yellow-400"
++      };
++      line.className = colors[type] || colors.info;
+       line.textContent = `[${time}] ${msg}`;
+       logEl.appendChild(line);
+       logEl.scrollTop = logEl.scrollHeight;
+     }
+ 
++    function delay(ms) {
++      return new Promise(resolve => setTimeout(resolve, ms));
++    }
++
+     function bytesToHex(bytes) {
+-      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
++      return Array.from(bytes)
++        .map(byte => byte.toString(16).padStart(2, "0"))
++        .join("")
++        .toUpperCase();
+     }
+ 
+-    // Äá»c chÃ­nh xÃ¡c N byte tá»« cá»•ng Serial kÃ¨m timeout
+-    async function readExactBytes(length, timeoutMs = 3000) {
+-      const buffer = new Uint8Array(length);
+-      let offset = 0;
+-      const start = Date.now();
++    function concatBytes(a, b) {
++      const result = new Uint8Array(a.length + b.length);
++      result.set(a);
++      result.set(b, a.length);
++      return result;
++    }
+ 
+-      while (offset < length) {
+-        if (Date.now() - start > timeoutMs) {
+-          throw new Error(`Timeout: chá»‰ nháº­n Ä‘Æ°á»£c ${offset}/${length} bytes.`);
++    function crc16Ccitt(bytes) {
++      let crc = 0xFFFF;
++      for (const byte of bytes) {
++        crc ^= byte << 8;
++        for (let bit = 0; bit < 8; bit += 1) {
++          crc = (crc & 0x8000)
++            ? ((crc << 1) ^ 0x1021) & 0xFFFF
++            : (crc << 1) & 0xFFFF;
+         }
+-        const { value, done } = await reader.read();
+-        if (done) break;
+-        if (value) {
+-          const needed = length - offset;
+-          const chunk = value.subarray(0, needed);
+-          buffer.set(chunk, offset);
+-          offset += chunk.length;
++      }
++      return crc;
++    }
++
++    // Protocol V2: A5 | VER | CMD | LEN | PAYLOAD | CRC_H | CRC_L.
++    function buildRequest(command, payload = new Uint8Array(0)) {
++      const body = new Uint8Array(3 + payload.length);
++      body[0] = VERSION;
++      body[1] = command;
++      body[2] = payload.length;
++      body.set(payload, 3);
++
++      const crc = crc16Ccitt(body);
++      const frame = new Uint8Array(1 + body.length + 2);
++      frame[0] = MAGIC;
++      frame.set(body, 1);
++      frame[frame.length - 2] = (crc >> 8) & 0xFF;
++      frame[frame.length - 1] = crc & 0xFF;
++      return frame;
++    }
++
++    function isQuietPortError(error) {
++      const name = error?.name || "";
++      const message = String(error?.message || error || "").toLowerCase();
++      return [
++        "notfounderror",
++        "invalidstateerror",
++        "networkerror",
++        "failed to open serial port",
++        "device does not exist",
++        "already open",
++        "access is denied",
++        "resource busy"
++      ].some(value => name.toLowerCase() === value || message.includes(value));
++    }
++
++    function setStatus(connected) {
++      if (connected) {
++        statusEl.className = "px-3 py-1 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800";
++        statusEl.textContent = "UART Connected @ 115200";
++      } else {
++        statusEl.className = "px-3 py-1 rounded text-xs bg-rose-950 text-rose-300 border border-rose-800";
++        statusEl.textContent = "UART Disconnected";
++      }
++    }
++
++    function updateButtons() {
++      connectBtn.disabled = connecting || authenticating || Boolean(port);
++      disconnectBtn.disabled = !port || connecting || authenticating;
++      testBtn.disabled = !port || connecting || authenticating;
++    }
++
++    async function openPortWithRetry() {
++      let lastError;
++      for (let attempt = 0; attempt < 2; attempt += 1) {
++        try {
++          await port.open({ baudRate: 115200, dataBits: 8, stopBits: 1, parity: "none", flowControl: "none" });
++          return;
++        } catch (error) {
++          lastError = error;
++          if (!isQuietPortError(error) || attempt === 1) throw error;
++          await delay(350);
+         }
+       }
+-      return buffer;
++      throw lastError || new Error("KhÃ´ng thá»ƒ má»Ÿ cá»•ng UART.");
+     }
+ 
+-    // Xáº£ sáº¡ch rÃ¡c trong buffer nháº­n trÆ°á»›c khi gá»­i lá»‡nh má»›i
+-    async function flushInputBuffer() {
+-      try {
+-        while (true) {
+-          const { value, done } = await Promise.race([
+-            reader.read(),
+-            new Promise(res => setTimeout(() => res({ value: null, done: false }), 50))
+-          ]);
+-          if (!value || done) break;
++    async function closePortSilently() {
++      disconnecting = true;
++      if (reader) {
++        try { await reader.cancel(); } catch (_) {}
++      }
++      if (readerTask) {
++        try { await readerTask; } catch (_) {}
++      }
++      if (reader) {
++        try { reader.releaseLock(); } catch (_) {}
++      }
++      reader = null;
++      readerTask = null;
++      if (port) {
++        try { await port.close(); } catch (_) {}
++      }
++      port = null;
++      rxBuffer = new Uint8Array(0);
++      disconnecting = false;
++    }
++
++    function startReaderLoop() {
++      reader = port.readable.getReader();
++      readerTask = (async () => {
++        try {
++          while (!disconnecting) {
++            const { value, done } = await reader.read();
++            if (done) break;
++            if (value?.length) rxBuffer = concatBytes(rxBuffer, value);
++          }
++        } catch (error) {
++          if (!disconnecting && !isQuietPortError(error)) {
++            appendLog(`Lá»—i Ä‘á»c UART: ${error.message}`, "error");
++          }
+         }
+-      } catch (e) {}
++      })();
+     }
+ 
+-    // Káº¿t ná»‘i UART
+-    document.getElementById("btn-connect").addEventListener("click", async () => {
++    // Má»—i láº§n ghi tá»± láº¥y vÃ  nháº£ writer; khÃ´ng giá»¯ writer sau khi xÃ¡c thá»±c.
++    async function writeFrame(frame) {
++      if (!port?.writable) throw new Error("Cá»•ng UART chÆ°a sáºµn sÃ ng Ä‘á»ƒ ghi.");
++      const frameWriter = port.writable.getWriter();
+       try {
+-        port = await navigator.serial.requestPort();
+-        await port.open({ baudRate: 115200 });
++        await frameWriter.write(frame);
++      } finally {
++        frameWriter.releaseLock();
++      }
++    }
+ 
+-        writer = port.writable.getWriter();
+-        reader = port.readable.getReader();
++    async function readResponseFrame(timeoutMs = 4000) {
++      const startedAt = Date.now();
++      while (Date.now() - startedAt < timeoutMs) {
++        const magicIndex = rxBuffer.indexOf(MAGIC);
++        if (magicIndex > 0) rxBuffer = rxBuffer.slice(magicIndex);
++        if (magicIndex === -1) rxBuffer = new Uint8Array(0);
++
++        if (rxBuffer.length >= 4) {
++          const payloadLength = rxBuffer[3];
++          const frameLength = 4 + payloadLength;
++          if (rxBuffer.length >= frameLength) {
++            const frame = rxBuffer.slice(0, frameLength);
++            rxBuffer = rxBuffer.slice(frameLength);
++            if (frame[1] !== VERSION) throw new Error(`Sai phiÃªn báº£n Protocol V2: 0x${frame[1].toString(16)}`);
++            return { status: frame[2], payload: frame.slice(4) };
++          }
++        }
++        await delay(10);
++      }
++      throw new Error("Timeout chá» pháº£n há»“i tá»« FPGA.");
++    }
+ 
+-        document.getElementById("conn-status").className = "px-3 py-1 rounded text-xs bg-emerald-950 text-emerald-300 border border-emerald-800";
+-        document.getElementById("conn-status").textContent = "UART Connected @ 115200";
+-        document.getElementById("btn-connect").disabled = true;
+-        document.getElementById("btn-disconnect").disabled = false;
+-        document.getElementById("btn-test-auth").disabled = false;
++    async function sendCommand(command, payload = new Uint8Array(0)) {
++      await writeFrame(buildRequest(command, payload));
++      return readResponseFrame();
++    }
+ 
+-        appendLog("ÄÃ£ má»Ÿ cá»•ng COM thÃ nh cÃ´ng.", "success");
+-      } catch (err) {
+-        appendLog(`KhÃ´ng thá»ƒ má»Ÿ cá»•ng COM: ${err.message}`, "error");
++    connectBtn.addEventListener("click", async () => {
++      if (!navigator.serial) {
++        appendLog("TrÃ¬nh duyá»‡t khÃ´ng há»— trá»£ Web Serial. HÃ£y dÃ¹ng Chrome hoáº·c Edge trÃªn HTTPS.", "error");
++        return;
+       }
+-    });
+ 
+-    // Ngáº¯t káº¿t ná»‘i UART
+-    document.getElementById("btn-disconnect").addEventListener("click", async () => {
++      connecting = true;
++      updateButtons();
+       try {
+-        if (reader) { await reader.cancel(); reader.releaseLock(); }
+-        if (writer) { writer.releaseLock(); }
+-        if (port) { await port.close(); }
+-
+-        document.getElementById("conn-status").className = "px-3 py-1 rounded text-xs bg-rose-950 text-rose-300 border border-rose-800";
+-        document.getElementById("conn-status").textContent = "UART Disconnected";
+-        document.getElementById("btn-connect").disabled = false;
+-        document.getElementById("btn-disconnect").disabled = true;
+-        document.getElementById("btn-test-auth").disabled = true;
+-
+-        appendLog("ÄÃ£ ngáº¯t káº¿t ná»‘i cá»•ng COM.", "warn");
+-      } catch (err) {
+-        appendLog(`Lá»—i khi Ä‘Ã³ng cá»•ng: ${err.message}`, "error");
++        port = await navigator.serial.requestPort();
++        await openPortWithRetry();
++        rxBuffer = new Uint8Array(0);
++        startReaderLoop();
++        setStatus(true);
++        appendLog("ÄÃ£ má»Ÿ cá»•ng COM thÃ nh cÃ´ng á»Ÿ 115200 8N1.", "success");
++      } catch (error) {
++        await closePortSilently();
++        setStatus(false);
++        // NgÆ°á»i dÃ¹ng há»§y chá»n cá»•ng hoáº·c Windows cáº§n thÃªm má»™t nhá»‹p Ä‘á»ƒ nháº­n COM
++        // khÃ´ng pháº£i lá»—i giao tiáº¿p, nÃªn khÃ´ng ghi cÃ¡c lá»—i táº¡m thá»i vÃ o log.
++        if (!isQuietPortError(error)) appendLog(`KhÃ´ng thá»ƒ má»Ÿ cá»•ng COM: ${error.message}`, "error");
++      } finally {
++        connecting = false;
++        updateButtons();
+       }
+     });
+ 
+-    // KÃ­ch hoáº¡t chu trÃ¬nh xÃ¡c thá»±c
+-    document.getElementById("btn-test-auth").addEventListener("click", async () => {
++    disconnectBtn.addEventListener("click", async () => {
++      if (authenticating) return;
++      await closePortSilently();
++      setStatus(false);
++      updateButtons();
++      appendLog("ÄÃ£ ngáº¯t káº¿t ná»‘i cá»•ng COM.", "warn");
++    });
++
++    testBtn.addEventListener("click", async () => {
++      if (!port || authenticating) return;
++      authenticating = true;
++      updateButtons();
+       try {
+-        appendLog("--- Báº¯t Ä‘áº§u chu trÃ¬nh xÃ¡c thá»±c ---");
+-        await flushInputBuffer();
+-
+-        // 1. Gá»­i lá»‡nh GET_ID (0x01)
+-        appendLog("Äang gá»­i lá»‡nh GET_ID (0x01)...");
+-        await writer.write(new Uint8Array([0x01]));
+-        const uidBytes = await readExactBytes(16);
+-        const uidHex = bytesToHex(uidBytes);
+-        appendLog(`UID pháº£n há»“i tá»« FPGA: ${uidHex}`, "info");
+-
+-        // Äá»£i 100ms giá»¯a cÃ¡c frame UART
+-        await new Promise(r => setTimeout(r, 100));
+-
+-        // 2. Sinh Nonce 16 bytes ngáº«u nhiÃªn
+-        const nonceBytes = new Uint8Array(16);
+-        window.crypto.getRandomValues(nonceBytes);
+-        const nonceHex = bytesToHex(nonceBytes);
+-        appendLog(`Nonce ngáº«u nhiÃªn: ${nonceHex}`);
++        appendLog("--- Báº¯t Ä‘áº§u chu trÃ¬nh xÃ¡c thá»±c Protocol V2 ---");
++        rxBuffer = new Uint8Array(0);
++
++        appendLog("Äang gá»­i frame GET_ID (A5 01 01 00 CRC)...");
++        const idResponse = await sendCommand(CMD_GET_ID);
++        if (idResponse.status !== STATUS_OK || idResponse.payload.length !== 16) {
++          throw new Error(`GET_ID bá»‹ tá»« chá»‘i hoáº·c UID khÃ´ng Ä‘á»§ 16 bytes (status 0x${idResponse.status.toString(16).padStart(2, "0")})`);
++        }
++        const uidHex = bytesToHex(idResponse.payload);
++        appendLog(`UID pháº£n há»“i tá»« FPGA: ${uidHex}`);
+ 
+-        // 3. Gá»­i lá»‡nh CHALLENGE (0x02 + 16 bytes Nonce)
+-        const frame = new Uint8Array(17);
+-        frame[0] = 0x02;
+-        frame.set(nonceBytes, 1);
+-        await writer.write(frame);
++        const nonce = new Uint8Array(16);
++        crypto.getRandomValues(nonce);
++        const nonceHex = bytesToHex(nonce);
++        appendLog(`Nonce ngáº«u nhiÃªn: ${nonceHex}`);
+ 
+-        // Äá»c 16 bytes AES ciphertext
+-        const respBytes = await readExactBytes(16);
+-        const respHex = bytesToHex(respBytes);
+-        appendLog(`AES Response tá»« FPGA: ${respHex}`);
++        appendLog("Äang gá»­i frame CHALLENGE (A5 01 02 10 nonce CRC)...");
++        const challengeResponse = await sendCommand(CMD_CHALLENGE, nonce);
++        if (challengeResponse.status !== STATUS_OK || challengeResponse.payload.length !== 16) {
++          throw new Error(`CHALLENGE bá»‹ tá»« chá»‘i hoáº·c AES response khÃ´ng Ä‘á»§ 16 bytes (status 0x${challengeResponse.status.toString(16).padStart(2, "0")})`);
++        }
++        const responseHex = bytesToHex(challengeResponse.payload);
++        appendLog(`AES Response tá»« FPGA: ${responseHex}`);
+ 
+-        // 4. Gá»­i lÃªn Cloud Server
+         appendLog("Gá»­i payload lÃªn Cloud Server xÃ¡c thá»±c...");
+-        const res = await fetch(SERVER_URL, {
+-          method: "POST",
+-          headers: { "Content-Type": "application/json" },
+-          body: JSON.stringify({ uid: uidHex, nonce: nonceHex, response: respHex })
+-        });
+-
+-        const data = await res.json();
++        const controller = new AbortController();
++        const timeout = setTimeout(() => controller.abort(), 45000);
++        let serverResponse;
++        try {
++          serverResponse = await fetch(SERVER_URL, {
++            method: "POST",
++            headers: { "Content-Type": "application/json" },
++            body: JSON.stringify({ uid: uidHex, nonce: nonceHex, response: responseHex }),
++            signal: controller.signal
++          });
++        } finally {
++          clearTimeout(timeout);
++        }
++        if (!serverResponse.ok) throw new Error(`Cloud Server tráº£ HTTP ${serverResponse.status}`);
++        const data = await serverResponse.json();
+         const resultBox = document.getElementById("result-box");
+         const badge = document.getElementById("badge-status");
+-
+         resultBox.classList.remove("hidden");
+         document.getElementById("res-uid").textContent = uidHex;
+ 
+@@ -224,18 +371,32 @@
+           badge.textContent = "FAKE / Tá»ª CHá»I";
+           document.getElementById("res-product").textContent = "KhÃ´ng xÃ¡c Ä‘á»‹nh";
+           document.getElementById("res-mfg").textContent = "KhÃ´ng xÃ¡c Ä‘á»‹nh";
+-          document.getElementById("res-date").textContent = "N/A";
+-          appendLog(`Káº¾T QUáº¢: ${data.message || 'Lá»‡ch mÃ£ hÃ³a AES'}`, "error");
++          document.getElementById("res-date").textContent = data.reason || "N/A";
++          appendLog(`Káº¾T QUáº¢: ${data.message || data.reason || "Lá»‡ch mÃ£ hÃ³a AES"}`, "error");
+         }
+-
+-      } catch (err) {
+-        appendLog(`Lá»—i thá»±c thi: ${err.message}`, "error");
++      } catch (error) {
++        appendLog(`Lá»—i thá»±c thi: ${error.name === "AbortError" ? "Cloud Server pháº£n há»“i quÃ¡ lÃ¢u (45 giÃ¢y)." : error.message}`, "error");
++      } finally {
++        authenticating = false;
++        updateButtons();
+       }
+     });
+ 
++    if (navigator.serial) {
++      navigator.serial.addEventListener("disconnect", async event => {
++        if (event.target === port && !authenticating) {
++          await closePortSilently();
++          setStatus(false);
++          updateButtons();
++          appendLog("Thiáº¿t bá»‹ UART Ä‘Ã£ bá»‹ ngáº¯t khá»i mÃ¡y tÃ­nh.", "warn");
++        }
++      });
++    }
++
+     document.getElementById("btn-clear-log").addEventListener("click", () => {
+       logEl.innerHTML = "";
+     });
++    updateButtons();
+   </script>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+-- 
+2.51.1
