@@ -336,4 +336,6 @@ REGRESSION SUMMARY: 8 passed, 0 failed        (exit code 0)
   lỗi thiết kế; Quartus 25.1 biên dịch file này với 0 error
 - 16 file Python: 0 lỗi cú pháp
 - `config.json`: JSON hợp lệ
-- `sync_rtl.py`: 8/8 file khớp byte-for-byte
+- `sync_rtl.py`: 8/8 file đồng bộ — 7 file khớp byte-for-byte, 1 file
+  (`uart_rx.v`) được tách bản có chủ đích và **đã kiểm chứng tương đương**
+  (xem `VALIDATION_v7.2.md` mục 1.8)

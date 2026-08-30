@@ -113,6 +113,11 @@
 //   cac test Python hien co.
 // ============================================================
 
+// Keep the RTL and testbench on the same simulator time scale.
+// Questa/ModelSim reports TSCALE when another compiled module
+// already has an explicit timeunit/timeprecision.
+`timescale 1ns/1ps
+
 // DA KIEM CHUNG bang log Quartus Prime 25.1std.0 THAT: voi macro
 // nay o trang thai BAT (nhu duoi day), Analysis & Synthesis/Fitter/
 // Assembler/Timing Analyzer bien dich SACH LOI (0 errors), va bang

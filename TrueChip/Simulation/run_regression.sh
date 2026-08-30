@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-# TrueChip v7.1 - full RTL regression
+# TrueChip v7.2 - full RTL regression
 # ============================================================
 # Usage (from the project root):
 #     bash Simulation/run_regression.sh
@@ -26,8 +26,9 @@ FAIL=0
 # ------------------------------------------------------------------
 # Stale-file guard.
 #
-# v7.1 deleted Simulation/auth_fsm_tb.v (a duplicate module that makes the
-# whole directory fail to compile) and Simulation/secure_soc_top_tb.v (a
+# The v7.2 package requires Simulation/auth_fsm_tb.v to stay deleted (a
+# duplicate module that makes the whole directory fail to compile) and
+# Simulation/secure_soc_top_tb.v (a
 # testbench that sent CRC-less V1 frames and printed "[PASS]" without
 # checking anything).  Both reappeared in the run_4 package, because
 # overlaying the patch onto the old tree copies files in but never removes

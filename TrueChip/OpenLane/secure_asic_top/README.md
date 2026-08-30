@@ -1,4 +1,4 @@
-# OpenLane / SKY130 hardening target: `secure_asic_top`
+# OpenLane / SKY130 hardening target: `secure_asic_top` (TrueChip v7.2)
 
 This directory is the **digital ASIC layout target** for TrueChip v7. It is
 separate from the FPGA top `secure_soc_top`, because the FPGA `ro_puf.v` uses
@@ -38,6 +38,9 @@ python3 sync_rtl.py
 ```
 
 This prevents the OpenLane copy of the RTL from drifting from `../../RTL/`.
+The ASIC `src/uart_rx.v` is intentionally excluded because it uses the
+technology-neutral `async_reg` attribute, while the FPGA copy uses Quartus's
+`altera_attribute`; `sync_rtl.py` preserves that deliberate exception.
 
 ## OpenLane 2
 
@@ -92,6 +95,15 @@ Zip the whole newest `runs/<RUN_TAG>/` if convenient. At minimum include:
 
 Do **not** claim "DRC clean", "LVS clean" or "timing met" in the report until
 those exact logs are present and reviewed.
+
+## Evidence snapshot in this candidate
+
+`runs/run_1/` contains the historical run metadata and curated reports, but
+does not contain `results/`. The local scorecard therefore remains blocked on
+CVC/ERC and warns about antenna, slew, fanout and missing final layout views.
+Run the flow again with the current `config.json`, copy the complete newest
+`runs/<tag>/results/` directory, then rerun `check_signoff.py` before replacing
+the status in the competition report.
 
 ## Next physical-security step
 

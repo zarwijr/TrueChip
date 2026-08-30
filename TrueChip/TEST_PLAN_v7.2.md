@@ -14,9 +14,9 @@ Tài liệu này dùng cho buổi test cuối và buổi trình bày với nhóm
 |---|---|---|---|
 | 0.1 | Regression RTL | `bash Simulation/run_regression.sh` | `8 passed, 0 failed`, exit 0 |
 | 0.2 | Compile Quartus | Mở `Quartus/TrueChip.qpf`, Compile Design | 0 Error, 0 Critical Warning. Kiểm tra Warning 21074/15610 về `KEY[1]` đã biến mất |
-| 0.3 | Chạy OpenLane `run_5` | `flow.tcl -design .` trong `OpenLane/secure_asic_top` | `flow completed` |
-| 0.4 | Chấm điểm signoff | `python3 check_signoff.py runs/run_5` | Không còn BLOCKER |
-| 0.5 | KLayout DRC (nếu 0.4 vẫn báo NOT RUN) | `./run_klayout_drc.sh runs/run_5` | `RESULT: PASS` |
+| 0.3 | Chạy OpenLane `<newest_run>` | `flow.tcl -design .` trong `OpenLane/secure_asic_top` | `flow completed` |
+| 0.4 | Chấm điểm signoff | `python3 check_signoff.py runs/<newest_run>` | Không còn BLOCKER |
+| 0.5 | KLayout DRC (nếu 0.4 vẫn báo NOT RUN) | `./run_klayout_drc.sh runs/<newest_run>` | `RESULT: PASS` |
 | 0.6 | Nạp bitstream mới lên board | Quartus Programmer | LED nguồn sáng, `key_ready` (GPIO[2]) lên mức cao |
 | 0.7 | **Đọc lại diversified_key mới** | xem mục 0.7 bên dưới | Có 32 ký tự hex |
 | 0.8 | **Cấp phát lại DB** | `python3 secure_chip_web/factory_tool.py` | `[THÀNH CÔNG] Đã ghi danh chip ...` |
@@ -54,7 +54,7 @@ lấy trong môi trường lab:
 
 ## Giai đoạn 1 — Bộ mẫu test (7 kịch bản)
 
-M��i kịch bản có: mục đích, thao tác, kết quả kỳ vọng, và ảnh cần chụp.
+Mỗi kịch bản có: mục đích, thao tác, kết quả kỳ vọng, và ảnh cần chụp.
 
 ### TC-01 — Xác thực hàng thật (happy path)
 
@@ -168,8 +168,8 @@ M��i kịch bản có: mục đích, thao tác, kết quả kỳ vọng, và ả
 | # | Ảnh |
 |---|---|
 | B1 | Compilation Report: Successful, 0 Error / 0 Critical Warning |
-| B2 | Flow Summary: ALM 16%, 8.441 register, 49 pin |
-| B3 | TimeQuest: setup slack +7.271 ns, hold +0.304 ns @ 50 MHz |
+| B2 | Flow Summary: ALM 21%, 14.047 register, 49 pin |
+| B3 | TimeQuest: setup slack +7.986 ns, hold +0.298 ns @ 50 MHz |
 | B4 | Chip Planner / Technology Map Viewer: 256 vòng RO còn nguyên vẹn |
 | B5 | SignalTap: `puf_valid` lên cao và `puf_id` **khác 0** |
 

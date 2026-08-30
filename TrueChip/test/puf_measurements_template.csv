@@ -1,0 +1,5 @@
+board,repeat,puf_id,temp_c,vcc_v,reset_type
+BOARD_A,1,REPLACE_WITH_32_HEX_CHARS,25,5.0,power_cycle
+BOARD_A,2,REPLACE_WITH_32_HEX_CHARS,25,5.0,power_cycle
+BOARD_B,1,REPLACE_WITH_32_HEX_CHARS,25,5.0,power_cycle
+BOARD_B,2,REPLACE_WITH_32_HEX_CHARS,25,5.0,power_cycle

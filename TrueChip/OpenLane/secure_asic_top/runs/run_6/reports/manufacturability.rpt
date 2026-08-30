@@ -1,0 +1,19 @@
+Design Name: secure_asic_top
+Run Directory: /home/alexis/my_asic_projects/secure_asic_top/runs/run_6
+----------------------------------------
+
+Magic DRC Summary:
+Source: /home/alexis/my_asic_projects/secure_asic_top/runs/run_6/reports/signoff/drc.rpt
+Total Magic DRC violations is 0
+----------------------------------------
+
+LVS Summary:
+Source: /home/alexis/my_asic_projects/secure_asic_top/runs/run_6/logs/signoff/41-secure_asic_top.lef.lvs.log
+Number of nets: 26270                      |Number of nets: 26270                      
+Design is LVS clean.
+----------------------------------------
+
+Antenna Summary:
+Source: /home/alexis/my_asic_projects/secure_asic_top/runs/run_6/logs/signoff/44-arc.log
+Pin violations: 27
+Net violations: 27

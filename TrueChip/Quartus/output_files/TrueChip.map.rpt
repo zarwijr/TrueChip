@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TrueChip
-Fri Aug 28 11:49:00 2026
+Sun Aug 30 11:36:27 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -39,11 +39,9 @@ Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
  31. Port Connectivity Checks: "cmd_parser:u_cmd_parser"
  32. Signal Tap Logic Analyzer Settings
  33. Post-Synthesis Netlist Statistics for Top Partition
- 34. Post-Synthesis Netlist Statistics for Partition sld_signaltap:auto_signaltap_0
- 35. Post-Synthesis Netlist Statistics for Partition sld_hub:auto_hub
- 36. Elapsed Time Per Partition
- 37. Connections to In-System Debugging Instance "auto_signaltap_0"
- 38. Analysis & Synthesis Messages
+ 34. Elapsed Time Per Partition
+ 35. Connections to In-System Debugging Instance "auto_signaltap_0"
+ 36. Analysis & Synthesis Messages
 
 
 
@@ -70,7 +68,7 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri Aug 28 11:48:59 2026           ;
+; Analysis & Synthesis Status     ; Successful - Sun Aug 30 11:36:26 2026           ;
 ; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; TrueChip                                        ;
 ; Top-level Entity Name           ; secure_soc_top                                  ;
@@ -190,84 +188,84 @@ on the Quartus Prime software download page.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   8.5%      ;
-;     Processor 3            ;   8.5%      ;
+;     Processor 2            ;   8.6%      ;
+;     Processor 3            ;   8.6%      ;
 ;     Processor 4            ;   8.5%      ;
-;     Processor 5            ;   8.4%      ;
+;     Processor 5            ;   8.5%      ;
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                                      ;
-+--------------------------------------------------------------------+-----------------+----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+-------------+
-; File Name with User-Entered Path                                   ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                                            ; Library     ;
-+--------------------------------------------------------------------+-----------------+----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+-------------+
-; ../RTL/uart_tx.v                                                   ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/uart_tx.v                                                              ;             ;
-; ../RTL/uart_rx.v                                                   ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/uart_rx.v                                                              ;             ;
-; ../RTL/secure_soc_top.v                                            ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v                                                       ;             ;
-; ../RTL/cmd_parser.v                                                ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/cmd_parser.v                                                           ;             ;
-; ../RTL/chip_rom.v                                                  ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/chip_rom.v                                                             ;             ;
-; ../RTL/auth_fsm.v                                                  ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/auth_fsm.v                                                             ;             ;
-; ../RTL/aes128.v                                                    ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes128.v                                                               ;             ;
-; ../RTL/aes_sbox.v                                                  ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes_sbox.v                                                             ;             ;
-; ../RTL/ro_puf.v                                                    ; yes             ; User Verilog HDL File                        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/ro_puf.v                                                               ;             ;
-; sld_signaltap.vhd                                                  ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_signaltap.vhd                                                ;             ;
-; sld_signaltap_impl.vhd                                             ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_signaltap_impl.vhd                                           ;             ;
-; sld_ela_control.vhd                                                ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_ela_control.vhd                                              ;             ;
-; lpm_shiftreg.tdf                                                   ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_shiftreg.tdf                                                 ;             ;
-; lpm_constant.inc                                                   ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_constant.inc                                                 ;             ;
-; dffeea.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/dffeea.inc                                                       ;             ;
-; aglobal251.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/aglobal251.inc                                                   ;             ;
-; sld_mbpmg.vhd                                                      ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_mbpmg.vhd                                                    ;             ;
-; sld_ela_trigger_flow_mgr.vhd                                       ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_ela_trigger_flow_mgr.vhd                                     ;             ;
-; sld_buffer_manager.vhd                                             ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_buffer_manager.vhd                                           ;             ;
-; altsyncram.tdf                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altsyncram.tdf                                                   ;             ;
-; stratix_ram_block.inc                                              ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/stratix_ram_block.inc                                            ;             ;
-; lpm_mux.inc                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mux.inc                                                      ;             ;
-; lpm_decode.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_decode.inc                                                   ;             ;
-; a_rdenreg.inc                                                      ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/a_rdenreg.inc                                                    ;             ;
-; altrom.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altrom.inc                                                       ;             ;
-; altram.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altram.inc                                                       ;             ;
-; altdpram.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altdpram.inc                                                     ;             ;
-; db/altsyncram_me84.tdf                                             ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/altsyncram_me84.tdf                                             ;             ;
-; altdpram.tdf                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altdpram.tdf                                                     ;             ;
-; memmodes.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/others/maxplus2/memmodes.inc                                                   ;             ;
-; a_hdffe.inc                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/a_hdffe.inc                                                      ;             ;
-; alt_le_rden_reg.inc                                                ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/alt_le_rden_reg.inc                                              ;             ;
-; altsyncram.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altsyncram.inc                                                   ;             ;
-; lpm_mux.tdf                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mux.tdf                                                      ;             ;
-; muxlut.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/muxlut.inc                                                       ;             ;
-; bypassff.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/bypassff.inc                                                     ;             ;
-; altshift.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altshift.inc                                                     ;             ;
-; db/mux_elc.tdf                                                     ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/mux_elc.tdf                                                     ;             ;
-; lpm_decode.tdf                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_decode.tdf                                                   ;             ;
-; declut.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/declut.inc                                                       ;             ;
-; lpm_compare.inc                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_compare.inc                                                  ;             ;
-; db/decode_vnf.tdf                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/decode_vnf.tdf                                                  ;             ;
-; lpm_counter.tdf                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_counter.tdf                                                  ;             ;
-; lpm_add_sub.inc                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_add_sub.inc                                                  ;             ;
-; cmpconst.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/cmpconst.inc                                                     ;             ;
-; lpm_counter.inc                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_counter.inc                                                  ;             ;
-; alt_counter_stratix.inc                                            ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/alt_counter_stratix.inc                                          ;             ;
-; db/cntr_oai.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_oai.tdf                                                    ;             ;
-; db/cmpr_h9c.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cmpr_h9c.tdf                                                    ;             ;
-; db/cntr_4vi.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_4vi.tdf                                                    ;             ;
-; db/cntr_09i.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_09i.tdf                                                    ;             ;
-; db/cmpr_c9c.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cmpr_c9c.tdf                                                    ;             ;
-; db/cntr_kri.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_kri.tdf                                                    ;             ;
-; db/cmpr_99c.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cmpr_99c.tdf                                                    ;             ;
-; sld_rom_sr.vhd                                                     ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_rom_sr.vhd                                                   ;             ;
-; sld_jtag_endpoint_adapter.vhd                                      ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                                    ;             ;
-; sld_jtag_endpoint_adapter_impl.sv                                  ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv                                ;             ;
-; sld_hub.vhd                                                        ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_hub.vhd                                                      ; altera_sld  ;
-; db/ip/sld195eee1e/alt_sld_fab.v                                    ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/alt_sld_fab.v                                    ; alt_sld_fab ;
-; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v             ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v             ; alt_sld_fab ;
-; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; yes             ; Auto-Found SystemVerilog HDL File            ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; alt_sld_fab ;
-; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; alt_sld_fab ;
-; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; yes             ; Encrypted Auto-Found VHDL File               ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; alt_sld_fab ;
-; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; alt_sld_fab ;
-; sld_jtag_hub.vhd                                                   ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_hub.vhd                                                 ;             ;
-+--------------------------------------------------------------------+-----------------+----------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+-------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                     ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+--------------------------------------------------------------------------------------------------------+-------------+
+; File Name with User-Entered Path                                   ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                           ; Library     ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+--------------------------------------------------------------------------------------------------------+-------------+
+; ../RTL/uart_tx.v                                                   ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/uart_tx.v                                                              ;             ;
+; ../RTL/uart_rx.v                                                   ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/uart_rx.v                                                              ;             ;
+; ../RTL/secure_soc_top.v                                            ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v                                                       ;             ;
+; ../RTL/cmd_parser.v                                                ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/cmd_parser.v                                                           ;             ;
+; ../RTL/chip_rom.v                                                  ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/chip_rom.v                                                             ;             ;
+; ../RTL/auth_fsm.v                                                  ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/auth_fsm.v                                                             ;             ;
+; ../RTL/aes128.v                                                    ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/aes128.v                                                               ;             ;
+; ../RTL/aes_sbox.v                                                  ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/aes_sbox.v                                                             ;             ;
+; ../RTL/ro_puf.v                                                    ; yes             ; User Verilog HDL File                        ; C:/GitHub/TrueChip/TrueChip/RTL/ro_puf.v                                                               ;             ;
+; sld_signaltap.vhd                                                  ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_signaltap.vhd                               ;             ;
+; sld_signaltap_impl.vhd                                             ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_signaltap_impl.vhd                          ;             ;
+; sld_ela_control.vhd                                                ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_ela_control.vhd                             ;             ;
+; lpm_shiftreg.tdf                                                   ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_shiftreg.tdf                                ;             ;
+; lpm_constant.inc                                                   ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_constant.inc                                ;             ;
+; dffeea.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/dffeea.inc                                      ;             ;
+; aglobal251.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/aglobal251.inc                                  ;             ;
+; sld_mbpmg.vhd                                                      ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_mbpmg.vhd                                   ;             ;
+; sld_ela_trigger_flow_mgr.vhd                                       ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_ela_trigger_flow_mgr.vhd                    ;             ;
+; sld_buffer_manager.vhd                                             ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_buffer_manager.vhd                          ;             ;
+; altsyncram.tdf                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altsyncram.tdf                                  ;             ;
+; stratix_ram_block.inc                                              ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/stratix_ram_block.inc                           ;             ;
+; lpm_mux.inc                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mux.inc                                     ;             ;
+; lpm_decode.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_decode.inc                                  ;             ;
+; a_rdenreg.inc                                                      ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/a_rdenreg.inc                                   ;             ;
+; altrom.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altrom.inc                                      ;             ;
+; altram.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altram.inc                                      ;             ;
+; altdpram.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altdpram.inc                                    ;             ;
+; db/altsyncram_me84.tdf                                             ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/altsyncram_me84.tdf                                             ;             ;
+; altdpram.tdf                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altdpram.tdf                                    ;             ;
+; memmodes.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/others/maxplus2/memmodes.inc                                  ;             ;
+; a_hdffe.inc                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/a_hdffe.inc                                     ;             ;
+; alt_le_rden_reg.inc                                                ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/alt_le_rden_reg.inc                             ;             ;
+; altsyncram.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altsyncram.inc                                  ;             ;
+; lpm_mux.tdf                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mux.tdf                                     ;             ;
+; muxlut.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/muxlut.inc                                      ;             ;
+; bypassff.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/bypassff.inc                                    ;             ;
+; altshift.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altshift.inc                                    ;             ;
+; db/mux_elc.tdf                                                     ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/mux_elc.tdf                                                     ;             ;
+; lpm_decode.tdf                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_decode.tdf                                  ;             ;
+; declut.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/declut.inc                                      ;             ;
+; lpm_compare.inc                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_compare.inc                                 ;             ;
+; db/decode_vnf.tdf                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/decode_vnf.tdf                                                  ;             ;
+; lpm_counter.tdf                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_counter.tdf                                 ;             ;
+; lpm_add_sub.inc                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_add_sub.inc                                 ;             ;
+; cmpconst.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/cmpconst.inc                                    ;             ;
+; lpm_counter.inc                                                    ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_counter.inc                                 ;             ;
+; alt_counter_stratix.inc                                            ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/alt_counter_stratix.inc                         ;             ;
+; db/cntr_oai.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_oai.tdf                                                    ;             ;
+; db/cmpr_h9c.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cmpr_h9c.tdf                                                    ;             ;
+; db/cntr_4vi.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_4vi.tdf                                                    ;             ;
+; db/cntr_09i.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_09i.tdf                                                    ;             ;
+; db/cmpr_c9c.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cmpr_c9c.tdf                                                    ;             ;
+; db/cntr_kri.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_kri.tdf                                                    ;             ;
+; db/cmpr_99c.tdf                                                    ; yes             ; Auto-Generated Megafunction                  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/cmpr_99c.tdf                                                    ;             ;
+; sld_rom_sr.vhd                                                     ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_rom_sr.vhd                                  ;             ;
+; sld_jtag_endpoint_adapter.vhd                                      ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                   ;             ;
+; sld_jtag_endpoint_adapter_impl.sv                                  ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv               ;             ;
+; sld_hub.vhd                                                        ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_hub.vhd                                     ; altera_sld  ;
+; db/ip/sld195eee1e/alt_sld_fab.v                                    ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/alt_sld_fab.v                                    ; alt_sld_fab ;
+; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v             ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v             ; alt_sld_fab ;
+; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; yes             ; Auto-Found SystemVerilog HDL File            ; C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; alt_sld_fab ;
+; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; alt_sld_fab ;
+; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; yes             ; Encrypted Auto-Found VHDL File               ; C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; alt_sld_fab ;
+; db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; alt_sld_fab ;
+; sld_jtag_hub.vhd                                                   ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_hub.vhd                                ;             ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+--------------------------------------------------------------------------------------------------------+-------------+
 
 
 +--------------------------------------------------------------+
@@ -858,63 +856,44 @@ Encoding Type:  One-Hot
 Table restricted to first 100 entries. Note: All cells listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                                                                                                                                                                                                                                                                                          ;
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Register name                                                                                                                                                                          ; Reason for Removal                                                                                                                                                                                 ;
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; auth_fsm:u_auth_fsm|tx_header[0..3,5..7,11..15,17..23,25,27,28,30]                                                                                                                     ; Stuck at GND due to stuck port data_in                                                                                                                                                             ;
-; auth_fsm:u_auth_fsm|payload_len[0..3]                                                                                                                                                  ; Stuck at GND due to stuck port data_in                                                                                                                                                             ;
-; auth_fsm:u_auth_fsm|hdr_idx[2]                                                                                                                                                         ; Stuck at GND due to stuck port data_in                                                                                                                                                             ;
-; auth_fsm:u_auth_fsm|state~10                                                                                                                                                           ; Lost fanout                                                                                                                                                                                        ;
-; auth_fsm:u_auth_fsm|state~11                                                                                                                                                           ; Lost fanout                                                                                                                                                                                        ;
-; auth_fsm:u_auth_fsm|state~12                                                                                                                                                           ; Lost fanout                                                                                                                                                                                        ;
-; auth_fsm:u_auth_fsm|state~13                                                                                                                                                           ; Lost fanout                                                                                                                                                                                        ;
-; cmd_parser:u_cmd_parser|state~11                                                                                                                                                       ; Lost fanout                                                                                                                                                                                        ;
-; cmd_parser:u_cmd_parser|state~12                                                                                                                                                       ; Lost fanout                                                                                                                                                                                        ;
-; cmd_parser:u_cmd_parser|state~13                                                                                                                                                       ; Lost fanout                                                                                                                                                                                        ;
-; cmd_parser:u_cmd_parser|state~14                                                                                                                                                       ; Lost fanout                                                                                                                                                                                        ;
-; kdf_state~8                                                                                                                                                                            ; Lost fanout                                                                                                                                                                                        ;
-; kdf_state~9                                                                                                                                                                            ; Lost fanout                                                                                                                                                                                        ;
-; uart_tx:u_uart_tx|state~8                                                                                                                                                              ; Lost fanout                                                                                                                                                                                        ;
-; uart_tx:u_uart_tx|state~9                                                                                                                                                              ; Lost fanout                                                                                                                                                                                        ;
-; uart_rx:u_uart_rx|state~8                                                                                                                                                              ; Lost fanout                                                                                                                                                                                        ;
-; uart_rx:u_uart_rx|state~9                                                                                                                                                              ; Lost fanout                                                                                                                                                                                        ;
-; ro_puf:u_ro_puf|state~14                                                                                                                                                               ; Lost fanout                                                                                                                                                                                        ;
-; ro_puf:u_ro_puf|state~15                                                                                                                                                               ; Lost fanout                                                                                                                                                                                        ;
-; ro_puf:u_ro_puf|state~16                                                                                                                                                               ; Lost fanout                                                                                                                                                                                        ;
-; ro_puf:u_ro_puf|state~17                                                                                                                                                               ; Lost fanout                                                                                                                                                                                        ;
-; kdf_state.KDF_ST_DONE                                                                                                                                                                  ; Lost fanout                                                                                                                                                                                        ;
-; Total Number of Removed Registers = 47                                                                                                                                                 ;                                                                                                                                                                                                    ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|segment_shift_clk_ena                                                      ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_enable_delayed                                                ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[0] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[0] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[1] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[1] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[2] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[2] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[3] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[3] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[4] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[4] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[5] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[5] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:offset_count[6] ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:next_address[6] ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[0]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[0]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[1]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[1]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[2]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[2]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[3]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[3]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[4]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[4]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[5]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[5]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|current_offset_delayed[6]                                                  ; Merged with sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|buffer_write_address_delayed[6]                                            ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|serial_crc_16:\tdo_crc_gen:tdo_crc_calc|lfsr[13..15]                       ; Stuck at GND due to stuck port data_in                                                                                                                                                             ;
-; Total Number of Removed Registers = 18                                                                                                                                                 ;                                                                                                                                                                                                    ;
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                          ;
++--------------------------------------------------------------------+----------------------------------------+
+; Register name                                                      ; Reason for Removal                     ;
++--------------------------------------------------------------------+----------------------------------------+
+; auth_fsm:u_auth_fsm|tx_header[0..3,5..7,11..15,17..23,25,27,28,30] ; Stuck at GND due to stuck port data_in ;
+; auth_fsm:u_auth_fsm|payload_len[0..3]                              ; Stuck at GND due to stuck port data_in ;
+; auth_fsm:u_auth_fsm|hdr_idx[2]                                     ; Stuck at GND due to stuck port data_in ;
+; auth_fsm:u_auth_fsm|state~10                                       ; Lost fanout                            ;
+; auth_fsm:u_auth_fsm|state~11                                       ; Lost fanout                            ;
+; auth_fsm:u_auth_fsm|state~12                                       ; Lost fanout                            ;
+; auth_fsm:u_auth_fsm|state~13                                       ; Lost fanout                            ;
+; cmd_parser:u_cmd_parser|state~11                                   ; Lost fanout                            ;
+; cmd_parser:u_cmd_parser|state~12                                   ; Lost fanout                            ;
+; cmd_parser:u_cmd_parser|state~13                                   ; Lost fanout                            ;
+; cmd_parser:u_cmd_parser|state~14                                   ; Lost fanout                            ;
+; kdf_state~8                                                        ; Lost fanout                            ;
+; kdf_state~9                                                        ; Lost fanout                            ;
+; uart_tx:u_uart_tx|state~8                                          ; Lost fanout                            ;
+; uart_tx:u_uart_tx|state~9                                          ; Lost fanout                            ;
+; uart_rx:u_uart_rx|state~8                                          ; Lost fanout                            ;
+; uart_rx:u_uart_rx|state~9                                          ; Lost fanout                            ;
+; ro_puf:u_ro_puf|state~14                                           ; Lost fanout                            ;
+; ro_puf:u_ro_puf|state~15                                           ; Lost fanout                            ;
+; ro_puf:u_ro_puf|state~16                                           ; Lost fanout                            ;
+; ro_puf:u_ro_puf|state~17                                           ; Lost fanout                            ;
+; kdf_state.KDF_ST_DONE                                              ; Lost fanout                            ;
+; Total Number of Removed Registers = 47                             ;                                        ;
++--------------------------------------------------------------------+----------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                                                                                                                                                                                                                              ;
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Register name                                                                                                                                                ; Reason for Removal        ; Registers Removed due to This Register                                                                                                                        ;
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; kdf_state~8                                                                                                                                                  ; Lost Fanouts              ; kdf_state.KDF_ST_DONE                                                                                                                                         ;
-; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|serial_crc_16:\tdo_crc_gen:tdo_crc_calc|lfsr[15] ; Stuck at GND              ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|serial_crc_16:\tdo_crc_gen:tdo_crc_calc|lfsr[14], ;
-;                                                                                                                                                              ; due to stuck port data_in ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|serial_crc_16:\tdo_crc_gen:tdo_crc_calc|lfsr[13]  ;
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                 ;
++---------------+--------------------+----------------------------------------+
+; Register name ; Reason for Removal ; Registers Removed due to This Register ;
++---------------+--------------------+----------------------------------------+
+; kdf_state~8   ; Lost Fanouts       ; kdf_state.KDF_ST_DONE                  ;
++---------------+--------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -973,56 +952,41 @@ Table restricted to first 100 entries. Note: All cells listed above may not be p
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                                                                                                                                                                                                                                                                               ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|fail_cnt[2]                                                                                                                                                                                                                                                                                                                          ;
-; 6:1                ; 32 bits   ; 128 LEs       ; 32 LEs               ; 96 LEs                 ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|cooldown_cnt[15]                                                                                                                                                                                                                                                                                                                     ;
-; 8:1                ; 34 bits   ; 170 LEs       ; 68 LEs               ; 102 LEs                ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_header[5]                                                                                                                                                                                                                                                                                                                         ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_header[9]                                                                                                                                                                                                                                                                                                                         ;
-; 8:1                ; 128 bits  ; 640 LEs       ; 128 LEs              ; 512 LEs                ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_payload[121]                                                                                                                                                                                                                                                                                                                      ;
-; 15:1               ; 120 bits  ; 1200 LEs      ; 0 LEs                ; 1200 LEs               ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|nonce_reg[18]                                                                                                                                                                                                                                                                                                                    ;
-; 16:1               ; 8 bits    ; 80 LEs        ; 0 LEs                ; 80 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|cmd_reg[1]                                                                                                                                                                                                                                                                                                                       ;
-; 16:1               ; 5 bits    ; 50 LEs        ; 15 LEs               ; 35 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|payload_count[1]                                                                                                                                                                                                                                                                                                                 ;
-; 17:1               ; 8 bits    ; 88 LEs        ; 0 LEs                ; 88 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|crc_hi_reg[4]                                                                                                                                                                                                                                                                                                                    ;
-; 17:1               ; 5 bits    ; 55 LEs        ; 20 LEs               ; 35 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|crc_reg[1]                                                                                                                                                                                                                                                                                                                       ;
-; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|crc_reg[8]                                                                                                                                                                                                                                                                                                                       ;
-; 13:1               ; 2 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |secure_soc_top|auth_fsm:u_auth_fsm|Selector180                                                                                                                                                                                                                                                                                                                          ;
-; 15:1               ; 2 bits    ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; No         ; |secure_soc_top|auth_fsm:u_auth_fsm|Selector179                                                                                                                                                                                                                                                                                                                          ;
-; 3:1                ; 256 bits  ; 512 LEs       ; 256 LEs              ; 256 LEs                ; Yes        ; |secure_soc_top|aes128:u_aes128|state[102]                                                                                                                                                                                                                                                                                                                               ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |secure_soc_top|aes128:u_aes128|round_num[3]                                                                                                                                                                                                                                                                                                                             ;
-; 4:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|timeout_cnt[19]                                                                                                                                                                                                                                                                                                                  ;
-; 6:1                ; 13 bits   ; 52 LEs        ; 0 LEs                ; 52 LEs                 ; Yes        ; |secure_soc_top|uart_rx:u_uart_rx|clk_cnt[4]                                                                                                                                                                                                                                                                                                                             ;
-; 23:1               ; 8 bits    ; 120 LEs       ; 104 LEs              ; 16 LEs                 ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_byte[7]                                                                                                                                                                                                                                                                                                                           ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |secure_soc_top|uart_tx:u_uart_tx|bit_idx                                                                                                                                                                                                                                                                                                                                ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |secure_soc_top|uart_rx:u_uart_rx|bit_idx                                                                                                                                                                                                                                                                                                                                ;
-; 6:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |secure_soc_top|Selector5                                                                                                                                                                                                                                                                                                                                                ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_tx:u_uart_tx|Selector21                                                                                                                                                                                                                                                                                                                             ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_tx:u_uart_tx|Selector20                                                                                                                                                                                                                                                                                                                             ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_rx:u_uart_rx|Selector17                                                                                                                                                                                                                                                                                                                             ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_rx:u_uart_rx|Selector18                                                                                                                                                                                                                                                                                                                             ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |secure_soc_top|ro_puf:u_ro_puf|clear_cnt[1]                                                                                                                                                                                                                                                                                                                             ;
-; 6:1                ; 16 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |secure_soc_top|ro_puf:u_ro_puf|window_cnt[11]                                                                                                                                                                                                                                                                                                                           ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; Yes        ; |secure_soc_top|ro_puf:u_ro_puf|freeze_cnt[1]                                                                                                                                                                                                                                                                                                                            ;
-; 8:1                ; 4 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; No         ; |secure_soc_top|ro_puf:u_ro_puf|Selector412                                                                                                                                                                                                                                                                                                                              ;
-; 3:1                ; 13 bits   ; 26 LEs        ; 0 LEs                ; 26 LEs                 ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|tdo_crc_val_shift_reg[12]                                                                                                                                                                                                                    ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|tdo_crc_val_shift_reg[15]                                                                                                                                                                                                                    ;
-; 3:1                ; 13 bits   ; 26 LEs        ; 0 LEs                ; 26 LEs                 ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|serial_crc_16:\tdo_crc_gen:tdo_crc_calc|lfsr[2]                                                                                                                                                                                              ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|tdo_crc_len_reg[0]                                                                                                                                                                                                                           ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_rom_sr:crc_rom_sr|word_counter[0]                                                                                                                                                                                                        ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|counter[2]                                                                                                                                                                                        ;
-; 12:1               ; 4 bits    ; 32 LEs        ; 28 LEs               ; 4 LEs                  ; Yes        ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_rom_sr:crc_rom_sr|WORD_SR[1]                                                                                                                                                                                                             ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; No         ; |secure_soc_top|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|offset_count                                                                                                                                                                                      ;
-; 3:1                ; 9 bits    ; 18 LEs        ; 0 LEs                ; 18 LEs                 ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|irsr_reg[1]                             ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|hub_minor_ver_reg[0]                    ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|hub_minor_ver_reg[1]                    ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|mixer_addr_reg_internal[2]              ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_rom_sr:hub_info_reg|word_counter[0] ;
-; 34:1               ; 4 bits    ; 88 LEs        ; 64 LEs               ; 24 LEs                 ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|design_hash_reg[0]                      ;
-; 20:1               ; 4 bits    ; 52 LEs        ; 32 LEs               ; 20 LEs                 ; Yes        ; |secure_soc_top|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_rom_sr:hub_info_reg|WORD_SR[0]      ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|fail_cnt[2]          ;
+; 6:1                ; 32 bits   ; 128 LEs       ; 32 LEs               ; 96 LEs                 ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|cooldown_cnt[15]     ;
+; 8:1                ; 34 bits   ; 170 LEs       ; 68 LEs               ; 102 LEs                ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_header[5]         ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_header[9]         ;
+; 8:1                ; 128 bits  ; 640 LEs       ; 128 LEs              ; 512 LEs                ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_payload[121]      ;
+; 15:1               ; 120 bits  ; 1200 LEs      ; 0 LEs                ; 1200 LEs               ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|nonce_reg[18]    ;
+; 16:1               ; 8 bits    ; 80 LEs        ; 0 LEs                ; 80 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|cmd_reg[1]       ;
+; 16:1               ; 5 bits    ; 50 LEs        ; 15 LEs               ; 35 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|payload_count[1] ;
+; 17:1               ; 8 bits    ; 88 LEs        ; 0 LEs                ; 88 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|crc_hi_reg[4]    ;
+; 17:1               ; 5 bits    ; 55 LEs        ; 20 LEs               ; 35 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|crc_reg[1]       ;
+; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|crc_reg[8]       ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |secure_soc_top|auth_fsm:u_auth_fsm|Selector180          ;
+; 15:1               ; 2 bits    ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; No         ; |secure_soc_top|auth_fsm:u_auth_fsm|Selector179          ;
+; 3:1                ; 256 bits  ; 512 LEs       ; 256 LEs              ; 256 LEs                ; Yes        ; |secure_soc_top|aes128:u_aes128|state[102]               ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |secure_soc_top|aes128:u_aes128|round_num[3]             ;
+; 4:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |secure_soc_top|cmd_parser:u_cmd_parser|timeout_cnt[19]  ;
+; 6:1                ; 13 bits   ; 52 LEs        ; 0 LEs                ; 52 LEs                 ; Yes        ; |secure_soc_top|uart_rx:u_uart_rx|clk_cnt[4]             ;
+; 23:1               ; 8 bits    ; 120 LEs       ; 104 LEs              ; 16 LEs                 ; Yes        ; |secure_soc_top|auth_fsm:u_auth_fsm|tx_byte[7]           ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |secure_soc_top|uart_tx:u_uart_tx|bit_idx                ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |secure_soc_top|uart_rx:u_uart_rx|bit_idx                ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |secure_soc_top|Selector5                                ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_tx:u_uart_tx|Selector21             ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_tx:u_uart_tx|Selector20             ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_rx:u_uart_rx|Selector17             ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |secure_soc_top|uart_rx:u_uart_rx|Selector18             ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |secure_soc_top|ro_puf:u_ro_puf|clear_cnt[1]             ;
+; 6:1                ; 16 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |secure_soc_top|ro_puf:u_ro_puf|window_cnt[11]           ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; Yes        ; |secure_soc_top|ro_puf:u_ro_puf|freeze_cnt[1]            ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; No         ; |secure_soc_top|ro_puf:u_ro_puf|Selector412              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------+
 
 
 +----------------------------------------------------------+
@@ -1230,82 +1194,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 
 
-+--------------------------------------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Partition sld_signaltap:auto_signaltap_0 ;
-+-----------------------+--------------------------------------------------------+
-; Type                  ; Count                                                  ;
-+-----------------------+--------------------------------------------------------+
-; arriav_ff             ; 3396                                                   ;
-;     CLR               ; 6                                                      ;
-;     CLR SLD           ; 288                                                    ;
-;     ENA               ; 59                                                     ;
-;     ENA CLR           ; 815                                                    ;
-;     ENA CLR SCLR      ; 22                                                     ;
-;     ENA SCLR          ; 27                                                     ;
-;     ENA SCLR SLD      ; 33                                                     ;
-;     ENA SLD           ; 28                                                     ;
-;     SCLR SLD          ; 13                                                     ;
-;     plain             ; 2105                                                   ;
-; arriav_lcell_comb     ; 528                                                    ;
-;     arith             ; 78                                                     ;
-;         0 data inputs ; 4                                                      ;
-;         1 data inputs ; 73                                                     ;
-;         2 data inputs ; 1                                                      ;
-;     normal            ; 450                                                    ;
-;         0 data inputs ; 2                                                      ;
-;         1 data inputs ; 8                                                      ;
-;         2 data inputs ; 10                                                     ;
-;         3 data inputs ; 11                                                     ;
-;         4 data inputs ; 25                                                     ;
-;         5 data inputs ; 295                                                    ;
-;         6 data inputs ; 99                                                     ;
-; boundary_port         ; 1384                                                   ;
-; stratixv_ram_block    ; 260                                                    ;
-;                       ;                                                        ;
-; Max LUT depth         ; 4.10                                                   ;
-; Average LUT depth     ; 0.79                                                   ;
-+-----------------------+--------------------------------------------------------+
-
-
-+------------------------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Partition sld_hub:auto_hub ;
-+-----------------------+------------------------------------------+
-; Type                  ; Count                                    ;
-+-----------------------+------------------------------------------+
-; arriav_ff             ; 90                                       ;
-;     CLR               ; 5                                        ;
-;     ENA               ; 30                                       ;
-;     ENA CLR           ; 22                                       ;
-;     ENA CLR SLD       ; 10                                       ;
-;     SCLR              ; 7                                        ;
-;     plain             ; 16                                       ;
-; arriav_lcell_comb     ; 91                                       ;
-;     extend            ; 1                                        ;
-;         7 data inputs ; 1                                        ;
-;     normal            ; 90                                       ;
-;         0 data inputs ; 1                                        ;
-;         1 data inputs ; 4                                        ;
-;         2 data inputs ; 18                                       ;
-;         3 data inputs ; 16                                       ;
-;         4 data inputs ; 16                                       ;
-;         5 data inputs ; 23                                       ;
-;         6 data inputs ; 12                                       ;
-; boundary_port         ; 107                                      ;
-;                       ;                                          ;
-; Max LUT depth         ; 3.00                                     ;
-; Average LUT depth     ; 1.32                                     ;
-+-----------------------+------------------------------------------+
-
-
-+-----------------------------------------------+
-; Elapsed Time Per Partition                    ;
-+--------------------------------+--------------+
-; Partition Name                 ; Elapsed Time ;
-+--------------------------------+--------------+
-; Top                            ; 00:00:27     ;
-; sld_signaltap:auto_signaltap_0 ; 00:00:04     ;
-; sld_hub:auto_hub               ; 00:00:00     ;
-+--------------------------------+--------------+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:25     ;
++----------------+--------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1875,69 +1770,69 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Fri Aug 28 11:47:19 2026
+    Info: Processing started: Sun Aug 30 11:34:58 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TrueChip -c TrueChip
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 5 of the 5 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/secure_asic_top.v
-    Info (12023): Found entity 1: secure_asic_top File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_asic_top.v Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/uart_tx.v
-    Info (12023): Found entity 1: uart_tx File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/uart_tx.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/uart_rx.v
-    Info (12023): Found entity 1: uart_rx File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/uart_rx.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/uart_echo.v
-    Info (12023): Found entity 1: uart_echo File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/uart_echo.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/secure_soc_top.v
-    Info (12023): Found entity 1: secure_soc_top File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/cmd_parser.v
-    Info (12023): Found entity 1: cmd_parser File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/cmd_parser.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/chip_rom.v
-    Info (12023): Found entity 1: chip_rom File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/chip_rom.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/auth_fsm.v
-    Info (12023): Found entity 1: auth_fsm File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/auth_fsm.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/aes128.v
-    Info (12023): Found entity 1: aes128 File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes128.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/aes_sbox.v
-    Info (12023): Found entity 1: aes_sbox File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes_sbox.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /users/huyle/desktop/rtl/truechip/truechip/rtl/ro_puf.v
-    Info (12023): Found entity 1: ro_puf File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/ro_puf.v Line: 127
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/secure_asic_top.v
+    Info (12023): Found entity 1: secure_asic_top File: C:/GitHub/TrueChip/TrueChip/RTL/secure_asic_top.v Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/uart_tx.v
+    Info (12023): Found entity 1: uart_tx File: C:/GitHub/TrueChip/TrueChip/RTL/uart_tx.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/uart_rx.v
+    Info (12023): Found entity 1: uart_rx File: C:/GitHub/TrueChip/TrueChip/RTL/uart_rx.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/uart_echo.v
+    Info (12023): Found entity 1: uart_echo File: C:/GitHub/TrueChip/TrueChip/RTL/uart_echo.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/secure_soc_top.v
+    Info (12023): Found entity 1: secure_soc_top File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/cmd_parser.v
+    Info (12023): Found entity 1: cmd_parser File: C:/GitHub/TrueChip/TrueChip/RTL/cmd_parser.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/chip_rom.v
+    Info (12023): Found entity 1: chip_rom File: C:/GitHub/TrueChip/TrueChip/RTL/chip_rom.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/auth_fsm.v
+    Info (12023): Found entity 1: auth_fsm File: C:/GitHub/TrueChip/TrueChip/RTL/auth_fsm.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/aes128.v
+    Info (12023): Found entity 1: aes128 File: C:/GitHub/TrueChip/TrueChip/RTL/aes128.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/aes_sbox.v
+    Info (12023): Found entity 1: aes_sbox File: C:/GitHub/TrueChip/TrueChip/RTL/aes_sbox.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /github/truechip/truechip/rtl/ro_puf.v
+    Info (12023): Found entity 1: ro_puf File: C:/GitHub/TrueChip/TrueChip/RTL/ro_puf.v Line: 132
 Info (12127): Elaborating entity "secure_soc_top" for the top level hierarchy
-Info (10264): Verilog HDL Case Statement information at secure_soc_top.v(134): all case item expressions in this case statement are onehot File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 134
-Info (12128): Elaborating entity "uart_rx" for hierarchy "uart_rx:u_uart_rx" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 151
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_uart_tx" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 160
-Info (12128): Elaborating entity "cmd_parser" for hierarchy "cmd_parser:u_cmd_parser" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 172
-Info (12128): Elaborating entity "chip_rom" for hierarchy "chip_rom:u_chip_rom" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 177
-Info (12128): Elaborating entity "ro_puf" for hierarchy "ro_puf:u_ro_puf" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 184
-Info (12128): Elaborating entity "aes128" for hierarchy "aes128:u_aes128" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 194
-Info (12128): Elaborating entity "aes_sbox" for hierarchy "aes128:u_aes128|aes_sbox:gen_state_sbox[0].sb_state" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes128.v Line: 64
-Warning (10030): Net "sbox.data_a" at aes_sbox.v(5) has no driver or initial value, using a default initial value '0' File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes_sbox.v Line: 5
-Warning (10030): Net "sbox.waddr_a" at aes_sbox.v(5) has no driver or initial value, using a default initial value '0' File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes_sbox.v Line: 5
-Warning (10030): Net "sbox.we_a" at aes_sbox.v(5) has no driver or initial value, using a default initial value '0' File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/aes_sbox.v Line: 5
-Info (12128): Elaborating entity "auth_fsm" for hierarchy "auth_fsm:u_auth_fsm" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 248
-Warning (10240): Verilog HDL Always Construct warning at auth_fsm.v(175): inferring latch(es) for variable "h", which holds its previous value in one or more paths through the always construct File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/auth_fsm.v Line: 175
+Info (10264): Verilog HDL Case Statement information at secure_soc_top.v(134): all case item expressions in this case statement are onehot File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 134
+Info (12128): Elaborating entity "uart_rx" for hierarchy "uart_rx:u_uart_rx" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 151
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_uart_tx" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 160
+Info (12128): Elaborating entity "cmd_parser" for hierarchy "cmd_parser:u_cmd_parser" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 172
+Info (12128): Elaborating entity "chip_rom" for hierarchy "chip_rom:u_chip_rom" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 177
+Info (12128): Elaborating entity "ro_puf" for hierarchy "ro_puf:u_ro_puf" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 184
+Info (12128): Elaborating entity "aes128" for hierarchy "aes128:u_aes128" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 194
+Info (12128): Elaborating entity "aes_sbox" for hierarchy "aes128:u_aes128|aes_sbox:gen_state_sbox[0].sb_state" File: C:/GitHub/TrueChip/TrueChip/RTL/aes128.v Line: 64
+Warning (10030): Net "sbox.data_a" at aes_sbox.v(5) has no driver or initial value, using a default initial value '0' File: C:/GitHub/TrueChip/TrueChip/RTL/aes_sbox.v Line: 5
+Warning (10030): Net "sbox.waddr_a" at aes_sbox.v(5) has no driver or initial value, using a default initial value '0' File: C:/GitHub/TrueChip/TrueChip/RTL/aes_sbox.v Line: 5
+Warning (10030): Net "sbox.we_a" at aes_sbox.v(5) has no driver or initial value, using a default initial value '0' File: C:/GitHub/TrueChip/TrueChip/RTL/aes_sbox.v Line: 5
+Info (12128): Elaborating entity "auth_fsm" for hierarchy "auth_fsm:u_auth_fsm" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 248
+Warning (10240): Verilog HDL Always Construct warning at auth_fsm.v(175): inferring latch(es) for variable "h", which holds its previous value in one or more paths through the always construct File: C:/GitHub/TrueChip/TrueChip/RTL/auth_fsm.v Line: 175
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_me84.tdf
-    Info (12023): Found entity 1: altsyncram_me84 File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/altsyncram_me84.tdf Line: 28
+    Info (12023): Found entity 1: altsyncram_me84 File: C:/GitHub/TrueChip/TrueChip/Quartus/db/altsyncram_me84.tdf Line: 28
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_elc.tdf
-    Info (12023): Found entity 1: mux_elc File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/mux_elc.tdf Line: 23
+    Info (12023): Found entity 1: mux_elc File: C:/GitHub/TrueChip/TrueChip/Quartus/db/mux_elc.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/decode_vnf.tdf
-    Info (12023): Found entity 1: decode_vnf File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/decode_vnf.tdf Line: 23
+    Info (12023): Found entity 1: decode_vnf File: C:/GitHub/TrueChip/TrueChip/Quartus/db/decode_vnf.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_oai.tdf
-    Info (12023): Found entity 1: cntr_oai File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_oai.tdf Line: 28
+    Info (12023): Found entity 1: cntr_oai File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_oai.tdf Line: 28
 Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr_h9c.tdf
-    Info (12023): Found entity 1: cmpr_h9c File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cmpr_h9c.tdf Line: 23
+    Info (12023): Found entity 1: cmpr_h9c File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cmpr_h9c.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_4vi.tdf
-    Info (12023): Found entity 1: cntr_4vi File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_4vi.tdf Line: 26
+    Info (12023): Found entity 1: cntr_4vi File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_4vi.tdf Line: 26
 Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_09i.tdf
-    Info (12023): Found entity 1: cntr_09i File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_09i.tdf Line: 28
+    Info (12023): Found entity 1: cntr_09i File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_09i.tdf Line: 28
 Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr_c9c.tdf
-    Info (12023): Found entity 1: cmpr_c9c File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cmpr_c9c.tdf Line: 23
+    Info (12023): Found entity 1: cmpr_c9c File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cmpr_c9c.tdf Line: 23
 Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_kri.tdf
-    Info (12023): Found entity 1: cntr_kri File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cntr_kri.tdf Line: 28
+    Info (12023): Found entity 1: cntr_kri File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cntr_kri.tdf Line: 28
 Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr_99c.tdf
-    Info (12023): Found entity 1: cmpr_99c File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/cmpr_99c.tdf Line: 23
+    Info (12023): Found entity 1: cmpr_99c File: C:/GitHub/TrueChip/TrueChip/Quartus/db/cmpr_99c.tdf Line: 23
 Info (12033): Analysis and Synthesis generated Signal Tap or debug node instance "auto_signaltap_0"
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2026.08.28.11:48:04 Progress: Loading sld195eee1e/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2026.08.30.11:35:40 Progress: Loading sld195eee1e/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -1948,34 +1843,32 @@ Info (11172): Ident: "alt_sld_fab" instantiated altera_connection_identification
 Info (11172): Alt_sld_fab: Done "alt_sld_fab" with 6 modules, 6 files
 Info (11171): Finished IP generation for the debug fabric: alt_sld_fab.
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld195eee1e/alt_sld_fab.v
-    Info (12023): Found entity 1: alt_sld_fab File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/alt_sld_fab.v Line: 9
+    Info (12023): Found entity 1: alt_sld_fab File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/alt_sld_fab.v Line: 9
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v
-    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v Line: 9
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab.v Line: 9
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv
-    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_ident File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv Line: 33
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_ident File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_ident.sv Line: 33
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv
-    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_presplit File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv Line: 3
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_presplit File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_presplit.sv Line: 3
 Info (12021): Found 2 design units, including 1 entities, in source file db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd
-    Info (12022): Found design unit 1: alt_sld_fab_alt_sld_fab_sldfabric-rtl File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 102
-    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_sldfabric File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 11
+    Info (12022): Found design unit 1: alt_sld_fab_alt_sld_fab_sldfabric-rtl File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 102
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_sldfabric File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 11
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv
-    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_splitter File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv Line: 3
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_splitter File: C:/GitHub/TrueChip/TrueChip/Quartus/db/ip/sld195eee1e/submodules/alt_sld_fab_alt_sld_fab_splitter.sv Line: 3
 Info (276014): Found 2 instances of uninferred RAM logic
-    Info (276004): RAM logic "fifo_type" is uninferred due to inappropriate RAM size File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 60
-    Info (276007): RAM logic "fifo_nonce" is uninferred due to asynchronous read logic File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 61
+    Info (276004): RAM logic "fifo_type" is uninferred due to inappropriate RAM size File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 60
+    Info (276007): RAM logic "fifo_nonce" is uninferred due to asynchronous read logic File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 61
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[1]" and its non-tri-state driver. File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[2]" and its non-tri-state driver. File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[1]" and its non-tri-state driver. File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[2]" and its non-tri-state driver. File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[3]" and its non-tri-state driver. File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[3]" and its non-tri-state driver. File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
 Warning (13009): TRI or OPNDRN buffers permanently enabled
-    Warning (13010): Node "GPIO[1]~synth" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
-    Warning (13010): Node "GPIO[2]~synth" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
-    Warning (13010): Node "GPIO[3]~synth" File: C:/Users/huyle/Desktop/rtl/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
+    Warning (13010): Node "GPIO[1]~synth" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
+    Warning (13010): Node "GPIO[2]~synth" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
+    Warning (13010): Node "GPIO[3]~synth" File: C:/GitHub/TrueChip/TrueChip/RTL/secure_soc_top.v Line: 8
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (17049): 19 registers lost all their fanouts during netlist optimizations.
-Info (286031): Timing-Driven Synthesis is running on partition "sld_signaltap:auto_signaltap_0"
-Info (286031): Timing-Driven Synthesis is running on partition "sld_hub:auto_hub"
 Info (35024): Successfully connected in-system debug instance "auto_signaltap_0" to all 553 required data inputs, trigger inputs, acquisition clocks, and dynamic pins
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 9 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
@@ -1986,9 +1879,9 @@ Info (21057): Implemented 20204 device resources after synthesis - the final res
     Info (21061): Implemented 19890 logic cells
     Info (21064): Implemented 260 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 14 warnings
-    Info: Peak virtual memory: 13797 megabytes
-    Info: Processing ended: Fri Aug 28 11:49:00 2026
-    Info: Elapsed time: 00:01:41
-    Info: Total CPU time (on all processors): 00:02:35
+    Info: Peak virtual memory: 13798 megabytes
+    Info: Processing ended: Sun Aug 30 11:36:27 2026
+    Info: Elapsed time: 00:01:29
+    Info: Total CPU time (on all processors): 00:02:28
 
 

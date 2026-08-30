@@ -1,5 +1,5 @@
 Timing Analyzer report for TrueChip
-Fri Aug 28 12:03:03 2026
+Sun Aug 30 11:49:42 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -103,15 +103,15 @@ on the Quartus Prime software download page.
 ; Number detected on machine ; 5           ;
 ; Maximum allowed            ; 5           ;
 ;                            ;             ;
-; Average used               ; 1.22        ;
+; Average used               ; 1.23        ;
 ; Maximum used               ; 5           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   5.6%      ;
-;     Processor 3            ;   5.6%      ;
-;     Processor 4            ;   5.5%      ;
-;     Processor 5            ;   5.1%      ;
+;     Processor 2            ;   5.9%      ;
+;     Processor 3            ;   5.8%      ;
+;     Processor 4            ;   5.8%      ;
+;     Processor 5            ;   5.4%      ;
 +----------------------------+-------------+
 
 
@@ -120,7 +120,7 @@ on the Quartus Prime software download page.
 +---------------+--------+--------------------------+
 ; SDC File Path ; Status ; Read at                  ;
 +---------------+--------+--------------------------+
-; TrueChip.sdc  ; OK     ; Fri Aug 28 11:59:13 2026 ;
+; TrueChip.sdc  ; OK     ; Sun Aug 30 11:45:58 2026 ;
 +---------------+--------+--------------------------+
 
 
@@ -909,7 +909,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Fri Aug 28 11:59:05 2026
+    Info: Processing started: Sun Aug 30 11:45:50 2026
 Info: Command: quartus_sta TrueChip -c TrueChip
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -1855,9 +1855,9 @@ Info (332114): Report Metastability: Found 21 synchronizer chains.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 769 warnings
-    Info: Peak virtual memory: 14707 megabytes
-    Info: Processing ended: Fri Aug 28 12:03:03 2026
-    Info: Elapsed time: 00:03:58
-    Info: Total CPU time (on all processors): 00:04:41
+    Info: Peak virtual memory: 14708 megabytes
+    Info: Processing ended: Sun Aug 30 11:49:42 2026
+    Info: Elapsed time: 00:03:52
+    Info: Total CPU time (on all processors): 00:04:36
 
 

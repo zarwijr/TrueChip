@@ -1,4 +1,4 @@
-# TrueChip v7 - Secure AES Authentication Chip (UART now, NFC/RFID future work)
+# TrueChip v7.2 - Secure AES Authentication Chip (UART now, NFC/RFID future work)
 
 > **Purpose of this README:** this is the project context/source-of-truth that
 > should travel with every ZIP. When the project is uploaded into a new AI/chat
@@ -6,7 +6,7 @@
 > before proposing RTL or layout changes. Do not assume a previous run passed if
 > its logs are not inside the ZIP.
 
-**Context freeze:** 26/08/2026 (Vietnam time) — patch level **v7.2**  
+**Context freeze:** 29/08/2026 (Vietnam time) — patch level **v7.2**  
 **Đọc trước:** `CHANGELOG_v7.2.md`, `VALIDATION_v7.2.md`, `TEST_PLAN_v7.2.md`.
 
 > **v7.2 sửa một lỗi chức năng P0:** `ro_puf.v` dùng chung một tín hiệu để
@@ -91,9 +91,13 @@ SKY130 ASIC macro when it has not.
 - **Initial ASIC clock target:** 50 MHz (`CLOCK_PERIOD = 20 ns`).
 - **Software:** Python, pyserial, pycryptodome, Flask/PostgreSQL verification
   service.
-- **This ZIP does not prove a physical flow passed.** The actual OpenLane run
-  must be executed on the user's installed environment, then its logs/results
-  returned for review.
+- **Evidence status in this candidate:** the curated `run_1` reports show a
+  completed digital flow with clean detailed-route DRC, Magic DRC, KLayout DRC,
+  LVS and signoff STA. The same scorecard still reports CVC/ERC as aborted,
+  29 antenna violations, 621 max-slew violations and 726 max-fanout
+  violations. The run's `results/` directory (GDS/DEF/LEF/netlist/SPEF) is not
+  present, so this candidate is **not yet the final submission package**.
+  See `FINALIZATION_STATUS_2026-08-29.md` for the exact evidence ledger.
 
 ---
 
@@ -376,6 +380,10 @@ only a screenshot of the last error line.
 ---
 
 ## 10. Verification still required before the competition report freezes
+
+The current package is a cleaned submission candidate, not a claim that all
+gates are closed. The final report must be frozen only after the latest
+Quartus/OpenLane run and the real-board evidence are copied into the package.
 
 The code in this ZIP has been statically reviewed and software-side checks can
 be run in a normal Python environment, but the following must be confirmed on
