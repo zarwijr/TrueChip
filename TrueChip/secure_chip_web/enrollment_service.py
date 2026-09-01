@@ -141,3 +141,69 @@ def enroll_chip(
         "manufacturer": manufacturer_value,
         "pack_date": pack_date_value,
     }
+
+
+def reprovision_chip(
+    uid_hex: str,
+    secret_key_hex: str,
+    product: str,
+    manufacturer: str,
+    pack_date: Optional[str] = None,
+) -> Dict[str, str]:
+    """Explicitly replace the key for an already enrolled lab chip.
+
+    This is intentionally separate from enroll_chip so normal enrollment
+    cannot silently overwrite a chip. The caller must expose this as a clear
+    administrator-only re-provision action.
+    """
+    uid = _hex32(uid_hex, "UID")
+    secret_key = _hex32(secret_key_hex, "Secret key")
+    product_value = _text(product, "Product")
+    manufacturer_value = _text(manufacturer, "Manufacturer")
+    pack_date_value = _text(
+        pack_date or date.today().strftime("%d/%m/%Y"), "Pack date"
+    )
+
+    try:
+        with psycopg2.connect(_database_url()) as conn:
+            _ensure_schema(conn)
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO chips(
+                        uid, secret_key, product, manufacturer,
+                        pack_date, active, created_at
+                    )
+                    VALUES (%s, %s, %s, %s, %s, 1, %s)
+                    ON CONFLICT(uid) DO UPDATE SET
+                        secret_key=EXCLUDED.secret_key,
+                        product=EXCLUDED.product,
+                        manufacturer=EXCLUDED.manufacturer,
+                        pack_date=EXCLUDED.pack_date,
+                        active=1
+                    RETURNING uid
+                    """,
+                    (
+                        uid,
+                        secret_key,
+                        product_value,
+                        manufacturer_value,
+                        pack_date_value,
+                        int(time.time()),
+                    ),
+                )
+                if cur.fetchone() is None:
+                    raise EnrollmentError("Khong the cap phat lai chip.")
+    except EnrollmentError:
+        raise
+    except Exception as exc:  # noqa: BLE001 - hide connection details from UI
+        raise EnrollmentError(
+            "Khong the cap phat lai chip. Kiem tra database URL, mang va quyen truy cap."
+        ) from exc
+
+    return {
+        "uid_prefix": f"{uid[:8]}...",
+        "product": product_value,
+        "manufacturer": manufacturer_value,
+        "pack_date": pack_date_value,
+    }

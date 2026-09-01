@@ -219,7 +219,8 @@
 
         <div class="actions">
           <button class="secondary" id="clear" type="button">Xóa</button>
-          <button id="submit" type="submit">Enroll chip</button>
+          <button class="secondary" id="reprovision" type="button">Cập nhật key cũ</button>
+          <button id="submit" type="submit">Enroll chip mới</button>
         </div>
       </form>
       <div id="result" role="status"></div>
@@ -230,6 +231,7 @@
   const statusBox = document.getElementById('db-status');
   const resultBox = document.getElementById('result');
   const submit = document.getElementById('submit');
+  const reprovision = document.getElementById('reprovision');
   const form = document.getElementById('enroll-form');
   const packDate = document.getElementById('pack_date');
 
@@ -245,12 +247,17 @@
     statusBox.className = 'status bad';
   });
 
-  form.addEventListener('submit', async event => {
-    event.preventDefault();
+  async function submitEnrollment(mode) {
+    if (mode === 'reprovision' && !window.confirm(
+      'UID đã tồn tại. Bạn có chắc muốn ghi đè secret key hiện tại không?')) return;
     submit.disabled = true;
-    resultBox.textContent = 'Đang kiểm tra và ghi danh...';
+    reprovision.disabled = true;
+    resultBox.textContent = mode === 'reprovision'
+      ? 'Đang cập nhật secret key...'
+      : 'Đang kiểm tra và ghi danh...';
     resultBox.className = '';
     const payload = Object.fromEntries(new FormData(form).entries());
+    payload.mode = mode;
     try {
       const response = await fetch('/api/enroll', {
         method: 'POST',
@@ -266,8 +273,15 @@
       resultBox.className = 'bad';
     } finally {
       submit.disabled = false;
+      reprovision.disabled = false;
     }
+  }
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    submitEnrollment('enroll');
   });
+  reprovision.addEventListener('click', () => submitEnrollment('reprovision'));
 
   document.getElementById('clear').addEventListener('click', () => {
     document.getElementById('uid').value = '';

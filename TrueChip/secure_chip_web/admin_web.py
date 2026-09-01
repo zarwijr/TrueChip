@@ -8,9 +8,14 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 try:
-    from .enrollment_service import EnrollmentError, database_configured, enroll_chip
+    from .enrollment_service import (
+        EnrollmentError,
+        database_configured,
+        enroll_chip,
+        reprovision_chip,
+    )
 except ImportError:  # pragma: no cover - direct script execution path
-    from enrollment_service import EnrollmentError, database_configured, enroll_chip
+    from enrollment_service import EnrollmentError, database_configured, enroll_chip, reprovision_chip
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -65,7 +70,10 @@ class AdminHandler(BaseHTTPRequestHandler):
             if length <= 0 or length > 8192:
                 raise EnrollmentError("Request không hợp lệ.")
             payload = json.loads(self.rfile.read(length).decode("utf-8"))
-            result = enroll_chip(
+            enroll_function = (
+                reprovision_chip if payload.get("mode") == "reprovision" else enroll_chip
+            )
+            result = enroll_function(
                 payload.get("uid", ""),
                 payload.get("secret_key", ""),
                 payload.get("product", ""),
@@ -75,10 +83,8 @@ class AdminHandler(BaseHTTPRequestHandler):
         except (EnrollmentError, ValueError, TypeError, UnicodeDecodeError) as exc:
             self._json(400, {"message": str(exc)})
             return
-        self._json(
-            200,
-            {"message": f"Đã ghi danh chip {result['uid_prefix']} thành công."},
-        )
+        action = "cập nhật lại" if payload.get("mode") == "reprovision" else "ghi danh"
+        self._json(200, {"message": f"Đã {action} chip {result['uid_prefix']} thành công."})
 
     def log_message(self, format, *args):  # noqa: A002, D401
         # Do not log request bodies or secrets to the terminal.
