@@ -1,24 +1,60 @@
-_scratch/
-*.tmp.docx
-~$*.docx
-db/
-incremental_db/
-.DS_Store
-*.DS_Store
+# ============================================================
+# TrueChip repository .gitignore
+# ============================================================
 
-.tmp.driveupload/
+# Local secrets and credentials
+**/admin_config.json
+**/.env
+**/.env.*
+!.env.example
+**/*credentials*
+**/*password*
+**/*token*
 
-
-# Quét đệ quy toàn bộ thư mục cache
+# Python cache and virtual environments
 **/__pycache__/
-**/*.py[cod]
-**/*$py.class
-
-# Môi trường ảo
+*.py[cod]
+*.pyo
 **/.venv/
 **/venv/
 
-# File tạm
-**/.DS_Store
+# PyInstaller output
+**/build/
+**/dist/
+*.spec
+
+# OpenLane generated runs
+# Keep source/configuration in Git; do not commit generated run trees.
+**/OpenLane/**/runs/
+
+# If some generated run directory is already tracked, the ignore rule alone
+# does not remove it. Use git rm --cached as described in the user guide.
+
+# Simulation generated output
+**/Simulation/work/
+**/Simulation/transcript
+**/Simulation/*.wlf
+**/Simulation/*.vcd
+**/Simulation/*.vpd
+**/Simulation/*.fst
+**/Simulation/*.波形
+
+# Quartus cache/build output
 **/db/
 **/incremental_db/
+**/*.qws
+**/*.bak
+
+# Keep intentionally curated evidence outside generated directories.
+# Recommended locations:
+#   evidence/asic/run_5/
+#   evidence/fpga/
+#   evidence/puf/
+
+# Operating-system/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
