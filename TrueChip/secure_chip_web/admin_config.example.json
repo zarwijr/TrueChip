@@ -1,5 +1,0 @@
-{
-  "database_url": "<DAN_EXTERNAL_DATABASE_URL_MOI_VAO_DAY>",
-  "listen_host": "127.0.0.1",
-  "listen_port": 8765
-}

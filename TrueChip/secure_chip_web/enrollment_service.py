@@ -11,6 +11,7 @@ import re
 import time
 from datetime import date
 import json
+import sys
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -24,7 +25,11 @@ class EnrollmentError(RuntimeError):
     """A safe, user-facing enrollment error."""
 
 
-CONFIG_PATH = Path(__file__).with_name("admin_config.json")
+def _config_path() -> Path:
+    """Use a writable config beside the EXE when frozen, otherwise beside source."""
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().with_name("admin_config.json")
+    return Path(__file__).with_name("admin_config.json")
 
 # Both names are accepted on purpose.
 #
@@ -37,7 +42,7 @@ ENV_NAMES = ("TRUECHIP_DATABASE_URL", "DATABASE_URL")
 
 def _read_config() -> dict:
     try:
-        return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        return json.loads(_config_path().read_text(encoding="utf-8"))
     except (FileNotFoundError, OSError, json.JSONDecodeError):
         return {}
 
@@ -102,7 +107,7 @@ def save_database_url(url: str) -> str:
     config.setdefault("listen_host", "127.0.0.1")
     config.setdefault("listen_port", 8765)
     try:
-        CONFIG_PATH.write_text(
+        _config_path().write_text(
             json.dumps(config, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
