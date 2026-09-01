@@ -5,80 +5,275 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TrueChip - Local Enrollment</title>
   <style>
-    :root { font-family: Segoe UI, Arial, sans-serif; color: #172033; background: #eef2f7; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; }
-    main { width: min(560px, calc(100% - 32px)); background: white; padding: 28px; border-radius: 14px; box-shadow: 0 8px 30px #192b451c; }
-    h1 { margin: 0 0 6px; font-size: 23px; }
-    .warning { color: #8a1c1c; font-size: 13px; margin: 0 0 20px; }
-    .status { font-size: 13px; margin: 10px 0 18px; }
-    .ok { color: #176b3a; } .bad { color: #a12626; }
-    label { display: block; font-weight: 600; font-size: 14px; margin: 13px 0 5px; }
-    input { box-sizing: border-box; width: 100%; padding: 10px; border: 1px solid #bbc5d4; border-radius: 7px; font-size: 14px; }
-    button { margin-top: 20px; padding: 11px 18px; border: 0; border-radius: 7px; background: #165dcc; color: white; font-weight: 700; cursor: pointer; }
-    button:disabled { background: #93a5c2; cursor: wait; }
-    #result { white-space: pre-wrap; margin-top: 16px; font-size: 14px; }
+    :root {
+      color: #172033;
+      background: #eef3f8;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 32px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .shell { width: min(760px, 100%); }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, #1557c0, #28a1d8);
+      font-size: 24px;
+      font-weight: 800;
+      box-shadow: 0 7px 16px #1557c033;
+    }
+    h1 { margin: 0; font-size: 25px; letter-spacing: .3px; }
+    .subtitle { margin: 3px 0 0; color: #68768a; font-size: 14px; }
+    .card {
+      background: white;
+      border: 1px solid #dce4ee;
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 14px 35px #273b5914;
+    }
+    .notice {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      color: #7b4c00;
+      background: #fff7df;
+      border: 1px solid #f0d58c;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .section-title {
+      margin: 22px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5ebf2;
+      color: #30435d;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px 18px;
+    }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #34445c;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .hint {
+      margin-top: 5px;
+      color: #8793a3;
+      font-size: 11px;
+    }
+    input {
+      width: 100%;
+      height: 42px;
+      padding: 0 12px;
+      color: #172033;
+      background: #fbfcfe;
+      border: 1px solid #c7d2df;
+      border-radius: 8px;
+      outline: none;
+      font: 14px "Segoe UI", Arial, sans-serif;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+    }
+    input:focus {
+      background: white;
+      border-color: #2776d2;
+      box-shadow: 0 0 0 3px #2776d21c;
+    }
+    input[name="uid"], input[name="secret_key"] {
+      font-family: Consolas, "Courier New", monospace;
+      letter-spacing: .35px;
+    }
+    .status {
+      min-height: 20px;
+      margin: 12px 0 0;
+      color: #68768a;
+      font-size: 13px;
+    }
+    .ok { color: #14723e; }
+    .bad { color: #af2525; }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #e5ebf2;
+    }
+    button {
+      min-width: 128px;
+      height: 42px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: #1768c5;
+      font-size: 14px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: background .15s, transform .15s;
+    }
+    button:hover { background: #1055a6; }
+    button:active { transform: translateY(1px); }
+    button:disabled { background: #9aaabd; cursor: wait; }
+    button.secondary {
+      min-width: 88px;
+      color: #40516a;
+      background: #edf2f7;
+    }
+    button.secondary:hover { background: #e1e8f0; }
+    #result {
+      min-height: 22px;
+      margin-top: 16px;
+      padding: 0 2px;
+      white-space: pre-wrap;
+      font-size: 14px;
+      font-weight: 650;
+    }
+    @media (max-width: 620px) {
+      body { padding: 18px 10px; }
+      .card { padding: 19px 16px; }
+      .form-grid { grid-template-columns: 1fr; gap: 13px; }
+      .field.full { grid-column: auto; }
+      .actions { justify-content: stretch; }
+      button { flex: 1; }
+    }
   </style>
 </head>
 <body>
-<main>
-  <h1>TRUECHIP ENROLLMENT</h1>
-  <p class="warning">Chỉ dùng trên máy quản trị. Không mở cổng này ra Internet.</p>
-  <div id="db-status" class="status">Đang kiểm tra cấu hình...</div>
+  <div class="shell">
+    <header class="brand">
+      <div class="brand-mark">T</div>
+      <div>
+        <h1>TrueChip Enrollment</h1>
+        <p class="subtitle">Local administrator console · ghi danh chip vào database</p>
+      </div>
+    </header>
 
-  <form id="enroll-form">
-    <label for="uid">UID / PUF ID (32 ký tự Hex)</label>
-    <input id="uid" name="uid" maxlength="32" required autocomplete="off" spellcheck="false">
+    <main class="card">
+      <div class="notice">
+        <span>⚠</span>
+        <span>Chỉ dùng trên máy quản trị. Backend chỉ lắng nghe trên localhost và không được mở ra Internet.</span>
+      </div>
 
-    <label for="secret_key">Secret key (32 ký tự Hex)</label>
-    <input id="secret_key" name="secret_key" type="password" maxlength="32" required autocomplete="new-password" spellcheck="false">
+      <div id="db-status" class="status">Đang kiểm tra cấu hình database...</div>
 
-    <label for="product">Product</label>
-    <input id="product" name="product" value="TrueChip V2" maxlength="255" required>
+      <form id="enroll-form">
+        <div class="section-title">Định danh và khóa xác thực</div>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="uid">UID / PUF ID</label>
+            <input id="uid" name="uid" maxlength="32" required autocomplete="off" spellcheck="false" placeholder="32 ký tự Hex, ví dụ 2583...">
+            <div class="hint">16 byte · 32 ký tự Hex · không nhập từng bit RO 0–127</div>
+          </div>
+          <div class="field full">
+            <label for="secret_key">Secret key / Diversified key</label>
+            <input id="secret_key" name="secret_key" type="password" maxlength="32" required autocomplete="new-password" spellcheck="false" placeholder="32 ký tự Hex">
+            <div class="hint">Không hiển thị lại sau khi ghi danh. Phải đúng khóa AES mà FPGA đang sử dụng.</div>
+          </div>
+        </div>
 
-    <label for="manufacturer">Manufacturer</label>
-    <input id="manufacturer" name="manufacturer" value="Huy Le Corp" maxlength="255" required>
+        <div class="section-title">Thông tin sản phẩm</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="product">Product</label>
+            <input id="product" name="product" value="TrueChip V2.1.9.01" maxlength="255" required>
+          </div>
+          <div class="field">
+            <label for="manufacturer">Manufacturer</label>
+            <input id="manufacturer" name="manufacturer" value="Huy Le Corp" maxlength="255" required>
+          </div>
+          <div class="field">
+            <label for="pack_date">Pack date</label>
+            <input id="pack_date" name="pack_date" required>
+            <div class="hint">Tự động lấy ngày hiện tại · DD/MM/YYYY</div>
+          </div>
+        </div>
 
-    <label for="pack_date">Pack date (DD/MM/YYYY)</label>
-    <input id="pack_date" name="pack_date" required>
+        <div class="actions">
+          <button class="secondary" id="clear" type="button">Xóa</button>
+          <button id="submit" type="submit">Enroll chip</button>
+        </div>
+      </form>
+      <div id="result" role="status"></div>
+    </main>
+  </div>
 
-    <button id="submit" type="submit">Enroll chip</button>
-  </form>
-  <div id="result" role="status"></div>
-</main>
 <script>
   const statusBox = document.getElementById('db-status');
   const resultBox = document.getElementById('result');
   const submit = document.getElementById('submit');
-  document.getElementById('pack_date').value = new Intl.DateTimeFormat('en-GB').format(new Date());
+  const form = document.getElementById('enroll-form');
+  const packDate = document.getElementById('pack_date');
 
-  fetch('/api/status').then(r => r.json()).then(data => {
+  packDate.value = new Intl.DateTimeFormat('en-GB').format(new Date());
+
+  fetch('/api/status').then(response => response.json()).then(data => {
     statusBox.textContent = data.database_configured
-      ? 'Database URL: đã cấu hình (không hiển thị giá trị)'
+      ? 'Database URL: đã cấu hình · sẵn sàng ghi danh'
       : 'Database URL: chưa cấu hình trong admin_config.json';
     statusBox.className = data.database_configured ? 'status ok' : 'status bad';
   }).catch(() => {
-    statusBox.textContent = 'Không đọc được trạng thái backend.';
+    statusBox.textContent = 'Không kết nối được backend cục bộ. Hãy chạy admin_web.py.';
     statusBox.className = 'status bad';
   });
 
-  document.getElementById('enroll-form').addEventListener('submit', async event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
     submit.disabled = true;
-    resultBox.textContent = 'Đang ghi danh...';
-    const form = new FormData(event.target);
-    const payload = Object.fromEntries(form.entries());
+    resultBox.textContent = 'Đang kiểm tra và ghi danh...';
+    resultBox.className = '';
+    const payload = Object.fromEntries(new FormData(form).entries());
     try {
       const response = await fetch('/api/enroll', {
-        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
       });
       const data = await response.json();
       resultBox.textContent = data.message || 'Đã hoàn tất.';
       resultBox.className = response.ok ? 'ok' : 'bad';
       if (response.ok) document.getElementById('secret_key').value = '';
-    } catch (error) {
+    } catch (_) {
       resultBox.textContent = 'Không kết nối được backend cục bộ.';
       resultBox.className = 'bad';
-    } finally { submit.disabled = false; }
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    document.getElementById('uid').value = '';
+    document.getElementById('secret_key').value = '';
+    resultBox.textContent = '';
+    resultBox.className = '';
   });
 </script>
 </body>
