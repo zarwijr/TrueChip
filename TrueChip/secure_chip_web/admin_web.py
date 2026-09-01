@@ -11,11 +11,24 @@ try:
     from .enrollment_service import (
         EnrollmentError,
         database_configured,
+        database_source,
         enroll_chip,
+        list_chips,
         reprovision_chip,
+        save_database_url,
+        test_connection,
     )
 except ImportError:  # pragma: no cover - direct script execution path
-    from enrollment_service import EnrollmentError, database_configured, enroll_chip, reprovision_chip
+    from enrollment_service import (
+        EnrollmentError,
+        database_configured,
+        database_source,
+        enroll_chip,
+        list_chips,
+        reprovision_chip,
+        save_database_url,
+        test_connection,
+    )
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -57,19 +70,62 @@ class AdminHandler(BaseHTTPRequestHandler):
             self.wfile.write(raw)
             return
         if path == "/api/status":
-            self._json(200, {"database_configured": database_configured()})
+            self._json(200, {
+                "database_configured": database_configured(),
+                "database_source": database_source(),
+            })
+            return
+        if path == "/api/chips":
+            try:
+                self._json(200, {"chips": list_chips()})
+            except EnrollmentError as exc:
+                self._json(400, {"message": str(exc)})
             return
         self._json(404, {"message": "Not found"})
 
+    def _body(self) -> dict:
+        length = int(self.headers.get("Content-Length", "0"))
+        if length <= 0 or length > 8192:
+            raise EnrollmentError("Request khong hop le.")
+        return json.loads(self.rfile.read(length).decode("utf-8"))
+
     def do_POST(self) -> None:  # noqa: N802
-        if urlsplit(self.path).path != "/api/enroll":
+        path = urlsplit(self.path).path
+
+        if path == "/api/setup":
+            # Persist the database URL so a newly opened window still has it.
+            try:
+                payload = self._body()
+                source = save_database_url(str(payload.get("database_url", "")))
+                info = test_connection()
+            except (EnrollmentError, ValueError, TypeError, UnicodeDecodeError) as exc:
+                self._json(400, {"message": str(exc)})
+                return
+            self._json(200, {
+                "message": f"Da luu vao {source}. Ket noi OK, "
+                           f"{info['chips']} chip trong database.",
+                "chips": info["chips"],
+            })
+            return
+
+        if path == "/api/test":
+            try:
+                info = test_connection()
+            except (EnrollmentError, ValueError, TypeError) as exc:
+                self._json(400, {"message": str(exc)})
+                return
+            self._json(200, {
+                "message": f"Ket noi OK - {info['chips']} chip trong database.",
+                "chips": info["chips"],
+            })
+            return
+
+        if path != "/api/enroll":
             self._json(404, {"message": "Not found"})
             return
+
         try:
-            length = int(self.headers.get("Content-Length", "0"))
-            if length <= 0 or length > 8192:
-                raise EnrollmentError("Request không hợp lệ.")
-            payload = json.loads(self.rfile.read(length).decode("utf-8"))
+            payload = self._body()
             enroll_function = (
                 reprovision_chip if payload.get("mode") == "reprovision" else enroll_chip
             )
@@ -83,8 +139,8 @@ class AdminHandler(BaseHTTPRequestHandler):
         except (EnrollmentError, ValueError, TypeError, UnicodeDecodeError) as exc:
             self._json(400, {"message": str(exc)})
             return
-        action = "cập nhật lại" if payload.get("mode") == "reprovision" else "ghi danh"
-        self._json(200, {"message": f"Đã {action} chip {result['uid_prefix']} thành công."})
+        action = "cap nhat lai" if payload.get("mode") == "reprovision" else "ghi danh"
+        self._json(200, {"message": f"Da {action} chip {result['uid_prefix']} thanh cong."})
 
     def log_message(self, format, *args):  # noqa: A002, D401
         # Do not log request bodies or secrets to the terminal.

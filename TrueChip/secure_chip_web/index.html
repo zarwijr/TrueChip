@@ -3,71 +3,284 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrueChip Hardware Authenticator</title>
+  <title>TrueChip — Chip xác thực chống hàng giả</title>
+  <meta name="description" content="TrueChip: chip xác thực phần cứng chống hàng giả dùng cơ chế Challenge-Response, lõi AES-128 và RO-PUF. Thiết kế trên FPGA và hardening tới GDS trên SKY130A." />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .grid-bg{
+      background-image:
+        linear-gradient(to right,#1e293b 1px,transparent 1px),
+        linear-gradient(to bottom,#1e293b 1px,transparent 1px);
+      background-size:44px 44px;
+    }
+    .glow{box-shadow:0 0 90px -20px rgba(16,185,129,.45)}
+    html{scroll-behavior:smooth}
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-mono">
-  <div class="max-w-4xl mx-auto space-y-6">
-    <!-- Header -->
-    <header class="border-b border-slate-700 pb-4 flex justify-between items-center">
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+
+<!-- ============ NAV ============ -->
+<nav class="sticky top-0 z-50 backdrop-blur bg-slate-900/85 border-b border-slate-800">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-500 grid place-items-center font-black text-slate-900">TC</div>
+      <span class="font-bold tracking-tight">TrueChip</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7 text-sm text-slate-300">
+      <a href="#problem" class="hover:text-emerald-400 transition">Vấn đề</a>
+      <a href="#how" class="hover:text-emerald-400 transition">Cách hoạt động</a>
+      <a href="#security" class="hover:text-emerald-400 transition">Bảo mật</a>
+      <a href="#silicon" class="hover:text-emerald-400 transition">Silicon</a>
+      <a href="#scanner" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition">Quét chip</a>
+    </div>
+    <a href="#scanner" class="md:hidden px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold">Quét</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="top" class="grid-bg border-b border-slate-800">
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      Prototype FPGA · đã hardening tới GDS trên SKY130A
+    </div>
+    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.08] max-w-3xl">
+      Hàng giả sao chép được<br class="hidden md:block" />
+      <span class="text-emerald-400">nhãn</span>, nhưng không sao chép được
+      <span class="text-cyan-400">bí mật</span>.
+    </h1>
+    <p class="mt-6 text-lg text-slate-400 max-w-2xl leading-relaxed">
+      TrueChip là chip xác thực gắn lên sản phẩm. Mỗi lần quét, máy chủ gửi
+      một câu đố ngẫu nhiên; chỉ con chip giữ đúng khóa bí mật mới trả lời được.
+      Khóa không bao giờ rời khỏi chip — kể cả khi tháo tung sản phẩm ra đọc.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a href="#scanner" class="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold transition glow">Quét thử một con chip</a>
+      <a href="#how" class="px-6 py-3 rounded-lg border border-slate-700 hover:border-slate-500 font-semibold transition">Xem cách hoạt động</a>
+    </div>
+
+    <dl class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-slate-800 border border-slate-800 rounded-xl overflow-hidden">
+      <div class="bg-slate-900 p-5"><dt class="text-xs uppercase tracking-wider text-slate-500">Mật mã</dt><dd class="mt-1 text-xl font-bold text-slate-100">AES-128</dd><dd class="text-xs text-slate-500">lõi phần cứng</dd></div>
+      <div class="bg-slate-900 p-5"><dt class="text-xs uppercase tracking-wider text-slate-500">Tần số</dt><dd class="mt-1 text-xl font-bold text-slate-100">50 MHz</dd><dd class="text-xs text-slate-500">đã đóng timing</dd></div>
+      <div class="bg-slate-900 p-5"><dt class="text-xs uppercase tracking-wider text-slate-500">Bề mặt tấn công</dt><dd class="mt-1 text-xl font-bold text-slate-100">2 lệnh</dd><dd class="text-xs text-slate-500">không có CPU</dd></div>
+      <div class="bg-slate-900 p-5"><dt class="text-xs uppercase tracking-wider text-slate-500">Công nghệ</dt><dd class="mt-1 text-xl font-bold text-slate-100">SKY130A</dd><dd class="text-xs text-slate-500">DRC/LVS sạch</dd></div>
+    </dl>
+  </div>
+</header>
+
+<!-- ============ PROBLEM ============ -->
+<section id="problem" class="border-b border-slate-800">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold tracking-tight">Vì sao tem chống giả hiện nay thất bại</h2>
+    <p class="mt-4 text-slate-400 max-w-2xl">
+      Gần như mọi giải pháp phổ biến đều dựa trên một thứ <em>tĩnh</em> —
+      và thứ gì tĩnh thì sao chép được.
+    </p>
+    <div class="mt-10 grid md:grid-cols-3 gap-5">
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-rose-400 text-sm font-bold uppercase tracking-wider">Tem QR / mã vạch</div>
+        <p class="mt-3 text-slate-400 text-sm leading-relaxed">Chụp một cái là in lại được hàng nghìn bản giống hệt. Máy chủ không có cách nào phân biệt bản gốc với bản chụp.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-rose-400 text-sm font-bold uppercase tracking-wider">Tem hologram</div>
+        <p class="mt-3 text-slate-400 text-sm leading-relaxed">Phụ thuộc vào mắt người. Bản làm giả tinh vi qua mặt được người mua, và không kiểm tra tự động được.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-rose-400 text-sm font-bold uppercase tracking-wider">Chip lưu số serial</div>
+        <p class="mt-3 text-slate-400 text-sm leading-relaxed">Đọc được thì chép được. Serial chỉ là một con số nằm im, không chứng minh được chip đang cầm là chip thật.</p>
+      </div>
+    </div>
+    <div class="mt-8 p-6 rounded-xl bg-emerald-500/5 border border-emerald-500/25">
+      <div class="text-emerald-400 text-sm font-bold uppercase tracking-wider">Cách của TrueChip</div>
+      <p class="mt-3 text-slate-300 leading-relaxed max-w-3xl">
+        Không lưu một câu trả lời cố định. Mỗi lần quét, máy chủ ra một
+        <b>đề bài mới ngẫu nhiên</b>. Chip phải tính đáp án tại chỗ bằng khóa
+        bí mật nằm bên trong nó. Nghe lén được một lượt trao đổi cũng vô ích —
+        lần sau đề bài đã khác.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section id="how" class="border-b border-slate-800 bg-slate-950/40">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold tracking-tight">Một lượt xác thực diễn ra thế nào</h2>
+    <div class="mt-12 grid md:grid-cols-4 gap-5">
+      <div class="relative p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-5xl font-black text-slate-700">1</div>
+        <h3 class="mt-3 font-bold">Hỏi danh tính</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Máy đọc gửi lệnh <code class="text-cyan-400">GET_ID</code>. Chip trả về UID 128-bit. UID là thông tin <b>công khai</b> — biết nó không giúp gì cho kẻ làm giả.</p>
+      </div>
+      <div class="relative p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-5xl font-black text-slate-700">2</div>
+        <h3 class="mt-3 font-bold">Ra đề ngẫu nhiên</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Máy chủ sinh một <b>nonce</b> 128-bit chưa từng dùng và gửi xuống bằng lệnh <code class="text-cyan-400">CHALLENGE</code>.</p>
+      </div>
+      <div class="relative p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-5xl font-black text-slate-700">3</div>
+        <h3 class="mt-3 font-bold">Chip tự tính</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Lõi AES-128 trong chip tính <code class="text-emerald-400 text-xs">AES(khóa, nonce ⊕ UID)</code>. Khóa nằm trong chip và không bao giờ được truyền ra ngoài.</p>
+      </div>
+      <div class="relative p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <div class="text-5xl font-black text-slate-700">4</div>
+        <h3 class="mt-3 font-bold">Đối chiếu</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Máy chủ tính lại độc lập. Khớp thì là <b class="text-emerald-400">hàng thật</b>. Sai dù một bit cũng bị từ chối.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 p-6 rounded-xl bg-slate-900 border border-slate-800 overflow-x-auto">
+      <div class="text-xs uppercase tracking-wider text-slate-500 mb-4">Khung truyền Protocol V2</div>
+      <pre class="text-xs md:text-sm text-slate-300 font-mono leading-relaxed">Yêu cầu   A5   01      01/02   len   [payload 16B]   CRC16
+          ↑    ↑       ↑       ↑                      ↑
+        magic version lệnh   độ dài               CCITT, chống nhiễu
+
+Trả lời   A5   01      status  len   [payload 16B]
+                       00 = OK · 03 = phát hiện replay · 04 = quá nhanh</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECURITY ============ -->
+<section id="security" class="border-b border-slate-800">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold tracking-tight">Bốn lớp phòng vệ nằm trong phần cứng</h2>
+    <p class="mt-4 text-slate-400 max-w-2xl">Tất cả đều là mạch logic, không phải phần mềm — nên không có firmware nào để khai thác.</p>
+    <div class="mt-10 grid md:grid-cols-2 gap-5">
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-emerald-400">Chống phát lại (replay)</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Chip tự nhớ 8 nonce gần nhất. Gửi lại một nonce cũ sẽ nhận status <code>0x03</code> thay vì đáp án. Cơ chế này nằm trong chip, chạy được cả khi mất mạng.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-emerald-400">Giới hạn tốc độ</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Bắt buộc chờ 500.000 chu kỳ (10&nbsp;ms) giữa hai lần trả lời. Dò khóa kiểu vét cạn trở nên bất khả thi về thời gian.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-emerald-400">Tự khóa sau 5 lần sai</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Năm lần bị từ chối liên tiếp là chip câm hẳn. Không có lệnh phần mềm nào mở lại được — bắt buộc phải ngắt nguồn vật lý. Kẻ tấn công chỉ có đường truyền thì bó tay.</p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-emerald-400">Khóa riêng cho từng chip</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Mạch RO-PUF đo sai lệch vật lý cực nhỏ sinh ra trong lúc sản xuất để tạo khóa riêng. Bẻ được một chip cũng không suy ra được chip khác.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SILICON ============ -->
+<section id="silicon" class="border-b border-slate-800 bg-slate-950/40">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold tracking-tight">Không dừng ở mô phỏng</h2>
+    <p class="mt-4 text-slate-400 max-w-2xl">
+      Lõi bảo mật số đã đi trọn quy trình thiết kế vật lý trên công nghệ mở
+      SKY130A, tới tận file GDS — định dạng dùng để đưa đi chế tạo thật.
+    </p>
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-800 border border-slate-800 rounded-xl overflow-hidden">
+      <div class="bg-slate-900 p-6"><div class="text-3xl font-bold text-emerald-400">0</div><div class="mt-1 text-sm font-semibold">Lỗi DRC</div><div class="text-xs text-slate-500 mt-1">Magic và KLayout, hai công cụ độc lập</div></div>
+      <div class="bg-slate-900 p-6"><div class="text-3xl font-bold text-emerald-400">0</div><div class="mt-1 text-sm font-semibold">Lỗi LVS</div><div class="text-xs text-slate-500 mt-1">Layout khớp sơ đồ mạch</div></div>
+      <div class="bg-slate-900 p-6"><div class="text-3xl font-bold text-emerald-400">0</div><div class="mt-1 text-sm font-semibold">Lỗi định tuyến</div><div class="text-xs text-slate-500 mt-1">TritonRoute</div></div>
+      <div class="bg-slate-900 p-6"><div class="text-3xl font-bold text-emerald-400">+1,50<span class="text-lg">ns</span></div><div class="mt-1 text-sm font-semibold">Dư timing</div><div class="text-xs text-slate-500 mt-1">Đã đóng ở cả 4 góc công nghệ</div></div>
+    </div>
+    <p class="mt-6 text-xs text-slate-500 max-w-3xl leading-relaxed">
+      Ghi chú trung thực: bản layout ASIC chứa lõi AES/UART và logic xác thực,
+      dùng seed hằng số thay cho RO-PUF — mạch PUF hiện chỉ chạy trên nhánh
+      FPGA. Còn 29 cảnh báo antenna ở mức biên (tỉ lệ cao nhất 2,09) và bước
+      kiểm tra ERC chưa hoàn tất do lỗi công cụ, đã được ghi rõ trong báo cáo
+      kỹ thuật.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SCANNER ============ -->
+<section id="scanner" class="border-b border-slate-800">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-bold text-emerald-400">TRUECHIP AUTHENTICATOR</h1>
-        <p class="text-sm text-slate-400">Web Serial API Direct Hardware Verification</p>
+        <h2 class="text-3xl font-bold tracking-tight">Quét thử trực tiếp</h2>
+        <p class="mt-3 text-slate-400 max-w-2xl">
+          Cắm board qua USB-UART rồi bấm kết nối. Trình duyệt nói chuyện thẳng
+          với phần cứng qua Web Serial — không qua trung gian nào.
+        </p>
       </div>
       <div id="conn-status" class="px-3 py-1 rounded text-xs bg-rose-950 text-rose-300 border border-rose-800">
         UART Disconnected
       </div>
-    </header>
+    </div>
 
-    <!-- Control Panel -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-slate-800 p-4 rounded border border-slate-700 space-y-3">
-        <h2 class="text-sm font-semibold text-slate-300 uppercase">Cấu hình UART</h2>
+    <div class="mt-6 p-4 rounded-lg bg-amber-500/5 border border-amber-500/25 text-amber-200/90 text-sm">
+      Web Serial chỉ chạy trên Chrome, Edge hoặc Opera trên máy tính. Safari và
+      Firefox chưa hỗ trợ.
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-5">
+      <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-800 space-y-3">
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Kết nối</h3>
         <div class="flex gap-2">
-          <button id="btn-connect" class="flex-1 bg-blue-600 hover:bg-blue-500 py-2 rounded text-sm font-bold transition">
-            Kết Nối Cổng COM
-          </button>
-          <button id="btn-disconnect" disabled class="bg-slate-700 disabled:opacity-50 py-2 px-4 rounded text-sm transition">
-            Ngắt
-          </button>
+          <button id="btn-connect" class="flex-1 bg-blue-600 hover:bg-blue-500 py-2.5 rounded-lg text-sm font-bold transition">Kết Nối Cổng COM</button>
+          <button id="btn-disconnect" disabled class="bg-slate-700 hover:bg-slate-600 disabled:opacity-40 py-2.5 px-5 rounded-lg text-sm transition">Ngắt</button>
         </div>
       </div>
-
-      <div class="bg-slate-800 p-4 rounded border border-slate-700 space-y-3">
-        <h2 class="text-sm font-semibold text-slate-300 uppercase">Kịch bản Test</h2>
-        <div class="flex gap-2">
-          <button id="btn-test-auth" disabled class="flex-1 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 py-2 rounded text-sm font-bold transition">
-            Quét Xác Thực Chip
-          </button>
-        </div>
+      <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-800 space-y-3">
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Kịch bản</h3>
+        <button id="btn-test-auth" disabled class="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 py-2.5 rounded-lg text-sm font-bold transition">Quét Xác Thực Chip</button>
       </div>
     </div>
 
-    <!-- Verification Result -->
-    <div id="result-box" class="hidden bg-slate-800 p-5 rounded border border-slate-700 space-y-3">
+    <div id="result-box" class="hidden mt-5 bg-slate-800/50 p-6 rounded-xl border border-slate-800 space-y-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-sm font-semibold text-slate-300 uppercase">Kết Quả Xác Thực</h2>
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Kết Quả Xác Thực</h3>
         <span id="badge-status" class="px-3 py-1 rounded text-sm font-bold"></span>
       </div>
-      <div class="grid grid-cols-2 gap-2 text-sm bg-slate-900 p-3 rounded border border-slate-800">
-        <div><span class="text-slate-400">UID:</span> <span id="res-uid" class="text-yellow-400"></span></div>
-        <div><span class="text-slate-400">Sản phẩm:</span> <span id="res-product" class="text-slate-200"></span></div>
-        <div><span class="text-slate-400">Nhà sản xuất:</span> <span id="res-mfg" class="text-slate-200"></span></div>
-        <div><span class="text-slate-400">Ngày đóng gói:</span> <span id="res-date" class="text-slate-200"></span></div>
+      <div class="grid sm:grid-cols-2 gap-3 text-sm bg-slate-900 p-4 rounded-lg border border-slate-800 font-mono">
+        <div class="sm:col-span-2 break-all"><span class="text-slate-500">UID:</span> <span id="res-uid" class="text-yellow-400"></span></div>
+        <div><span class="text-slate-500">Sản phẩm:</span> <span id="res-product" class="text-slate-200"></span></div>
+        <div><span class="text-slate-500">Nhà sản xuất:</span> <span id="res-mfg" class="text-slate-200"></span></div>
+        <div class="sm:col-span-2"><span class="text-slate-500">Ngày đóng gói:</span> <span id="res-date" class="text-slate-200"></span></div>
       </div>
     </div>
 
-    <!-- Console Log -->
-    <div class="bg-slate-950 p-4 rounded border border-slate-800 space-y-2">
-      <div class="flex justify-between text-xs text-slate-400">
-        <span>LOG GIAO TIẾP PHẦN CỨNG & CLOUD</span>
-        <button id="btn-clear-log" class="hover:text-slate-200">Xóa log</button>
+    <div class="mt-5 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+      <div class="flex justify-between text-xs text-slate-500 uppercase tracking-wider">
+        <span>Log giao tiếp phần cứng &amp; máy chủ</span>
+        <button id="btn-clear-log" class="hover:text-slate-300 transition normal-case">Xóa log</button>
       </div>
-      <div id="terminal-log" class="h-48 overflow-y-auto text-xs space-y-1 text-slate-300"></div>
+      <div id="terminal-log" class="h-56 overflow-y-auto text-xs space-y-1 text-slate-300 font-mono"></div>
     </div>
   </div>
+</section>
 
-  <script>
+<!-- ============ FOOTER ============ -->
+<footer class="bg-slate-950">
+  <div class="max-w-6xl mx-auto px-6 py-14">
+    <div class="flex flex-wrap gap-10 justify-between">
+      <div class="max-w-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-500 grid place-items-center font-black text-slate-900">TC</div>
+          <span class="font-bold">TrueChip</span>
+        </div>
+        <p class="mt-4 text-sm text-slate-500 leading-relaxed">
+          Chip xác thực chống hàng giả dùng cơ chế Challenge–Response trên FPGA.
+          Đề tài dự thi thiết kế vi mạch — Trường Đại học Quốc tế, ĐHQG-HCM.
+        </p>
+      </div>
+      <div class="text-sm">
+        <div class="text-xs uppercase tracking-wider text-slate-500 mb-3">Hướng phát triển</div>
+        <ul class="space-y-2 text-slate-400">
+          <li>Giao tiếp NFC/RFID thay cho UART</li>
+          <li>Bổ sung fuzzy extractor cho RO-PUF</li>
+          <li>Nạp khóa qua OTP/eFuse tại nhà máy</li>
+          <li>Ứng dụng quét trên điện thoại</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t border-slate-800 text-xs text-slate-600">
+      Bản prototype phục vụ nghiên cứu và trình diễn. Khóa chủ hiện nằm trong
+      ROM — bản thương mại cần OTP/eFuse.
+    </div>
+  </div>
+</footer>
+
+<script>
     const SERVER_URL = "https://truechip-server.onrender.com/verify";
     const MAGIC = 0xA5;
     const VERSION = 0x01;

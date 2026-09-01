@@ -24,31 +24,148 @@ class EnrollmentError(RuntimeError):
     """A safe, user-facing enrollment error."""
 
 
+CONFIG_PATH = Path(__file__).with_name("admin_config.json")
+
+# Both names are accepted on purpose.
+#
+# server/mock_server.py reads DATABASE_URL (that is what Render injects),
+# while this module originally read only TRUECHIP_DATABASE_URL. Setting one
+# and expecting the other to work was the cause of "factory_tool works but
+# the admin web says the database is not configured".
+ENV_NAMES = ("TRUECHIP_DATABASE_URL", "DATABASE_URL")
+
+
+def _read_config() -> dict:
+    try:
+        return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    except (FileNotFoundError, OSError, json.JSONDecodeError):
+        return {}
+
+
+def _database_url_and_source() -> tuple:
+    """Return (url, source) or ("", "") when nothing is configured."""
+    for name in ENV_NAMES:
+        value = os.environ.get(name, "").strip()
+        if value:
+            return value, f"bien moi truong {name}"
+
+    value = str(_read_config().get("database_url", "")).strip()
+    if value:
+        return value, "admin_config.json"
+
+    return "", ""
+
+
 def _database_url() -> str:
-    # Environment variable has priority. The local JSON file is a convenience
-    # for the local GUI and is ignored by Git; it is never sent to a browser.
-    value = os.environ.get("TRUECHIP_DATABASE_URL", "").strip()
-    if not value:
-        config_path = Path(__file__).with_name("admin_config.json")
-        try:
-            config = json.loads(config_path.read_text(encoding="utf-8"))
-            value = str(config.get("database_url", "")).strip()
-        except (FileNotFoundError, OSError, json.JSONDecodeError):
-            value = ""
-    if not value:
+    url, _ = _database_url_and_source()
+    if not url:
         raise EnrollmentError(
-            "Chua cau hinh TRUECHIP_DATABASE_URL trong cua so PowerShell hien tai."
+            "Chua cau hinh database. Dan Database URL vao o cau hinh tren trang "
+            "admin (no se duoc luu vao admin_config.json, khong gui di dau), "
+            "hoac dat bien moi truong TRUECHIP_DATABASE_URL."
         )
-    return value
+    return url
 
 
 def database_configured() -> bool:
     """Return status without exposing the configured URL."""
+    url, _ = _database_url_and_source()
+    return bool(url)
+
+
+def database_source() -> str:
+    """Where the URL came from - never the URL itself."""
+    _, source = _database_url_and_source()
+    return source
+
+
+def save_database_url(url: str) -> str:
+    """Persist the URL to admin_config.json so a new window still finds it.
+
+    Environment variables set with `$env:` only live in the window that set
+    them, which is why launching admin_web.py from start_admin_web.bat used
+    to lose the configuration. Writing the URL to the (git-ignored) config
+    file makes it survive.
+    """
+    value = url.strip()
+    if not value:
+        raise EnrollmentError("Database URL khong duoc de trong.")
+    if not value.startswith(("postgres://", "postgresql://")):
+        raise EnrollmentError(
+            "Database URL phai bat dau bang postgres:// hoac postgresql://"
+        )
+    if len(value) > 2000:
+        raise EnrollmentError("Database URL qua dai.")
+
+    config = _read_config()
+    config["database_url"] = value
+    config.setdefault("listen_host", "127.0.0.1")
+    config.setdefault("listen_port", 8765)
     try:
-        _database_url()
+        CONFIG_PATH.write_text(
+            json.dumps(config, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        raise EnrollmentError(f"Khong ghi duoc admin_config.json: {exc}") from exc
+
+    # Make it effective immediately for this process too.
+    os.environ["TRUECHIP_DATABASE_URL"] = value
+    return "admin_config.json"
+
+
+def test_connection() -> dict:
+    """Connect, ensure the schema exists, and count enrolled chips."""
+    try:
+        with psycopg2.connect(_database_url()) as conn:
+            _ensure_schema(conn)
+            with conn.cursor() as cur:
+                cur.execute("SELECT COUNT(*) FROM chips")
+                total = cur.fetchone()[0]
+        return {"ok": True, "chips": int(total)}
     except EnrollmentError:
-        return False
-    return True
+        raise
+    except Exception as exc:  # noqa: BLE001 - never leak the URL or driver detail
+        raise EnrollmentError(
+            "Khong ket noi duoc database. Kiem tra lai URL, mang, va quyen truy cap."
+        ) from exc
+
+
+def list_chips(limit: int = 200) -> list:
+    """Return enrolled chips WITHOUT their secret keys.
+
+    The key column is deliberately never selected: there is no legitimate
+    reason for the browser to receive it, and not fetching it means it cannot
+    leak through a logging or templating mistake.
+    """
+    try:
+        with psycopg2.connect(_database_url()) as conn:
+            _ensure_schema(conn)
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT uid, product, manufacturer, pack_date, active, created_at
+                    FROM chips ORDER BY created_at DESC LIMIT %s
+                    """,
+                    (int(limit),),
+                )
+                rows = cur.fetchall()
+    except EnrollmentError:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        raise EnrollmentError("Khong doc duoc danh sach chip.") from exc
+
+    return [
+        {
+            "uid": r[0],
+            "product": r[1],
+            "manufacturer": r[2],
+            "pack_date": r[3],
+            "active": bool(r[4]),
+            "created_at": int(r[5]),
+        }
+        for r in rows
+    ]
 
 
 def _hex32(value: str, label: str) -> str:
