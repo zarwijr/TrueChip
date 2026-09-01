@@ -1,6 +1,0 @@
-<< properties >>
-string FIXED_BBOX 0 0 172929 175073
-string GDS_END 81024690
-string GDS_FILE /home/alexis/my_asic_projects/secure_asic_top/runs/run_6/results/signoff/secure_asic_top.magic.gds
-string GDS_START 1398416
-<< end >>
