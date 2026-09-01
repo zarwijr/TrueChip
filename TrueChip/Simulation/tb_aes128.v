@@ -12,7 +12,7 @@ module tb_aes128;
             @(negedge clk); plaintext=test_pt; key=test_key; start=1;
             @(negedge clk); start=0;
             wait(done);
-            if (ciphertext !== expected_ct) $fatal(1, "AES FAIL: expected %h got %h", expected_ct, ciphertext);
+            if (ciphertext !== expected_ct) begin $display("[FAIL] AES FAIL: expected %h got %h", expected_ct, ciphertext); $finish; end
             $display("[PASS] AES %h", ciphertext);
             @(negedge clk);
         end

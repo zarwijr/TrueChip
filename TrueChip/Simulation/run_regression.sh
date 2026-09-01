@@ -14,11 +14,53 @@
 
 set -u
 
+# ------------------------------------------------------------------
+# REQUIRES ICARUS VERILOG (iverilog).
+#
+# If you use Questa/ModelSim instead, do NOT use this script - run
+#     cd Simulation/questa
+#     vsim -c -do regression.do
+# which does exactly the same checks through Questa.
+# ------------------------------------------------------------------
+if ! command -v iverilog >/dev/null 2>&1; then
+    echo "ERROR: iverilog not found on PATH."
+    echo ""
+    echo "  This script drives Icarus Verilog. If you have Questa or"
+    echo "  ModelSim, use the Questa regression instead:"
+    echo ""
+    echo "      cd Simulation/questa"
+    echo "      vsim -c -do regression.do"
+    echo ""
+    echo "  To install Icarus instead:"
+    echo "      Ubuntu/Debian : sudo apt-get install iverilog"
+    echo "      macOS         : brew install icarus-verilog"
+    echo "      Windows       : https://bleyer.org/icarus/  (then add to PATH)"
+    exit 127
+fi
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RTL="$ROOT/RTL"
 SIM="$ROOT/Simulation"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
+
+# ------------------------------------------------------------------
+# Portability gate.
+#
+# Icarus accepts things Questa rejects, so a testbench can pass here and
+# still fail to compile on the tool actually used for waveform capture.
+# Check before running anything.
+# ------------------------------------------------------------------
+if command -v python3 >/dev/null 2>&1; then
+    echo "--- checking testbench portability (Icarus vs Questa) ---"
+    if ! python3 "$SIM/check_tb_portability.py" "$SIM"/*.v "$SIM"/*.sv; then
+        echo ""
+        echo "[FAIL] testbenches use constructs Questa will reject."
+        echo "       Fix these before capturing waveforms."
+        exit 1
+    fi
+    echo ""
+fi
 
 PASS=0
 FAIL=0
@@ -26,27 +68,41 @@ FAIL=0
 # ------------------------------------------------------------------
 # Stale-file guard.
 #
-# The v7.2 package requires Simulation/auth_fsm_tb.v to stay deleted (a
-# duplicate module that makes the whole directory fail to compile) and
-# Simulation/secure_soc_top_tb.v (a
-# testbench that sent CRC-less V1 frames and printed "[PASS]" without
-# checking anything).  Both reappeared in the run_4 package, because
-# overlaying the patch onto the old tree copies files in but never removes
-# them.  Catch that here instead of letting it silently rot the results.
+# v7.1 deleted Simulation/auth_fsm_tb.v - a duplicate module that makes
+# the whole directory fail to compile. It reappeared once already,
+# because overlaying a patch onto an old tree copies files in but never
+# removes them. Catch that here instead of letting it silently rot the
+# results.
+#
+# NOTE: secure_soc_top_tb.v used to be on this list too. The file that
+# was banned was the legacy one that sent CRC-less V1 frames and printed
+# "[PASS]" unconditionally. It has since been REPLACED by a real
+# self-checking FPGA top-level testbench, so the name is no longer
+# forbidden - it is required. The retired original still lives at
+# Simulation/fpga_only/secure_soc_top_tb_legacy.v for reference.
 # ------------------------------------------------------------------
 STALE=0
-for f in "$SIM/auth_fsm_tb.v" "$SIM/secure_soc_top_tb.v"; do
+for f in "$SIM/auth_fsm_tb.v"; do
     if [ -e "$f" ]; then
         echo "[FAIL] stale file must be deleted: $f"
+        echo "       duplicate 'auth_fsm_tb' module - breaks compilation"
+        echo "       Keep auth_fsm_tb.sv (the rewritten one) instead."
         STALE=1
     fi
 done
+
+# The legacy fake-PASS testbench must not be the one in Simulation/.
+if [ -e "$SIM/secure_soc_top_tb.v" ] && \
+   ! grep -q "independent AES" "$SIM/secure_soc_top_tb.v" 2>/dev/null; then
+    echo "[FAIL] $SIM/secure_soc_top_tb.v looks like the legacy fake-PASS testbench"
+    echo "       (it prints [PASS] without checking anything)."
+    echo "       Restore the self-checking version from the v7.2 package."
+    STALE=1
+fi
+
 if [ "$STALE" -ne 0 ]; then
     echo ""
-    echo "  auth_fsm_tb.v      : duplicate 'auth_fsm_tb' module - breaks compilation"
-    echo "  secure_soc_top_tb.v: prints [PASS] unconditionally without checking anything"
-    echo ""
-    echo "  Delete both, then re-run.  See CHANGELOG_v7.1.md section 1."
+    echo "  See CHANGELOG_v7.1.md section 1."
     exit 1
 fi
 
@@ -118,26 +174,38 @@ else
     FAIL=$((FAIL + 1))
 fi
 
+# ---- FPGA top-level (with the real RO-PUF) ----------------------------
+# Needs -DRO_PUF_SIM. The testbench shrinks the PUF via defparam so the
+# ring oscillators produce a tractable number of events.
+echo ""
+echo "============================================================"
+echo " secure_soc_top (FPGA top, with RO-PUF)"
+echo "============================================================"
+if iverilog -g2012 -DRO_PUF_SIM -o "$WORK/soc_tb.out" \
+        "$SIM/secure_soc_top_tb.v" "$RTL"/*.v 2>&1; then
+    if ( cd "$WORK" && vvp "$WORK/soc_tb.out" ) > "$WORK/soc_tb.log" 2>&1; then
+        cat "$WORK/soc_tb.log"
+        if grep -q '^\[FAIL\]' "$WORK/soc_tb.log"; then
+            echo "[FAIL] secure_soc_top : testbench reported failures"
+            FAIL=$((FAIL + 1))
+        else
+            PASS=$((PASS + 1))
+        fi
+    else
+        cat "$WORK/soc_tb.log"
+        echo "[FAIL] secure_soc_top : simulation exited non-zero"
+        FAIL=$((FAIL + 1))
+    fi
+else
+    echo "[FAIL] secure_soc_top : compile error"
+    FAIL=$((FAIL + 1))
+fi
+
 # ---- full-chip test ---------------------------------------------------
 run_tb "secure_asic_top" "$SIM/secure_asic_top_tb.v" \
     "$RTL/secure_asic_top.v" "$RTL/uart_rx.v" "$RTL/uart_tx.v" \
     "$RTL/cmd_parser.v" "$RTL/auth_fsm.v" "$RTL/aes128.v" \
     "$RTL/aes_sbox.v" "$RTL/chip_rom.v"
-
-# ---- elaboration-only check of the FPGA top ---------------------------
-# secure_soc_top contains the FPGA RO-PUF ring oscillators, which are not a
-# meaningful zero-delay simulation model.  Only check that it elaborates.
-echo ""
-echo "============================================================"
-echo " secure_soc_top (elaboration only)"
-echo "============================================================"
-if iverilog -g2012 -o "$WORK/soc.out" -s secure_soc_top "$RTL"/*.v 2>&1; then
-    echo "[PASS] secure_soc_top elaborates cleanly"
-    PASS=$((PASS + 1))
-else
-    echo "[FAIL] secure_soc_top failed to elaborate"
-    FAIL=$((FAIL + 1))
-fi
 
 echo ""
 echo "============================================================"

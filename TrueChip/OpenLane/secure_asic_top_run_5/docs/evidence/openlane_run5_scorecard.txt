@@ -1,0 +1,90 @@
+========================================================================
+ TrueChip signoff scorecard
+ run    : /home/alexis/my_asic_projects/secure_asic_top_run_5/runs/run_5
+ design : secure_asic_top
+========================================================================
+  [  OK   ] Flow status                            flow completed
+  [  OK   ] Detailed-route DRC                     0 violations
+  [  OK   ] Magic DRC                              0 violations
+  [  OK   ] LVS (netgen)                           0 errors
+  [  OK   ] KLayout DRC                            0 violations
+  [ WARN  ] CVC / ERC                              TOOL CRASH before checking - unexpected error: Resistance error:missing parameter: l in l/w*48
+  [ WARN  ] Antenna                                29 pin / 29 net, worst ratio 2.09, 23/29 below 1.5
+  [  OK   ] Diode count                            6654 diodes (0.29 per synthesised cell)
+  [  OK   ] Signoff STA                            worst setup +1.50 ns, worst hold +0.09 ns across 4 corner log(s)
+  [ WARN  ] Max slew                               621 violations
+  [  OK   ] Max capacitance                        0 violations
+  [ WARN  ] Max fanout                             726 violations (604 data, 122 clock-tree)
+  [ INFO  ] Unconstrained endpoints                6 endpoints
+  [ INFO  ] metrics.csv wns column                 -27.02 ns  <-- DO NOT QUOTE THIS
+  [  OK   ] results/ in package                    3 GDS file(s) present
+  [ INFO  ] Yosys/ABC 'network is combinational'   present
+  [ INFO  ] Yosys 'output has no driver'           4 top-level outputs
+========================================================================
+ NOTES
+------------------------------------------------------------------------
+ * CVC / ERC:
+     This is a PDK/tool model-resolution failure, NOT a confirmed design
+     error: CVC aborted while binding devices to models and never reached
+     the stage where it reports violations. Magic DRC, KLayout DRC and
+     Netgen LVS are three independent checks that all pass. Try 'python3
+     diagnose_cvc.py <run>' on the build machine (needs tmp/). If one
+     config change does not fix it, SHIP WITH DISCLOSURE - do not spend
+     the remaining schedule on a PDK bug. Wording is in
+     REPORT_DRAFT_v7.2.md.
+
+ * Antenna:
+     Antenna and slew/fanout pull in OPPOSITE directions - there may be
+     no threshold that zeroes both, so do not chase 0/0. Measured ladder:
+     threshold 90 -> 9 violations but 22826 diodes and 2838 DRVs (run_4);
+     250 -> 29 violations, 6654 diodes, far fewer DRVs (run_5). ACCEPT
+     the run when slew and data-fanout are near zero and the surviving
+     antenna ratios sit close to 1.0, then DISCLOSE them with their
+     ratios from reports/signoff/*-antenna_violators.rpt.
+
+ * Max slew:
+     Dominated by diode pins when blanket insertion is on. Raise
+     HEURISTIC_ANTENNA_THRESHOLD first, then re-check.
+
+ * Max fanout:
+     Data-net fanout violations are real: the resizer honours
+     MAX_FANOUT_CONSTRAINT, so anything above it was added after the
+     resizer ran - almost always diodes. Clock-tree entries are expected:
+     CTS sizes the tree by CTS_SINK_CLUSTERING_SIZE (25 sinks/leaf) and
+     CTS_MAX_CAP, not by the data fanout rule. To make the report
+     literally zero, set CTS_SINK_CLUSTERING_SIZE to 10 - at the cost of
+     a larger clock tree. Otherwise state this split in the report.
+
+ * Unconstrained endpoints:
+     Expected and benign for this design: they are register D pins whose
+     only source is a constant, plus the first synchroniser flop fed by
+     uart_rx_i, which constraints.sdc false-paths on purpose. Confirmed
+     by netlist analysis in VALIDATION_v7.2.md. Investigate only if the
+     count changes.
+
+ * metrics.csv wns column:
+     This column is copied from logs/synthesis/*-sta.log, the
+     PRE-PLACEMENT estimate that uses wireload models. It is not the
+     signoff result. Quote the 'Signoff STA' row above and the
+     logs/signoff/*rcx*sta*.log files instead.
+
+ * Yosys/ABC 'network is combinational':
+     Benign. ABC's script runs 'retime' then 'scleanup'; scleanup is a
+     SEQUENTIAL command and yosys hands ABC a combinational network, so
+     it declines and the flow continues. It appears in every OpenLane run
+     with a retiming synth strategy. No action needed, but say so in the
+     report so a judge reading the .errors file is not alarmed.
+
+ * Yosys 'output has no driver':
+     Benign artefact of yosys's 'check' pass running right after 'insbuf'
+     (OpenLane issue #1827). The DEF creates all pins and LVS passes.
+     Confirm on your machine with: grep -c 'uart_tx_o'
+     runs/<run>/results/routing/secure_asic_top.nl.v
+
+========================================================================
+ VERDICT: SUBMITTABLE WITH DISCLOSURE - 4 warning(s)
+          disclose: CVC / ERC (TOOL CRASH before checking - unexpected error: Resistance error:missing parameter: l in l/w*48)
+          disclose: Antenna (29 pin / 29 net, worst ratio 2.09, 23/29 below 1.5)
+          disclose: Max slew (621 violations)
+          disclose: Max fanout (726 violations (604 data, 122 clock-tree))
+========================================================================

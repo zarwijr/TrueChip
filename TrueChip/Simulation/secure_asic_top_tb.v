@@ -336,14 +336,6 @@ module secure_asic_top_tb;
         $dumpfile("secure_asic_top_tb.vcd");
         $dumpvars(0, secure_asic_top_tb);
 
-        fork
-            begin
-                #2_000_000_000;
-                $display("[FAIL] GLOBAL TIMEOUT - testbench did not finish");
-                $fatal(1);
-            end
-        join_none
-
         $display("=== TRUECHIP FULL-CHIP PROTOCOL V2 TEST (secure_asic_top) ===");
 
         // ----------------------------------------------------------
@@ -477,9 +469,24 @@ module secure_asic_top_tb;
             $display("=== FULL-CHIP TESTS PASSED (secure_asic_top) ===");
         end else begin
             $display("=== FULL-CHIP TESTS FAILED: %0d error(s) ===", errors);
-            $fatal(1);
+            $finish;
         end
 
+        $finish;
+    end
+
+    // ------------------------------------------------------------
+    // Global timeout watchdog.
+    //
+    // Written as its own initial block rather than fork/join_none:
+    // fork...join_none is SystemVerilog, and Questa rejects it when a
+    // .v file is compiled in plain Verilog mode. A separate initial
+    // block is Verilog-2001 and behaves identically - it starts at
+    // time 0 and is killed by $finish like everything else.
+    // ------------------------------------------------------------
+    initial begin
+        #200_000_000;   // 200 ms - the run itself finishes near 20 ms
+        $display("[FAIL] GLOBAL TIMEOUT - testbench did not finish");
         $finish;
     end
 

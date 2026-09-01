@@ -47,7 +47,7 @@ module cmd_parser_tb;
             rx_valid = 1'b1;
             @(posedge clk); #1;
             if (!cmd_get_id)
-                $fatal(1, "GET_ID not detected after valid CRC");
+                begin $display("[FAIL] GET_ID not detected after valid CRC"); $finish; end
             @(negedge clk);
             rx_valid = 1'b0;
         end
@@ -77,9 +77,9 @@ module cmd_parser_tb;
         rx_valid = 1'b1;
         @(posedge clk); #1;
         if (!cmd_challenge)
-            $fatal(1, "CHALLENGE not detected after valid CRC");
+            begin $display("[FAIL] CHALLENGE not detected after valid CRC"); $finish; end
         if (challenge_nonce !== 128'h00112233445566778899AABBCCDDEEFF)
-            $fatal(1, "Nonce mismatch: %h", challenge_nonce);
+            begin $display("[FAIL] Nonce mismatch: %h", challenge_nonce); $finish; end
         @(negedge clk);
         rx_valid = 1'b0;
         $display("[PASS] CHALLENGE Protocol V2 nonce=%h", challenge_nonce);
@@ -95,9 +95,9 @@ module cmd_parser_tb;
         rx_valid = 1'b1;
         @(posedge clk); #1;
         if (cmd_get_id || cmd_challenge)
-            $fatal(1, "Bad CRC incorrectly accepted");
+            begin $display("[FAIL] Bad CRC incorrectly accepted"); $finish; end
         if (!crc_error)
-            $fatal(1, "Bad CRC did not assert crc_error");
+            begin $display("[FAIL] Bad CRC did not assert crc_error"); $finish; end
         @(negedge clk);
         rx_valid = 1'b0;
         $display("[PASS] Bad CRC rejected");

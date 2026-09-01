@@ -1,64 +1,43 @@
-import os
-import psycopg2
-import time
+"""Command-line enrollment tool for a trusted local provisioning station."""
 
-# ==============================================================================
-# DÁN EXTERNAL DATABASE URL CỦA BẠN VÀO ĐÂY (Nằm trong dấu ngoặc kép)
-# ==============================================================================
-EXTERNAL_DB_URL = os.environ.get("TRUECHIP_DATABASE_URL")
-if not EXTERNAL_DB_URL:
-    raise RuntimeError("Set TRUECHIP_DATABASE_URL in the environment; never hard-code DB credentials in source.")
+from __future__ import annotations
+
+import getpass
+from datetime import date
+
+try:  # Works both as a package and when run as a file from the repository root.
+    from .enrollment_service import EnrollmentError, enroll_chip
+except ImportError:  # pragma: no cover - direct script execution path
+    from enrollment_service import EnrollmentError, enroll_chip
 
 def add_chip():
-    print("=== CÔNG CỤ NHẬP KHO TRUECHIP TẠI NHÀ MÁY ===")
-    
-    uid_hex = input("Nhập UID của chip (32 ký tự Hex): ").strip().upper()
-    secret_key_hex = input("Nhập Secret Key (32 ký tự Hex): ").strip().upper()
-    product = input("Nhập tên sản phẩm (VD: TrueChip V2): ").strip()
-    
-    if len(uid_hex) != 32 or len(secret_key_hex) != 32:
-        print("\n[LỖI] UID và Secret Key phải dài chính xác 32 ký tự (16-byte).")
+    print("=== TRUECHIP - GHI DANH CHIP TAI TRAM QUAN TRI ===")
+    print("Luu y: khong dang ky lai cung mot chip de thay doi khoa cu.\n")
+
+    uid_hex = input("UID/Puf ID (32 ky tu Hex): ").strip()
+    secret_key_hex = getpass.getpass("Secret key (32 ky tu Hex, se duoc an): ").strip()
+    product = input("Product [TrueChip V2]: ").strip() or "TrueChip V2"
+    manufacturer = input("Manufacturer [Huy Le Corp]: ").strip() or "Huy Le Corp"
+    pack_date = input(
+        f"Pack date [{date.today().strftime('%d/%m/%Y')}]: "
+    ).strip() or date.today().strftime("%d/%m/%Y")
+
+    try:
+        result = enroll_chip(
+            uid_hex,
+            secret_key_hex,
+            product,
+            manufacturer,
+            pack_date,
+        )
+    except EnrollmentError as exc:
+        print(f"\n[KHONG THANH CONG] {exc}")
         return
 
-    print("\nĐang kết nối lên Đám mây...")
-    try:
-        conn = psycopg2.connect(EXTERNAL_DB_URL)
-        cur = conn.cursor()
-        
-        # 1. TỰ ĐỘNG XÂY NHÀ KHO NẾU CHƯA CÓ
-        cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS chips (
-                uid VARCHAR(32) PRIMARY KEY,
-                secret_key VARCHAR(32) NOT NULL,
-                product VARCHAR(255) NOT NULL,
-                manufacturer VARCHAR(255) NOT NULL,
-                pack_date VARCHAR(255) NOT NULL,
-                active INTEGER NOT NULL DEFAULT 1,
-                created_at BIGINT NOT NULL
-            )
-            """
-        )
-        
-        # 2. ĐẨY DỮ LIỆU VÀO
-        cur.execute(
-            """
-            INSERT INTO chips(uid, secret_key, product, manufacturer, pack_date, active, created_at)
-            VALUES (%s, %s, %s, %s, %s, 1, %s)
-            ON CONFLICT(uid) DO UPDATE SET 
-                secret_key=EXCLUDED.secret_key,
-                product=EXCLUDED.product
-            """,
-            (uid_hex, secret_key_hex, product, "Huy Le Corp", time.strftime("%d/%m/%Y"), int(time.time()))
-        )
-        
-        conn.commit()
-        cur.close()
-        conn.close()
-        print(f"[THÀNH CÔNG] Đã ghi danh chip {uid_hex[:8]}... vào Cloud Database!")
-        
-    except Exception as e:
-        print(f"\n[LỖI KẾT NỐI]: {e}")
+    print(
+        "\n[THANH CONG] Da ghi danh chip "
+        f"{result['uid_prefix']} - {result['product']} - {result['pack_date']}"
+    )
 
 if __name__ == '__main__':
     add_chip()

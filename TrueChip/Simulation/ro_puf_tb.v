@@ -6,6 +6,15 @@
 //       Simulation/ro_puf_tb.v RTL/ro_puf.v
 //   vvp ro_puf_tb.out
 //
+// PORTABILITY NOTE
+// ----------------
+// This file is plain Verilog-2001 on purpose so it compiles in Questa
+// without -sv. Two SystemVerilog constructs were deliberately avoided:
+//   * fork ... join_none  -> the watchdog is its own initial block;
+//   * $fatal              -> replaced by $display("[FAIL] ...") + $finish.
+// Failure is still detected: both run_regression.sh (Icarus) and
+// questa/regression.do scan for lines beginning with [FAIL].
+//
 // -DRO_PUF_SIM is REQUIRED.  It switches the ring oscillators to a
 // delay-annotated simulation model (see ro_puf.v).  Without it the rings
 // are zero-delay combinational loops and the simulator hangs at time 0.
@@ -100,14 +109,6 @@ module ro_puf_tb;
     initial begin
         $dumpfile("ro_puf_tb.vcd");
         $dumpvars(0, ro_puf_tb);
-
-        fork
-            begin
-                #200_000_000;
-                $display("[FAIL] GLOBAL TIMEOUT - ro_puf never finished");
-                $fatal(1);
-            end
-        join_none
 
         $display("=== TRUECHIP RO-PUF TEST (NUM_RO=%0d, ROUNDS=%0d) ===",
                  NUM_RO, ROUNDS);
@@ -230,9 +231,24 @@ module ro_puf_tb;
             $display("      that requires measurements on real boards.");
         end else begin
             $display("=== RO-PUF TESTS FAILED: %0d error(s) ===", errors);
-            $fatal(1);
+            $finish;
         end
 
+        $finish;
+    end
+
+    // ------------------------------------------------------------
+    // Global timeout watchdog.
+    //
+    // Written as its own initial block rather than fork/join_none:
+    // fork...join_none is SystemVerilog, and Questa rejects it when a
+    // .v file is compiled in plain Verilog mode. A separate initial
+    // block is Verilog-2001 and behaves identically - it starts at
+    // time 0 and is killed by $finish like everything else.
+    // ------------------------------------------------------------
+    initial begin
+        #200_000_000;
+        $display("[FAIL] GLOBAL TIMEOUT - ro_puf never finished");
         $finish;
     end
 
