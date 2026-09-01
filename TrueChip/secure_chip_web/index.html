@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrueChip — Chip xác thực chống hàng giả</title>
-  <meta name="description" content="TrueChip: chip xác thực phần cứng chống hàng giả dùng cơ chế Challenge-Response, lõi AES-128 và RO-PUF. Thiết kế trên FPGA và hardening tới GDS trên SKY130A." />
+  <meta name="description" content="TrueChip: prototype xác thực phần cứng dùng FPGA, UART, AES-128 và RO-PUF proof-of-concept; có verification server và bằng chứng hardening digital trên SKY130A." />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .grid-bg{
@@ -50,9 +50,10 @@
       <span class="text-cyan-400">bí mật</span>.
     </h1>
     <p class="mt-6 text-lg text-slate-400 max-w-2xl leading-relaxed">
-      TrueChip là chip xác thực gắn lên sản phẩm. Mỗi lần quét, máy chủ gửi
-      một câu đố ngẫu nhiên; chỉ con chip giữ đúng khóa bí mật mới trả lời được.
-      Khóa không bao giờ rời khỏi chip — kể cả khi tháo tung sản phẩm ra đọc.
+      TrueChip là prototype xác thực phần cứng. Mỗi lần quét, máy đọc gửi một
+      thử thách mới; FPGA tạo response bằng khóa nội bộ và server kiểm tra lại.
+      Phiên bản hiện tại dùng ROM gán cứng để trình diễn, chưa phải phần cứng
+      thương mại chống can thiệp vật lý.
     </p>
     <div class="mt-9 flex flex-wrap gap-3">
       <a href="#scanner" class="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold transition glow">Quét thử một con chip</a>
@@ -144,25 +145,28 @@ Trả lời   A5   01      status  len   [payload 16B]
 <!-- ============ SECURITY ============ -->
 <section id="security" class="border-b border-slate-800">
   <div class="max-w-6xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold tracking-tight">Bốn lớp phòng vệ nằm trong phần cứng</h2>
-    <p class="mt-4 text-slate-400 max-w-2xl">Tất cả đều là mạch logic, không phải phần mềm — nên không có firmware nào để khai thác.</p>
+    <h2 class="text-3xl font-bold tracking-tight">Các lớp bảo vệ và giới hạn prototype</h2>
+    <p class="mt-4 text-slate-400 max-w-2xl">Bảo vệ được phân bố giữa protocol phần cứng và verification server. Mỗi khả năng đều được ghi đúng theo phạm vi đã kiểm tra.</p>
     <div class="mt-10 grid md:grid-cols-2 gap-5">
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
         <h3 class="font-bold text-emerald-400">Chống phát lại (replay)</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Chip tự nhớ 8 nonce gần nhất. Gửi lại một nonce cũ sẽ nhận status <code>0x03</code> thay vì đáp án. Cơ chế này nằm trong chip, chạy được cả khi mất mạng.</p>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Verification server lưu các nonce đã dùng theo UID. Gửi lại cùng một nonce hợp lệ sẽ bị từ chối với lý do replay. Đây là cơ chế đã có trong luồng server hiện tại.</p>
       </div>
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
         <h3 class="font-bold text-emerald-400">Giới hạn tốc độ</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Bắt buộc chờ 500.000 chu kỳ (10&nbsp;ms) giữa hai lần trả lời. Dò khóa kiểu vét cạn trở nên bất khả thi về thời gian.</p>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Protocol có các mã trạng thái dành cho giới hạn tốc độ. Phần demo này không dùng chúng làm bằng chứng độc lập nếu chưa có log kiểm thử RTL tương ứng.</p>
       </div>
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
-        <h3 class="font-bold text-emerald-400">Tự khóa sau 5 lần sai</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Năm lần bị từ chối liên tiếp là chip câm hẳn. Không có lệnh phần mềm nào mở lại được — bắt buộc phải ngắt nguồn vật lý. Kẻ tấn công chỉ có đường truyền thì bó tay.</p>
+        <h3 class="font-bold text-emerald-400">Đối chiếu response</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Server không tin UID đơn độc. Server tính lại <code>AES-128(diversified_key, nonce XOR UID)</code>; sai một bit cũng bị từ chối.</p>
       </div>
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
-        <h3 class="font-bold text-emerald-400">Khóa riêng cho từng chip</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Mạch RO-PUF đo sai lệch vật lý cực nhỏ sinh ra trong lúc sản xuất để tạo khóa riêng. Bẻ được một chip cũng không suy ra được chip khác.</p>
+        <h3 class="font-bold text-emerald-400">RO-PUF proof-of-concept</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">RO-PUF đã được đo trên FPGA nhưng còn biến thiên giữa các lần đọc. Cần enrollment, ECC hoặc fuzzy extractor trước khi dùng làm nguồn khóa ổn định.</p>
       </div>
+    </div>
+    <div class="mt-8 p-5 rounded-xl bg-amber-500/5 border border-amber-500/25 text-amber-100/90 text-sm leading-relaxed">
+      <b class="text-amber-300">Giới hạn cần nói rõ:</b> tính năng “tự khóa sau 5 lần xác thực sai” chưa được dùng làm kết quả chính của prototype hiện tại. Website không trình bày tính năng này như một cơ chế đã được chứng minh.
     </div>
   </div>
 </section>
@@ -259,7 +263,7 @@ Trả lời   A5   01      status  len   [payload 16B]
           <span class="font-bold">TrueChip</span>
         </div>
         <p class="mt-4 text-sm text-slate-500 leading-relaxed">
-          Chip xác thực chống hàng giả dùng cơ chế Challenge–Response trên FPGA.
+          Prototype xác thực phần cứng dùng cơ chế Challenge–Response trên FPGA.
           Đề tài dự thi thiết kế vi mạch — Trường Đại học Quốc tế, ĐHQG-HCM.
         </p>
       </div>
@@ -274,8 +278,9 @@ Trả lời   A5   01      status  len   [payload 16B]
       </div>
     </div>
     <div class="mt-12 pt-6 border-t border-slate-800 text-xs text-slate-600">
-      Bản prototype phục vụ nghiên cứu và trình diễn. Khóa chủ hiện nằm trong
-      ROM — bản thương mại cần OTP/eFuse.
+      Bản prototype phục vụ nghiên cứu và trình diễn. UID/master key hiện được
+      gán cứng trong ROM; bản thương mại cần OTP/eFuse, bảo vệ side-channel và
+      cơ chế tái tạo khóa PUF có kiểm soát.
     </div>
   </div>
 </footer>
