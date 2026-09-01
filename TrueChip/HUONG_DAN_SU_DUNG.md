@@ -296,3 +296,138 @@ Nếu GDS quá lớn, đưa vào GitHub Release hoặc Git LFS thay vì commit t
   dùng trực tiếp làm khóa nếu chưa có enrollment, ECC hoặc fuzzy extractor.
 - Chi phí thương mại và mức độ chống nhân bản tuyệt đối chưa được chứng minh
   bởi prototype hiện tại.
+
+## 17. Nạp firmware FPGA bằng Quartus Programmer
+
+Phần này dùng khi người chạy đã có project Quartus và file `.sof` đã được
+compile kèm cấu hình SignalTap.
+
+### 17.1. Kết nối board
+
+1. Cấp nguồn cho board FPGA.
+2. Kết nối cáp USB-Blaster/JTAG với máy tính.
+3. Kết nối USB-UART với máy tính nếu cần chạy website hoặc Python tester.
+4. Kiểm tra TX/RX không bị nối nhầm và hai thiết bị có chung GND.
+
+### 17.2. Mở project và nạp `.sof`
+
+Mở file project `.qpf` trong Quartus Prime, sau đó chọn:
+
+```text
+Tools → Programmer
+```
+
+Trong Programmer:
+
+1. Chọn **Hardware Setup**.
+2. Chọn **USB-Blaster** tương ứng với board.
+3. Nhấn **Auto Detect** hoặc **Add File**.
+4. Chọn file `.sof` trong thư mục `output_files`.
+5. Đánh dấu **Program/Configure**.
+6. Nhấn **Start** và chờ đến khi Progress đạt 100%.
+
+Không nạp file `.sof` khác với project đang dùng để tạo SignalTap. Nếu đã sửa
+RTL, phải compile lại project trước khi nạp.
+
+## 18. Mở SignalTap và đọc diversified key
+
+Các node SignalTap đã được chuẩn bị sẵn trong project. Người chạy không cần
+tự thêm node, chỉ cần mở project, chọn đúng USB-Blaster và bắt dữ liệu.
+
+### 18.1. Mở Logic Analyzer
+
+Trong Quartus chọn:
+
+```text
+Tools → SignalTap Logic Analyzer
+```
+
+Trong cửa sổ SignalTap:
+
+1. Mở file `.stp` đi kèm project nếu Quartus chưa tự mở.
+2. Vào **Hardware Setup**.
+3. Chọn USB-Blaster và đúng FPGA device.
+4. Kiểm tra các node đã có, tối thiểu nên gồm:
+
+   - `puf_id`
+   - `puf_valid` hoặc `key_ready`
+   - `diversified_key`
+   - `chip_uid` nếu node này đã được expose
+
+5. Đặt trigger vào cạnh lên của `puf_valid` hoặc `key_ready`.
+6. Nếu không cần trigger điều kiện, chọn **Immediate**.
+7. Chọn độ sâu mẫu khoảng 1K–16K tùy tài nguyên SignalTap.
+8. Nhấn **Run Analysis** hoặc nút chạy capture.
+9. Nếu cần, reset board rồi chạy capture lại để bắt quá trình tạo key từ đầu.
+
+### 18.2. Đọc giá trị
+
+Sau khi capture:
+
+1. Tìm thời điểm `puf_valid = 1` hoặc `key_ready = 1`.
+2. Đọc toàn bộ bus `diversified_key` 128-bit.
+3. Ghi lại thành đúng 32 ký tự Hex, bỏ tiền tố `0x`, dấu cách và dấu gạch dưới.
+4. Dùng giá trị đó cho trường **Diversified key** trong GUI enrollment.
+
+Ví dụ định dạng hợp lệ:
+
+```text
+0123456789ABCDEF0123456789ABCDEF
+```
+
+Không nhập riêng `puf_id` vào ô key. Không lấy một phần của bus 128-bit. Nếu
+SignalTap hiển thị bus thành nhiều nhóm 4 hoặc 8 bit, phải ghép theo đúng thứ
+tự bit mà Quartus hiển thị để tạo đủ 32 ký tự Hex.
+
+### 18.3. Nếu SignalTap không bắt được dữ liệu
+
+Kiểm tra lần lượt:
+
+- Board đã được nạp đúng `.sof` có tích hợp SignalTap chưa.
+- Quartus đã nhận USB-Blaster chưa.
+- Đã chọn đúng FPGA device chưa.
+- Đã reset board sau khi nhấn Run Analysis chưa.
+- `puf_valid`/`key_ready` có phải là xung quá ngắn không.
+- Có chương trình khác đang chiếm JTAG hay không.
+
+Nếu cửa sổ SignalTap báo không tìm thấy node hoặc không tìm thấy `.stp`, file
+`.sof` hiện tại có thể chưa được compile với SignalTap. Khi đó cần mở đúng
+project gốc và compile lại với file `.stp` được thêm vào project.
+
+## 19. UID và secret key gán cứng trong chip_rom.v
+
+Prototype hiện tại dùng ROM gán cứng trong:
+
+```text
+RTL/chip_rom.v
+```
+
+Các giá trị mặc định là:
+
+```verilog
+chip_uid   = 128'h2583_2583_2583_2583_2583_2583_2583_2583;
+master_key = 128'h1234_1234_1234_1234_1234_1234_1234_1234;
+```
+
+`chip_uid` là UID công khai dùng để nhận dạng chip. `master_key` là khóa gốc
+prototype, không phải giá trị nhập vào website. FPGA dùng `master_key` và
+`puf_id` để tạo `diversified_key`; chính `diversified_key` mới phải khớp với
+cột `secret_key` trong database.
+
+### 19.1. Muốn thay đổi chip
+
+Nếu muốn tạo một cấu hình chip khác:
+
+1. Sửa `chip_uid` hoặc `master_key` trong `RTL/chip_rom.v`.
+2. Compile lại Quartus.
+3. Nạp `.sof` mới.
+4. Dùng SignalTap đọc lại `diversified_key` mới.
+5. Ghi danh hoặc re-provision UID tương ứng trong database.
+6. Chạy website để kiểm tra `AUTHENTIC`.
+
+Nếu chỉ đổi `master_key` hoặc `puf_id`, diversified key sẽ thay đổi. Khi đó
+database bắt buộc phải cập nhật theo key mới. Nếu chỉ đổi UID, database cũng
+phải có bản ghi cho UID mới.
+
+Không được sửa key trong database một cách độc lập rồi kỳ vọng FPGA vẫn xác
+thực; FPGA và database phải dùng cùng một cặp UID/diversified key.
