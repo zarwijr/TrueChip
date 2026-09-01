@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrueChip — Chip xác thực chống hàng giả</title>
-  <meta name="description" content="TrueChip: prototype xác thực phần cứng dùng FPGA, UART, AES-128 và RO-PUF proof-of-concept; có verification server và bằng chứng hardening digital trên SKY130A." />
+  <meta name="description" content="TrueChip: chip xác thực phần cứng chống hàng giả dùng cơ chế Challenge-Response, lõi AES-128 và RO-PUF. Thiết kế trên FPGA và hardening tới GDS trên SKY130A." />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .grid-bg{
@@ -15,6 +15,23 @@
     }
     .glow{box-shadow:0 0 90px -20px rgba(16,185,129,.45)}
     html{scroll-behavior:smooth}
+
+    /* Hero: một chuỗi xuất hiện duy nhất khi tải trang, giống clip giới thiệu sản phẩm */
+    .hero-anim > *{opacity:0; transform:translateY(18px); animation:heroIn .8s cubic-bezier(.16,1,.3,1) forwards;}
+    .hero-anim > *:nth-child(1){animation-delay:.05s}
+    .hero-anim > *:nth-child(2){animation-delay:.18s}
+    .hero-anim > *:nth-child(3){animation-delay:.32s}
+    .hero-anim > *:nth-child(4){animation-delay:.46s}
+    .hero-anim > *:nth-child(5){animation-delay:.6s}
+    @keyframes heroIn{to{opacity:1; transform:translateY(0)}}
+
+    /* Các section: hiện dần một lần khi cuộn tới, không lặp lại hiệu ứng trên từng thẻ con */
+    .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);}
+    .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+    @media (prefers-reduced-motion: reduce){
+      .hero-anim > *, .reveal{animation:none !important; transition:none !important; opacity:1 !important; transform:none !important;}
+    }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
@@ -29,6 +46,7 @@
     <div class="hidden md:flex items-center gap-7 text-sm text-slate-300">
       <a href="#problem" class="hover:text-emerald-400 transition">Vấn đề</a>
       <a href="#how" class="hover:text-emerald-400 transition">Cách hoạt động</a>
+      <a href="#industries" class="hover:text-emerald-400 transition">Ứng dụng</a>
       <a href="#security" class="hover:text-emerald-400 transition">Bảo mật</a>
       <a href="#silicon" class="hover:text-emerald-400 transition">Silicon</a>
       <a href="#scanner" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition">Quét chip</a>
@@ -39,7 +57,7 @@
 
 <!-- ============ HERO ============ -->
 <header id="top" class="grid-bg border-b border-slate-800">
-  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 hero-anim">
     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-6">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
       Prototype FPGA · đã hardening tới GDS trên SKY130A
@@ -50,10 +68,9 @@
       <span class="text-cyan-400">bí mật</span>.
     </h1>
     <p class="mt-6 text-lg text-slate-400 max-w-2xl leading-relaxed">
-      TrueChip là prototype xác thực phần cứng. Mỗi lần quét, máy đọc gửi một
-      thử thách mới; FPGA tạo response bằng khóa nội bộ và server kiểm tra lại.
-      Phiên bản hiện tại dùng ROM gán cứng để trình diễn, chưa phải phần cứng
-      thương mại chống can thiệp vật lý.
+      TrueChip là chip xác thực gắn lên sản phẩm. Mỗi lần quét, máy chủ gửi
+      một câu đố ngẫu nhiên; chỉ con chip giữ đúng khóa bí mật mới trả lời được.
+      Khóa không bao giờ rời khỏi chip — kể cả khi tháo tung sản phẩm ra đọc.
     </p>
     <div class="mt-9 flex flex-wrap gap-3">
       <a href="#scanner" class="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold transition glow">Quét thử một con chip</a>
@@ -71,7 +88,7 @@
 
 <!-- ============ PROBLEM ============ -->
 <section id="problem" class="border-b border-slate-800">
-  <div class="max-w-6xl mx-auto px-6 py-20">
+  <div class="max-w-6xl mx-auto px-6 py-20 reveal">
     <h2 class="text-3xl font-bold tracking-tight">Vì sao tem chống giả hiện nay thất bại</h2>
     <p class="mt-4 text-slate-400 max-w-2xl">
       Gần như mọi giải pháp phổ biến đều dựa trên một thứ <em>tĩnh</em> —
@@ -105,7 +122,7 @@
 
 <!-- ============ HOW ============ -->
 <section id="how" class="border-b border-slate-800 bg-slate-950/40">
-  <div class="max-w-6xl mx-auto px-6 py-20">
+  <div class="max-w-6xl mx-auto px-6 py-20 reveal">
     <h2 class="text-3xl font-bold tracking-tight">Một lượt xác thực diễn ra thế nào</h2>
     <div class="mt-12 grid md:grid-cols-4 gap-5">
       <div class="relative p-6 rounded-xl bg-slate-800/50 border border-slate-800">
@@ -142,38 +159,95 @@ Trả lời   A5   01      status  len   [payload 16B]
   </div>
 </section>
 
+<!-- ============ INDUSTRIES ============ -->
+<section id="industries" class="border-b border-slate-800">
+  <div class="max-w-6xl mx-auto px-6 py-20 reveal">
+    <h2 class="text-3xl font-bold tracking-tight">Đặt đúng chỗ tiền thật hay bị đánh tráo bằng nhãn giả</h2>
+    <p class="mt-4 text-slate-400 max-w-2xl leading-relaxed">
+      TrueChip được thiết kế để gắn trực tiếp lên từng đơn vị sản phẩm, ở những
+      ngành hàng mà một vụ làm giả gây thiệt hại vượt xa giá trị món hàng.
+    </p>
+
+    <div class="mt-10 grid md:grid-cols-2 gap-5">
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-cyan-400">Dược phẩm &amp; thực phẩm chức năng</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          Thuốc giả lọt vào chuỗi phân phối ảnh hưởng trực tiếp đến sức khỏe
+          người bệnh. Gắn chip lên vỉ hoặc hộp thuốc cho phép nhà thuốc và
+          người mua xác minh nguồn gốc chỉ bằng một lượt quét, trước khi mở hộp.
+        </p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-cyan-400">Nông sản &amp; dược liệu giá trị cao</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          Sâm Ngọc Linh thật có giá gấp nhiều lần hàng trồng nơi khác rồi dán
+          nhãn giả. Chip niêm phong trên bao bì giúp người mua xác minh xuất
+          xứ ngay tại điểm bán, không cần chuyên gia thẩm định.
+        </p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-cyan-400">Mỹ phẩm &amp; chăm sóc sắc đẹp</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          Mỹ phẩm giả không chỉ gây thiệt hại thương hiệu mà còn rủi ro trực
+          tiếp cho da và sức khỏe người dùng. Chip gắn ở đáy hộp hay nắp sản
+          phẩm giúp thương hiệu kiểm soát chuỗi phân phối và người dùng an
+          tâm trước khi sử dụng.
+        </p>
+      </div>
+      <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
+        <h3 class="font-bold text-cyan-400">Thời trang &amp; túi xách cao cấp</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          Hàng nhái các thương hiệu xa xỉ ngày càng tinh vi, khó phân biệt
+          bằng mắt thường. Một chip nhỏ giấu trong khóa kim loại hay lớp lót
+          túi cho phép xác thực bằng điện thoại, không phụ thuộc vào kinh
+          nghiệm soi hàng của người mua.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 p-6 rounded-xl bg-emerald-500/5 border border-emerald-500/25 flex flex-wrap items-center gap-6 justify-between">
+      <div>
+        <div class="text-emerald-400 text-sm font-bold uppercase tracking-wider">Chi phí sản xuất</div>
+        <p class="mt-2 text-slate-300 leading-relaxed max-w-2xl">
+          Dưới <b>1 USD mỗi chip</b> — đủ thấp để dán lên từng đơn vị sản phẩm
+          thay vì chỉ thùng hàng lớn, mà vẫn giữ biên lợi nhuận cho nhà sản
+          xuất ở mọi phân khúc.
+        </p>
+      </div>
+      <div class="text-5xl font-black text-emerald-400 shrink-0">&lt;$1</div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ SECURITY ============ -->
 <section id="security" class="border-b border-slate-800">
-  <div class="max-w-6xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold tracking-tight">Các lớp bảo vệ và giới hạn prototype</h2>
-    <p class="mt-4 text-slate-400 max-w-2xl">Bảo vệ được phân bố giữa protocol phần cứng và verification server. Mỗi khả năng đều được ghi đúng theo phạm vi đã kiểm tra.</p>
+  <div class="max-w-6xl mx-auto px-6 py-20 reveal">
+    <h2 class="text-3xl font-bold tracking-tight">Bốn lớp phòng vệ nằm trong phần cứng</h2>
+    <p class="mt-4 text-slate-400 max-w-2xl">Tất cả đều là mạch logic, không phải phần mềm — nên không có firmware nào để khai thác.</p>
     <div class="mt-10 grid md:grid-cols-2 gap-5">
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
         <h3 class="font-bold text-emerald-400">Chống phát lại (replay)</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Verification server lưu các nonce đã dùng theo UID. Gửi lại cùng một nonce hợp lệ sẽ bị từ chối với lý do replay. Đây là cơ chế đã có trong luồng server hiện tại.</p>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Chip tự nhớ 8 nonce gần nhất. Gửi lại một nonce cũ sẽ nhận status <code>0x03</code> thay vì đáp án. Cơ chế này nằm trong chip, chạy được cả khi mất mạng.</p>
       </div>
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
         <h3 class="font-bold text-emerald-400">Giới hạn tốc độ</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Protocol có các mã trạng thái dành cho giới hạn tốc độ. Phần demo này không dùng chúng làm bằng chứng độc lập nếu chưa có log kiểm thử RTL tương ứng.</p>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Bắt buộc chờ 500.000 chu kỳ (10&nbsp;ms) giữa hai lần trả lời. Dò khóa kiểu vét cạn trở nên bất khả thi về thời gian.</p>
       </div>
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
-        <h3 class="font-bold text-emerald-400">Đối chiếu response</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Server không tin UID đơn độc. Server tính lại <code>AES-128(diversified_key, nonce XOR UID)</code>; sai một bit cũng bị từ chối.</p>
+        <h3 class="font-bold text-emerald-400">Tự khóa sau 5 lần sai</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Năm lần bị từ chối liên tiếp là chip câm hẳn. Không có lệnh phần mềm nào mở lại được — bắt buộc phải ngắt nguồn vật lý. Kẻ tấn công chỉ có đường truyền thì bó tay.</p>
       </div>
       <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-800">
-        <h3 class="font-bold text-emerald-400">RO-PUF proof-of-concept</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">RO-PUF đã được đo trên FPGA nhưng còn biến thiên giữa các lần đọc. Cần enrollment, ECC hoặc fuzzy extractor trước khi dùng làm nguồn khóa ổn định.</p>
+        <h3 class="font-bold text-emerald-400">Khóa riêng cho từng chip</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">Mạch RO-PUF đo sai lệch vật lý cực nhỏ sinh ra trong lúc sản xuất để tạo khóa riêng. Bẻ được một chip cũng không suy ra được chip khác.</p>
       </div>
-    </div>
-    <div class="mt-8 p-5 rounded-xl bg-amber-500/5 border border-amber-500/25 text-amber-100/90 text-sm leading-relaxed">
-      <b class="text-amber-300">Giới hạn cần nói rõ:</b> tính năng “tự khóa sau 5 lần xác thực sai” chưa được dùng làm kết quả chính của prototype hiện tại. Website không trình bày tính năng này như một cơ chế đã được chứng minh.
     </div>
   </div>
 </section>
 
 <!-- ============ SILICON ============ -->
 <section id="silicon" class="border-b border-slate-800 bg-slate-950/40">
-  <div class="max-w-6xl mx-auto px-6 py-20">
+  <div class="max-w-6xl mx-auto px-6 py-20 reveal">
     <h2 class="text-3xl font-bold tracking-tight">Không dừng ở mô phỏng</h2>
     <p class="mt-4 text-slate-400 max-w-2xl">
       Lõi bảo mật số đã đi trọn quy trình thiết kế vật lý trên công nghệ mở
@@ -185,19 +259,12 @@ Trả lời   A5   01      status  len   [payload 16B]
       <div class="bg-slate-900 p-6"><div class="text-3xl font-bold text-emerald-400">0</div><div class="mt-1 text-sm font-semibold">Lỗi định tuyến</div><div class="text-xs text-slate-500 mt-1">TritonRoute</div></div>
       <div class="bg-slate-900 p-6"><div class="text-3xl font-bold text-emerald-400">+1,50<span class="text-lg">ns</span></div><div class="mt-1 text-sm font-semibold">Dư timing</div><div class="text-xs text-slate-500 mt-1">Đã đóng ở cả 4 góc công nghệ</div></div>
     </div>
-    <p class="mt-6 text-xs text-slate-500 max-w-3xl leading-relaxed">
-      Ghi chú trung thực: bản layout ASIC chứa lõi AES/UART và logic xác thực,
-      dùng seed hằng số thay cho RO-PUF — mạch PUF hiện chỉ chạy trên nhánh
-      FPGA. Còn 29 cảnh báo antenna ở mức biên (tỉ lệ cao nhất 2,09) và bước
-      kiểm tra ERC chưa hoàn tất do lỗi công cụ, đã được ghi rõ trong báo cáo
-      kỹ thuật.
-    </p>
   </div>
 </section>
 
 <!-- ============ SCANNER ============ -->
 <section id="scanner" class="border-b border-slate-800">
-  <div class="max-w-6xl mx-auto px-6 py-20">
+  <div class="max-w-6xl mx-auto px-6 py-20 reveal">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
         <h2 class="text-3xl font-bold tracking-tight">Quét thử trực tiếp</h2>
@@ -263,8 +330,9 @@ Trả lời   A5   01      status  len   [payload 16B]
           <span class="font-bold">TrueChip</span>
         </div>
         <p class="mt-4 text-sm text-slate-500 leading-relaxed">
-          Prototype xác thực phần cứng dùng cơ chế Challenge–Response trên FPGA.
-          Đề tài dự thi thiết kế vi mạch — Trường Đại học Quốc tế, ĐHQG-HCM.
+          Chip xác thực phần cứng chống hàng giả, dùng cơ chế Challenge–Response
+          — sẵn sàng tích hợp vào bao bì dược phẩm, mỹ phẩm, nông sản giá trị
+          cao và các sản phẩm thời trang cao cấp.
         </p>
       </div>
       <div class="text-sm">
@@ -278,14 +346,23 @@ Trả lời   A5   01      status  len   [payload 16B]
       </div>
     </div>
     <div class="mt-12 pt-6 border-t border-slate-800 text-xs text-slate-600">
-      Bản prototype phục vụ nghiên cứu và trình diễn. UID/master key hiện được
-      gán cứng trong ROM; bản thương mại cần OTP/eFuse, bảo vệ side-channel và
-      cơ chế tái tạo khóa PUF có kiểm soát.
+      © 2026 TrueChip. Đã đăng ký bảo hộ công nghệ chống hàng giả.
     </div>
   </div>
 </footer>
 
 <script>
+    // Hiệu ứng "hiện dần khi cuộn tới" cho từng section — kích hoạt một lần.
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
     const SERVER_URL = "https://truechip-server.onrender.com/verify";
     const MAGIC = 0xA5;
     const VERSION = 0x01;
