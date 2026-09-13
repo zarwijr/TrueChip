@@ -1,0 +1,330 @@
+==============================================
+ TRUECHIP UART NEGATIVE TEST - PROTOCOL V2
+==============================================
+
+PORT : COM3
+BAUD : 115200
+
+PACKET = A5 | VER | CMD | LEN | PAYLOAD | CRC16
+CRC16  = CCITT / POLY 0x1021 / INIT 0xFFFF
+CRC covers VER | CMD | LEN | PAYLOAD
+
+[PASS] Serial port opened
+
+TEST: BAD MAGIC
+TX: 00 01 01 00
+  TX[00] = 00
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+RX LEN = 0
+RX     =
+[PASS] BAD MAGIC
+
+TEST: BAD VERSION
+TX: a5 ff 01 00
+  TX[00] = a5
+  TX[01] = ff
+  TX[02] = 01
+  TX[03] = 00
+RX LEN = 0
+RX     =
+[PASS] BAD VERSION
+
+TEST: UNKNOWN COMMAND
+TX: a5 01 ff 00
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = ff
+  TX[03] = 00
+RX LEN = 0
+RX     =
+[PASS] UNKNOWN COMMAND
+
+TEST: ZERO LENGTH + PAYLOAD
+TX: a5 01 01 00 12 34 56 78
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = 12
+  TX[05] = 34
+  TX[06] = 56
+  TX[07] = 78
+RX LEN = 0
+RX     =
+[PASS] ZERO LENGTH + PAYLOAD
+
+TEST: CHALLENGE HEADER ONLY
+TX: a5 01 02 10
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 02
+  TX[03] = 10
+RX LEN = 0
+RX     =
+[PASS] CHALLENGE HEADER ONLY
+
+TEST: SHORT CHALLENGE
+TX: a5 01 02 10 10 11 12 13 14 15 16 17
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 02
+  TX[03] = 10
+  TX[04] = 10
+  TX[05] = 11
+  TX[06] = 12
+  TX[07] = 13
+  TX[08] = 14
+  TX[09] = 15
+  TX[10] = 16
+  TX[11] = 17
+RX LEN = 0
+RX     =
+[PASS] SHORT CHALLENGE
+
+TEST: LONG CHALLENGE
+TX: a5 01 02 10 20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31 32 33
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 02
+  TX[03] = 10
+  TX[04] = 20
+  TX[05] = 21
+  TX[06] = 22
+  TX[07] = 23
+  TX[08] = 24
+  TX[09] = 25
+  TX[10] = 26
+  TX[11] = 27
+  TX[12] = 28
+  TX[13] = 29
+  TX[14] = 2a
+  TX[15] = 2b
+  TX[16] = 2c
+  TX[17] = 2d
+  TX[18] = 2e
+  TX[19] = 2f
+  TX[20] = 30
+  TX[21] = 31
+  TX[22] = 32
+  TX[23] = 33
+RX LEN = 0
+RX     =
+[PASS] LONG CHALLENGE
+
+TEST: ONE BYTE PACKET
+TX: a5
+  TX[00] = a5
+RX LEN = 0
+RX     =
+[PASS] ONE BYTE PACKET
+
+TEST: TWO BYTE PACKET
+TX: a5 01
+  TX[00] = a5
+  TX[01] = 01
+RX LEN = 0
+RX     =
+[PASS] TWO BYTE PACKET
+
+TEST: THREE BYTE PACKET
+TX: a5 01 01
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+RX LEN = 0
+RX     =
+[PASS] THREE BYTE PACKET
+
+TEST: EMPTY PACKET
+RX LEN = 0
+RX     =
+[PASS] EMPTY PACKET
+
+TX: 00 11 22 33 44 55 a5 01 01 00 c8 9d
+  TX[00] = 00
+  TX[01] = 11
+  TX[02] = 22
+  TX[03] = 33
+  TX[04] = 44
+  TX[05] = 55
+  TX[06] = a5
+  TX[07] = 01
+  TX[08] = 01
+  TX[09] = 00
+  TX[10] = c8
+  TX[11] = 9d
+RX LEN = 20
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] GARBAGE BEFORE VALID
+
+TX: a5 01 01 00 c8 9d 00 11 22 33 44
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+  TX[06] = 00
+  TX[07] = 11
+  TX[08] = 22
+  TX[09] = 33
+  TX[10] = 44
+RX LEN = 20
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] VALID PACKET ACCEPTED
+
+TEST: TRUNCATED GET_ID
+TX: a5 01 01 00
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+RX LEN = 0
+RX     =
+[PASS] TRUNCATED GET_ID
+
+TEST: WRONG GET_ID LENGTH
+TX: a5 01 01 10
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 10
+RX LEN = 0
+RX     =
+[PASS] WRONG GET_ID LENGTH
+
+TEST: GET_ID EXTRA PAYLOAD
+TX: a5 01 01 00 aa bb cc dd
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = aa
+  TX[05] = bb
+  TX[06] = cc
+  TX[07] = dd
+RX LEN = 0
+RX     =
+[PASS] GET_ID EXTRA PAYLOAD
+
+TEST: PARTIAL CHALLENGE
+TX: a5 01 02 10 20 21 22 23 24 25 26 27 28 29
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 02
+  TX[03] = 10
+  TX[04] = 20
+  TX[05] = 21
+  TX[06] = 22
+  TX[07] = 23
+  TX[08] = 24
+  TX[09] = 25
+  TX[10] = 26
+  TX[11] = 27
+  TX[12] = 28
+  TX[13] = 29
+RX LEN = 0
+RX     =
+[PASS] PARTIAL CHALLENGE
+
+TEST: RECOVERY AFTER TRUNCATED PACKET
+TX: a5 01 01 00
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+TX: a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+RX LEN = 20
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] PARSER RECOVERY
+
+TEST: BACK-TO-BACK GET_ID
+TX: a5 01 01 00 c8 9d a5 01 01 00 c8 9d a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+  TX[06] = a5
+  TX[07] = 01
+  TX[08] = 01
+  TX[09] = 00
+  TX[10] = c8
+  TX[11] = 9d
+  TX[12] = a5
+  TX[13] = 01
+  TX[14] = 01
+  TX[15] = 00
+  TX[16] = c8
+  TX[17] = 9d
+RX LEN = 60
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83 a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83 a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+VALID GET_ID RESPONSES = 3
+[PASS] BACK-TO-BACK GET_ID
+
+TEST: MIXED GARBAGE STREAM
+TX: 00 11 22 33 a5 01 01 00 c8 9d 66 77 88 a5 01 01 00 c8 9d
+  TX[00] = 00
+  TX[01] = 11
+  TX[02] = 22
+  TX[03] = 33
+  TX[04] = a5
+  TX[05] = 01
+  TX[06] = 01
+  TX[07] = 00
+  TX[08] = c8
+  TX[09] = 9d
+  TX[10] = 66
+  TX[11] = 77
+  TX[12] = 88
+  TX[13] = a5
+  TX[14] = 01
+  TX[15] = 01
+  TX[16] = 00
+  TX[17] = c8
+  TX[18] = 9d
+RX LEN = 40
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83 a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+VALID GET_ID RESPONSES = 2
+[PASS] STREAM RECOVERY
+
+==============================================
+FINAL RESULT
+==============================================
+
+[PASS] BAD MAGIC
+[PASS] BAD VERSION
+[PASS] UNKNOWN COMMAND
+[PASS] ZERO LENGTH + PAYLOAD
+[PASS] CHALLENGE HEADER ONLY
+[PASS] SHORT CHALLENGE
+[PASS] LONG CHALLENGE
+[PASS] ONE BYTE PACKET
+[PASS] TWO BYTE PACKET
+[PASS] THREE BYTE PACKET
+[PASS] EMPTY PACKET
+[PASS] GARBAGE BEFORE VALID
+[PASS] VALID GET_ID + GARBAGE
+[PASS] TRUNCATED GET_ID
+[PASS] WRONG GET_ID LENGTH
+[PASS] GET_ID EXTRA PAYLOAD
+[PASS] PARTIAL CHALLENGE
+[PASS] RECOVERY AFTER TRUNCATED
+[PASS] BACK-TO-BACK GET_ID
+[PASS] MIXED GARBAGE STREAM
+
+TOTAL PASS = 20
+TOTAL FAIL = 0
+----------------------------------------------
+[PASS] ALL 20 UART NEGATIVE TESTS PASSED
+
+Nhấn Enter để đóng cửa sổ...

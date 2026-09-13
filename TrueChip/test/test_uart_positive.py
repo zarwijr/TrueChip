@@ -9,6 +9,14 @@ import sys
 PORT = "COM3"
 BAUD = 115200
 
+
+def pause_at_end():
+    """Keep the final PASS/FAIL summary visible for a screenshot."""
+    try:
+        input("\nNhấn Enter để đóng cửa sổ... ")
+    except EOFError:
+        pass
+
 MAGIC = 0xA5
 VERSION = 0x01
 
@@ -378,16 +386,17 @@ def main():
         if failed:
 
             print("[FAIL] UART POSITIVE TESTS FAILED")
-
+            pause_at_end()
             sys.exit(1)
 
         print("[PASS] ALL UART POSITIVE TESTS PASSED")
+        pause_at_end()
 
     except serial.SerialException as e:
 
         print("[FAIL] UART OPEN FAILED")
         print(e)
-
+        pause_at_end()
         sys.exit(2)
 
     finally:

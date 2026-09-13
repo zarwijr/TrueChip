@@ -1,0 +1,97 @@
+==============================================
+ TRUECHIP UART POSITIVE TEST - PROTOCOL V2
+==============================================
+
+PORT : COM3
+BAUD : 115200
+
+PACKET = A5 | VER | CMD | LEN | PAYLOAD | CRC16
+CRC16  = CCITT / POLY 0x1021 / INIT 0xFFFF
+CRC covers VER | CMD | LEN | PAYLOAD
+
+[PASS] Serial port opened
+
+TEST 1: GET_ID
+TX: a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+RX LEN = 20
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] GET_ID
+
+TEST 2: BACK-TO-BACK GET_ID x3
+TX: a5 01 01 00 c8 9d a5 01 01 00 c8 9d a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+  TX[06] = a5
+  TX[07] = 01
+  TX[08] = 01
+  TX[09] = 00
+  TX[10] = c8
+  TX[11] = 9d
+  TX[12] = a5
+  TX[13] = 01
+  TX[14] = 01
+  TX[15] = 00
+  TX[16] = c8
+  TX[17] = 9d
+RX LEN = 60
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83 a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83 a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] BACK-TO-BACK GET_ID x3
+
+TEST 3: SEPARATED GET_ID x2
+TX: a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+RX1 LEN = 20
+RX1     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+TX: a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+RX2 LEN = 20
+RX2     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] SEPARATED GET_ID x2
+
+TEST 4: FINAL GET_ID HEALTH CHECK
+TX: a5 01 01 00 c8 9d
+  TX[00] = a5
+  TX[01] = 01
+  TX[02] = 01
+  TX[03] = 00
+  TX[04] = c8
+  TX[05] = 9d
+RX LEN = 20
+RX     = a5 01 00 10 25 83 25 83 25 83 25 83 25 83 25 83 25 83 25 83
+[PASS] FINAL HEALTH CHECK
+
+==============================================
+FINAL RESULT
+==============================================
+
+[PASS] GET_ID
+[PASS] BACK-TO-BACK GET_ID x3
+[PASS] SEPARATED GET_ID x2
+[PASS] FINAL GET_ID HEALTH CHECK
+
+TOTAL PASS = 4
+TOTAL FAIL = 0
+----------------------------------------------
+[PASS] ALL UART POSITIVE TESTS PASSED
+
+Nhấn Enter để đóng cửa sổ...

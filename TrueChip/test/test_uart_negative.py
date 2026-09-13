@@ -10,6 +10,14 @@ STATUS_OK = 0x00
 STATUS_REPLAY = 0x03
 NONCE = bytes(range(0x20, 0x30))
 
+
+def pause_at_end():
+    """Keep the final PASS/FAIL summary visible for a screenshot."""
+    try:
+        input("\nNhấn Enter để đóng cửa sổ... ")
+    except EOFError:
+        pass
+
 def crc16_ccitt(data):
     crc = 0xFFFF
     for b in data:
@@ -273,11 +281,14 @@ def main():
         print("----------------------------------------------")
         if failed:
             print("[FAIL] UART NEGATIVE TESTS FAILED")
+            pause_at_end()
             sys.exit(1)
         print("[PASS] ALL 20 UART NEGATIVE TESTS PASSED")
+        pause_at_end()
     except serial.SerialException as e:
         print("[FAIL] UART OPEN FAILED")
         print(e)
+        pause_at_end()
         sys.exit(2)
     finally:
         if ser:
